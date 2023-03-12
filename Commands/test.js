@@ -44,7 +44,7 @@ module.exports = {
             }
             else {
                 if(a === false) {
-                    new cooldown({
+                    new Cooldown({
                         GuildID: interaction.guild.id,
                         UserID: user.id,
                         test: Date.now()

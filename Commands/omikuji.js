@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { Schema } = require('mongoose');
 const wait = require('node:timers/promises').setTimeout;
 const cooldown = require('../Schemas.js/omikujicd');
 
@@ -163,7 +164,7 @@ module.exports = {
             }
             else {
                 /*if(a === false)*/ {
-                    new cooldown({
+                    new OmikujiCD({
                         GuildID: interaction.guild.id,
                         UserID: user.id,
                         omikuji: Date.now()

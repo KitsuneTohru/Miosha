@@ -9,7 +9,7 @@ module.exports = {
     async execute(interaction) {
         let user = interaction.user
         let timeout = 86400000
-        var a = true
+        //var a = true
         cooldown.findOne({GuildID: interaction.guild.id, userID: user.id}, async (err, dataTime) => {
             if (dataTime && dataTime.omikuji !== null && timeout - (Date.now()-dataTime.omikuji) > 0) {
                 let test = (dataTime.omikuji/1000+timeout/1000).toFixed(0);
@@ -24,7 +24,7 @@ module.exports = {
                 await interaction.reply({embeds: [CDEmbed]})
             }
             else {
-                a = false
+                //a = false
                 const rngitemlist = ["`Bách Hợp Lưu Ly`","`Tiểu Đăng Thảo`","`Nấm U Ám`","`Onikabuto`","`Tủy Pha Lê`","`Sen Nilotpala`","`Cúc Cánh Quạt`","`Tú Cầu Anh Đào`","`Mật Hoa Nguyên Tố`","`Hoa Nghê Thường`","`Huy Hiệu Giáo Quan`","`Kiếm Cách Trứ Danh`","`Túi Lưu Ly`","`Ốc Sao`","`Nấm Rơm Gió`","`Hải Linh Chi`","`Hạt Bồ Công Anh`","`Hoa Cecillia`","`Thạch Phách`","`Sữa Dango`","`Sen Kalpalata`"]
                 var item_rng = Math.floor(Math.random()*rngitemlist.length)
                 const item = rngitemlist[item_rng]
@@ -155,14 +155,14 @@ module.exports = {
             }
                 
             if (dataTime) {
-                if(a === false) {
+                /*if(a === true)*/ {
                     dataTime.omikuji = Date.now()
                     dataTime.save()
-                    a = true
+                    //a = false
                 }
             }
             else {
-                if(a === true) {
+                /*if(a === false)*/ {
                     new cooldown({
                         GuildID: interaction.guild.id,
                         UserID: user.id,

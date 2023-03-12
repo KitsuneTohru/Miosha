@@ -1,6 +1,6 @@
 const { model, Schema } = require('mongoose');
 
-let Cooldown = new Schema({
+var Cooldown = new Schema({
     GuildID: String,
     UserID: String,
     test: String

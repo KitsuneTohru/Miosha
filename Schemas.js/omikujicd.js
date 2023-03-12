@@ -1,6 +1,6 @@
 const { model, Schema } = require('mongoose');
 
-let OmikujiCD = new Schema({
+var OmikujiCD = new Schema({
     GuildID: String,
     UserID: String,
     omikuji: String

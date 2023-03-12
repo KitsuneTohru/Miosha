@@ -1,7 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const { Schema } = require('mongoose');
 const wait = require('node:timers/promises').setTimeout;
-const cooldown = require('../Schemas.js/omikujicd');
+const OmikujiCD = require('../Schemas.js/omikujicd');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,7 +10,7 @@ module.exports = {
         let user = interaction.user
         let timeout = 86400000
         //var a = true
-        cooldown.findOne({GuildID: interaction.guild.id, userID: user.id}, async (err, dataTime) => {
+        OmikujiCD.findOne({GuildID: interaction.guild.id, userID: user.id}, async (err, dataTime) => {
             if (dataTime && dataTime.omikuji !== null && timeout - (Date.now()-dataTime.omikuji) > 0) {
                 let test = (dataTime.omikuji/1000+timeout/1000).toFixed(0);
                 console.log('===================================\nUNIX Thời Gian Khóa CD Test:\n',test,'\nNote: Giá Trị Sẽ Có Thể Lệch Tí...\n===================================')

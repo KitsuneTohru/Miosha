@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const cooldown = require('../Schemas.js/cooldown.js');
+const cooldown = require('../Schemas.js/testcooldown.js');
 
 module.exports = {
     data: new SlashCommandBuilder()

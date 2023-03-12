@@ -8,7 +8,7 @@ module.exports = {
     async execute(client) {
         await client.user.setPresence({
             activities: [{
-                name: 'v.0.2 -- Đã Thêm Lệnh, Thử Lệnh Nhé!',
+                name: 'v.0.3 -- Đã Thêm Cooldown Cho Command...',
                 type: ActivityType.Watching,
             }],
             status: 'idle',

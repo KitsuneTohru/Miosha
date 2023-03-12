@@ -1,0 +1,20 @@
+{
+  "name": "lyg-bot",
+  "version": "0.2",
+  "description": "LYG Official Bot, Ofc, Just A Newbie Coder Like Me As An CEO For Doing It",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Kitsunezi",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "mongoose": "^6.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.31.0"
+  }
+}

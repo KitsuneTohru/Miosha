@@ -162,7 +162,7 @@ module.exports = {
                 }
             }
             else {
-                if(a === false) {
+                if(a === true) {
                     new cooldown({
                         GuildID: interaction.guild.id,
                         UserID: user.id,

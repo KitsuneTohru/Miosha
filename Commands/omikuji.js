@@ -117,7 +117,7 @@ module.exports = {
     //EMBED GỐC ENTRY
         const embed = new EmbedBuilder()
             .setColor('Aqua')
-            .setTitle(`**Đền Thần - Rút Quẻ Hàng Ngày**`)
+            .setTitle(`**<:LYG_Omikuji:1084322622491344937> Đền Thần - Rút Quẻ Hàng Ngày**`)
             .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png'})
             .setDescription(result)
             .setTimestamp(Date.now())

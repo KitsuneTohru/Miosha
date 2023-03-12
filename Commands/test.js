@@ -12,10 +12,10 @@ module.exports = {
         cooldown.findOne({GuildID: interaction.guild.id, userID: user.id}, async (err, dataTime) => {
             if (dataTime && dataTime.test !== null && timeout - (Date.now()-dataTime.test) > 0) {
                 let test = (dataTime.test/1000+timeout/1000).toFixed(0);
-                console.log(test)
+                console.log('===================================\nUNIX Thời Gian Khóa CD Test:\n',test,'\nNote: Giá Trị Sẽ Có Thể Lệch Tí...\n===================================')
                 const CDEmbed = new EmbedBuilder()
                     .setColor('Red')
-                    .setTitle(`**Đang Trong Thời Gian Cooldown...**`)
+                    .setTitle(`<a:LYG_Clock:1084322030331105370> **Đang Trong Thời Gian Cooldown...**`)
                     .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png'})
                     .setDescription(`Bạn Phải Chờ Đến **<t:${test}> (<t:${test}:R>)** Để Có Thể Thực Hiện Tiếp Command Này`)
                     .setTimestamp(Date.now())
@@ -26,7 +26,7 @@ module.exports = {
                 a = false
                 const WorkEmbed = new EmbedBuilder()
                     .setColor('Green')
-                    .setTitle(`**Bạn Đã Thực Hiện Lênh...**`)
+                    .setTitle(`<:LYG_Ayame_YoDayo:942441477055844373> **Bạn Đã Thực Hiện Lệnh...**`)
                     .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png'})
                     .setDescription('Câu Lệnh Đã Thực Hiện Rồi, Ý Kiến Gì Nữa Kekw')
                     .setTimestamp(Date.now())

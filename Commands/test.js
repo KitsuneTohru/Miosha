@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const cooldown = require('../Schemas.js/cooldown.js');
 
 module.exports = {
@@ -13,11 +13,26 @@ module.exports = {
             if (dataTime && dataTime.test !== null && timeout - (Date.now()-dataTime.test) > 0) {
                 let test = (dataTime.test/1000+timeout/1000).toFixed(0);
                 console.log(test)
-                await interaction.reply(`Bạn Phải Chờ Đến **<t:${test}> (<t:${test}:R>)** Để Có Thể Thực Hiện Tiếp Command Này`)
+                const CDEmbed = new EmbedBuilder()
+                    .setColor('Red')
+                    .setTitle(`**Đang Trong Thời Gian Cooldown...**`)
+                    .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png'})
+                    .setDescription(`Bạn Phải Chờ Đến **<t:${test}> (<t:${test}:R>)** Để Có Thể Thực Hiện Tiếp Command Này`)
+                    .setTimestamp(Date.now())
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png'});
+                await interaction.reply({embeds: [CDEmbed]})
             }
             else {
-                await interaction.reply('Command Đã Được Thực Hiện, Kekw')
                 a = false
+                const WorkEmbed = new EmbedBuilder()
+                    .setColor('Green')
+                    .setTitle(`**Bạn Đã Thực Hiện Lênh...**`)
+                    .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png'})
+                    .setDescription('Câu Lệnh Đã Thực Hiện Rồi, Ý Kiến Gì Nữa Kekw')
+                    .setTimestamp(Date.now())
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png'});
+                await interaction.reply({embeds: [WorkEmbed]})
+
             }
             
             if (dataTime) {

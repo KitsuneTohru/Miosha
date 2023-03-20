@@ -21,7 +21,7 @@ module.exports = {
                     .setTimestamp(Date.now())
                     .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png'});
                 await interaction.reply({embeds: [CDEmbed]})
-            }
+           }
             else {
                 a = false
                 const WorkEmbed = new EmbedBuilder()

@@ -31,7 +31,7 @@ module.exports = {
         var img_url
     
         let color, result
-        if(user.id == '751225225047179324' || user.id == '809259609700302935' || user.id == '786816081032773662'){
+        if(user.id == '751225225047179324' || user.id == '809259609700302935' || user.id == '786816081032773662' || user.id == '927221951439700058'){
             color = "#6E0000"
             result = `<:LYG_KeqingDoi:1086190826536849499> **|** Oi! Bạn **KHÔNG THỂ** Check Câu Lệnh ${spcl_chr} Lên ${user} Được! Hãy Thử Với Người Khác Đi!`
             img_url = 'https://cdn.discordapp.com/attachments/1084992874212495393/1087382405943402558/genshin-impact-yae-miko.gif'
@@ -118,7 +118,7 @@ module.exports = {
             embeds: [GayEmbed]
         })
         await wait(500)
-        if(rngv2 >= 95 && user.id != '751225225047179324' && user.id != '809259609700302935' && user.id != '786816081032773662')
+        if(rng>100 && rngv2 >= 95 && user.id != '751225225047179324' && user.id != '809259609700302935' && user.id != '786816081032773662' && user.id != '927221951439700058')
             await interaction.followUp({
                 embeds: [H100PlusEmbed]
             })

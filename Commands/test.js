@@ -1,12 +1,12 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const Cooldown = require('../Schemas.js/testcooldown.js');
+//const Cooldown = require('../Schemas.js/testcooldown.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('test')
         .setDescription('Test Cmd Của Bot'),
     async execute(interaction) {
-        let user = interaction.user
+        /*let user = interaction.user
         let timeout = 3600000
         var a = true
         Cooldown.findOne({GuildID: interaction.guild.id, userID: user.id}, async (err, dataTime) => {
@@ -23,7 +23,7 @@ module.exports = {
                 await interaction.reply({embeds: [CDEmbed]})
            }
             else {
-                a = false
+                a = false*/
                 const WorkEmbed = new EmbedBuilder()
                     .setColor('Green')
                     .setTitle(`<:LYG_Ayame_YoDayo:942441477055844373> **Bạn Đã Thực Hiện Lệnh...**`)
@@ -33,9 +33,9 @@ module.exports = {
                     .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png'});
                 await interaction.reply({embeds: [WorkEmbed]})
 
-            }
+            //}
             
-            if (dataTime) {
+            /*if (dataTime) {
                 if(a === false) {
                     dataTime.test = Date.now()
                     dataTime.save()
@@ -51,6 +51,6 @@ module.exports = {
                     }).save()
                 }   
             }
-        })
+        })*/
     },
 };

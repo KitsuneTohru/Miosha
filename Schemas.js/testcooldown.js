@@ -1,4 +1,4 @@
-const { model, Schema } = require('mongoose');
+/*const { model, Schema } = require('mongoose');
 
 var Cooldown = new Schema({
     GuildID: String,
@@ -6,4 +6,4 @@ var Cooldown = new Schema({
     test: String
 })
 
-module.exports = model('Cooldown', Cooldown);
+module.exports = model('Cooldown', Cooldown);*/

@@ -1,4 +1,4 @@
-const { model, Schema } = require('mongoose');
+/*const { model, Schema } = require('mongoose');
 
 var OmikujiCD = new Schema({
     GuildID: String,
@@ -6,4 +6,4 @@ var OmikujiCD = new Schema({
     omikuji: String
 })
 
-module.exports = model('OmikujiCD', OmikujiCD);
+module.exports = model('OmikujiCD', OmikujiCD);*/

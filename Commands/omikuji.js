@@ -136,6 +136,6 @@ module.exports = {
                 ephemeral: true,
             })
     console.log('========================================\nTổng Item Rng: ',rngitemlist.length,'\nID Item Rng: ',item_rng,'\nTên Item Rng:',item,'\nSố Encounter: ',rng,'\n========================================')
-    await interaction.setCooldown(86400000)
+    //await interaction.setCooldown(86400000)
     },
 };

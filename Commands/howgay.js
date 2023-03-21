@@ -21,7 +21,7 @@ module.exports = {
         .addBooleanOption(option =>
             option.setName('avgset')
                 .setDescription('Tính Trung Bình Gay Của User Nào Đó (CỐ ĐỊNH: 3 LẦN)')
-                .setRequired(false)),
+                .setRequired(true)),
 
     async execute(interaction) {
         const user = interaction.options.getUser('target')

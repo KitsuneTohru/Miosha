@@ -13,7 +13,7 @@ const wait = require('node:timers/promises').setTimeout;
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('howgay')
-        .setDescription('Check Độ Gay Của Một User Nào ĐÓ (J4F, RAGE BỊ TRÊU RÁNG CHỊU!)')
+        .setDescription('Check Độ Gay Của Một User Nào Đó (J4F, RAGE BỊ TRÊU RÁNG CHỊU!)')
         .addUserOption(option =>
             option.setName('target')
                 .setDescription('Mục Tiêu Mà Bạn Muón Nhắm Tới')
@@ -120,10 +120,10 @@ module.exports = {
             for (var i = 0; i < 3; i++) {
                 rngv3 = Math.random()*101.1
                 rngv3 = (Math.floor(rngv3*10)/10).toFixed(1)
-                console.log('========================================\nTính Toán Theo Rngv3 (Lần',i + 1, ') =',rngv3, '\n========================================')
                 avgpt = avgpt + Number(rngv3)
                 resultv2 = (`<a:LYG_Ping:900775951317737473> **|** Chỉ Số Gay Của ${user} **__(Lần: ${i + 1})__** Là: **${rngv3}%**`)
                 a[i] = resultv2
+                console.log('========================================\nTính Toán Theo Rngv3 (Lần',i + 1, ') =',rngv3, '\n========================================')
             }
             avgpt = avgpt / 3
             avgpt = (Math.floor(avgpt*10)/10).toFixed(1)

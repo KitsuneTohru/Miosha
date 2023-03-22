@@ -1,0 +1,382 @@
+const { SlashCommandBuilder,  ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder} = require('discord.js');
+
+module.exports = {
+    data: new SlashCommandBuilder()
+        .setName('game2048')
+        .setDescription('Tạo Game 2018 XD'),
+    async execute(interaction) {
+        const row1 = new ActionRowBuilder()
+        .addComponents(
+            new ButtonBuilder()
+                .setCustomId('Blank')
+                .setStyle(ButtonStyle.Secondary)
+                .setEmoji('⬛')
+                .setDisabled(true),
+            new ButtonBuilder()
+                .setCustomId('Up')
+                .setStyle(ButtonStyle.Primary)
+                .setEmoji('1086297338961739896'),
+            new ButtonBuilder()
+                .setCustomId('Blank2')
+                .setStyle(ButtonStyle.Secondary)
+                .setEmoji('⬛')
+                .setDisabled(true),
+            )
+        const row2 = new ActionRowBuilder()
+        .addComponents(
+            new ButtonBuilder()
+                .setCustomId('Left')
+                .setStyle(ButtonStyle.Primary)
+                .setEmoji('1086297531379613767'),
+            new ButtonBuilder()
+                .setCustomId('Down')
+                .setStyle(ButtonStyle.Primary)
+                .setEmoji('1086297356011585697'),
+            new ButtonBuilder()
+                .setCustomId('Right')
+                .setStyle(ButtonStyle.Primary)
+                .setEmoji('1086297678624854077'),
+        )
+        //Lấy User
+        const user = interaction.user.id
+        //HÀNG VÀ CỘT
+        var ROW, COL
+        //Các Title (Default)
+        const t0 = "<:title_blank:1086289535375257620>"
+        const t2 = "<:title_2:1086287140977127535>"
+        const t4 = "<:title_4:1086287255288684637>"
+        const t8 = "<:title_8:1086287308254351390>"
+        const t16 = "<:title_16:1086287357155741808>"
+        const t32 = "<:title_32:1086287378693497005>"
+        const t64 = "<:title_64:1086287399174287372>"
+        const t128 = "<:title_128:1086287429884973066>"
+        const t256 = "<:title_256:1086287452899119225>"
+        const t512 = "<:title_512:1086287476232028221>"
+        const t1024 = "<:title_1024:1086287494066229260>"
+        const t2048 = "<:title_2048:1086287514790268939>"
+        const t4096 = "<:title_4096:1086497903511621744>"
+        const t8192 = "<:title_8192:1086497929956696144>"
+        const t16384 = "<:title_16384:1086497953377701919>"
+        const t32768 = "<:title_32768:1086497975490060399>"
+        const t65536 = "<:title_65536:1086497994775478332>"
+        //Setup Nhẹ
+        var score = 0
+        const WinEmbed = new EmbedBuilder()
+                            .setColor('Green')
+                            .setTitle(`**2048 Game: BẠN ĐÃ THẮNG**`)
+                            .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png'})
+                            .setDescription(`**Chúc Mừng Bạn!** Bạn Có Thể Chơi Tiếp Nếu Muốn *(NOT AVAILABLE)*`)
+                            .setTimestamp()
+                            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png'});
+        const LoseEmbed = new EmbedBuilder()
+                            .setColor('Red')
+                            .setTitle(`**2048 Game: GAME OVER**`)
+                            .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png'})
+                            .setDescription(`**Haizz, Tiếc Quá Ha, Chúc Bạn May Mắn Lần Sau!**`)
+                            .setTimestamp()
+                            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png'});
+        var table = [
+            [0,0,0,0,'\n'],
+            [0,0,0,0,'\n'],
+            [0,0,0,0,'\n'],
+            [0,0,0,0,'\n']
+        ]
+        //Start Game
+        var start_bool = true
+        var win = false
+        var lose = false
+        function start(table, ROW, COL) {
+            var i=0
+            let rng = Math.floor(Math.random()*11)
+            if(rng == 10) {
+                ROW = Math.floor(Math.random()*4)
+                COL = Math.floor(Math.random()*4)
+                table[ROW][COL] = 4
+                console.log(`table[${ROW}][${COL} = ${table[ROW][COL]}]`)
+                i++;
+            }
+            else{
+                ROW = Math.floor(Math.random()*4)
+                COL = Math.floor(Math.random()*4)
+                table[ROW][COL] = 2
+                console.log(`table[${ROW}][${COL} = ${table[ROW][COL]}]`)
+                i++;
+            }
+            while (i!=0) {
+                let rng = Math.floor(Math.random()*11)
+                if(rng == 10) {
+                    ROW = Math.floor(Math.random()*4)
+                    COL = Math.floor(Math.random()*4)
+                    table[ROW][COL] = 4
+                    console.log(`table[${ROW}][${COL} = ${table[ROW][COL]}]`)
+                }
+                else{
+                    ROW = Math.floor(Math.random()*4)
+                    COL = Math.floor(Math.random()*4)
+                    table[ROW][COL] = 2
+                    console.log(`table[${ROW}][${COL} = ${table[ROW][COL]}]`)
+                }
+                break;
+            }
+        }
+        if(start_bool == true) {
+            start(table, COL, ROW)
+            start_bool = false
+        }
+        //Tạo Title Mới Sau Khi Start Game
+        function createTitles(table,ROW,COL){
+            let rng = Math.floor(Math.random()*11)
+                if(rng == 10) {
+                    ROW = Math.floor(Math.random()*4)
+                    COL = Math.floor(Math.random()*4)
+                    table[ROW][COL] = 4
+                    console.log(`table[${ROW}][${COL} = ${table[ROW][COL]}]`)
+                }
+                else{
+                    ROW = Math.floor(Math.random()*4)
+                    COL = Math.floor(Math.random()*4)
+                    table[ROW][COL] = 2
+                    console.log(`table[${ROW}][${COL} = ${table[ROW][COL]}]`)
+                }
+        }
+        //Logic Game Set
+        function stack(table,ROW,COL) {
+            var table1 = table
+            for(ROW=0;ROW<4;ROW++){
+                var pfill = 0
+                for(COL=0;COL<4;COL++){
+                    if(table[ROW][COL]!=0){
+                        table1[ROW][pfill] = table[ROW][COL]
+                        pfill++
+                    }
+                }
+            }
+            table=table1
+        }
+        function combine(table,ROW,COL,score){
+            for(ROW=0;ROW<4;ROW++){
+                for(COL=0;COL<3;COL++){
+                    if(table[ROW][COL]!=0 && table[ROW][COL] == table[ROW][COL+1]){
+                        table[ROW][COL] = table[ROW][COL]*2
+                        table[ROW][COL+1] = 0
+                        score = score+table[ROW][COL]
+                    }
+                }
+            }
+        }
+        function reverse(table){
+            var table1 = table
+            table1.reverse()
+            table=table1
+        }
+        function transpose(table,ROW,COL){
+            var table1 = table
+            for(ROW=0;ROW<4;ROW++){
+                for(COL=0;COL<4;COL++){
+                     table1[ROW][COL].push(table[COL][ROW])
+                }
+            }
+            table=table1
+        }
+        //Kiểm Tra Các Nước Đi Hợp Lệ
+        function HMoves(table,ROW,COL){
+            let a = 0;
+            for(ROW=0;ROW<4;ROW++){
+                for(COL=0;COL<3;COL++){
+                    if(table[ROW][COL] == table[ROW][COL+1]){
+                        a++
+                        return true
+                    } 
+                }
+            }
+            if(a==0){
+                return false
+            }
+        }
+        function VMoves(table,ROW,COL){
+            let a = 0;
+            for(ROW=0;ROW<3;ROW++){
+                for(COL=0;COL<4;COL++){
+                    if(table[ROW][COL] == table[ROW+1][COL]){
+                        a++
+                        return true
+                    } 
+                }
+            }
+            if(a==0){
+                return false
+            }
+        }
+        //Check Game Over
+        function game_over(table,ROW,COL){
+            var zero = 0
+            for(ROW=0;ROW<4;ROW++){
+                for(COL=0;COL<4;COL++){
+                    if(table[ROW][COL] == 0)
+                        zero++
+                    if(table[ROW][COL] == 2048){
+                        win=true
+                     }
+                     else if (zero == 0 && !HMoves() && !VMoves()){
+                        lose=true
+                     }
+                }
+            }
+        }
+        //Các Thao Tác Di Chuyển
+        function LeftMove(){
+            stack(table,ROW,COL)
+            combine(table,ROW,COL)
+            stack(table,ROW,COL)
+            createTitles(table,ROW,COL)
+            game_over(table,ROW,COL)
+        }
+        function RightMove(){
+            reverse(table,ROW,COL)
+            stack(table,ROW,COL)
+            combine(table,ROW,COL)
+            stack(table,ROW,COL)
+            reverse(table,ROW,COL)
+            createTitles(table,ROW,COL)
+            game_over(table,ROW,COL)
+        }
+        function UpMove(){
+            transpose(table,ROW,COL)
+            stack(table,ROW,COL)
+            combine(table,ROW,COL)
+            stack(table,ROW,COL)
+            transpose(table,ROW,COL)
+            createTitles(table,ROW,COL)
+            game_over(table,ROW,COL)
+        }
+        function DownMove(){
+            transpose(table,ROW,COL)
+            reverse(table,ROW,COL)
+            stack(table,ROW,COL)
+            combine(table,ROW,COL)  
+            stack(table,ROW,COL)
+            reverse(table,ROW,COL)
+            transpose(table,ROW,COL)
+            createTitles(table,ROW,COL)
+            game_over(table,ROW,COL)
+        }
+    //Result Out
+        var set_table = table
+            for(ROW=0;ROW<4;ROW++){
+                for(COL=0;COL<4;COL++){
+                    switch(set_table[ROW][COL]){
+                        case 2:
+                            set_table[ROW][COL] = t2
+                            break
+                        case 4:
+                            set_table[ROW][COL] = t4
+                            break
+                        case 8:
+                            set_table[ROW][COL] = t8
+                            break
+                        case 16:
+                            set_table[ROW][COL] = t16
+                            break
+                        case 32:
+                            set_table[ROw][COL] = t32
+                            break
+                        case 64:
+                            set_table[ROW][COL] = t64
+                            break
+                        case 128:
+                            set_table[ROW][COL] = t128
+                            break
+                        case 256:
+                            set_table[ROW][COL] = t256
+                            break
+                        case 512:
+                            set_table[ROW][COL] = t512
+                            break
+                        case 1024:
+                            set_table[ROW][COL] = t1024
+                            break
+                        case 2048:
+                            set_table[ROW][COL] = t2048
+                            break
+                        case 4096:
+                            set_table[ROW][COL] = t4096
+                            break
+                        case 8192:
+                            set_table[ROW][COL] = t8192
+                            break
+                        case 16384:
+                            set_table[ROW][COL] = t16384
+                            break
+                        case 32768:
+                            set_table[ROW][COL] = t32768
+                            break
+                        case 65536:
+                            set_table[ROW][COL] = t65536
+                            break
+                        default:
+                            set_table[ROW][COL] = t0
+                    }
+                }
+        }
+    //Xuất Kết Quả
+        var x=set_table.toString()
+        var c=x.replace(/,/g,"")
+        console.log(c)
+        let embed = new EmbedBuilder()
+            .setColor('#00FFFF')
+            .setTitle(`**2048 Game (NOT WORKING!)** | Điểm Số Của Bạn: ${score}`)
+            .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png'})
+            .setDescription(`${c}`)
+            .setTimestamp()
+            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png'});
+    await interaction.reply(
+            {
+            embeds: [embed],
+            components: [row1, row2],
+            }
+        )
+        //Click Nút:
+        const filter = i => i.user.id === user;
+        const collector = interaction.channel.createMessageComponentCollector(filter)
+        collector.on('collect',async i => {
+            if(i.customId === 'Left') {
+                LeftMove()
+                await interaction.editReply({
+                    embeds: [embed],
+                    components: [row1,row2]
+                })
+            }
+            if(i.customId === 'Right') {
+                RightMove()
+                await interaction.editReply({
+                    embeds: [embed],
+                    components: [row1,row2]
+                })
+            }
+            if(i.customId === 'Up'){
+                UpMove()
+                await interaction.editReply({
+                    embeds: [embed],
+                    components: [row1,row2]
+                })
+            }
+            if(i.customId === "Down"){
+                DownMove()
+                await interaction.editReply({
+                    embeds:[embed],
+                    components: [row1,row2]
+                })
+            }
+        });
+    if(win == true)
+        await interaction.editReply({
+            embeds: [embed,WinEmbed],
+            components: []
+        })
+    if(lose == true)
+        await interaction.editReply({
+            embeds: [embed,LoseEmbed],
+            components: []
+        })
+    }
+};

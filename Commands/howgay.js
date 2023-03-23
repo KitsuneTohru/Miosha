@@ -24,6 +24,7 @@ module.exports = {
                 .setRequired(true)),
 
     async execute(interaction) {
+        //Lấy User Và AvgSet
         const user = interaction.options.getUser('target')
         const avgbool = interaction.options.getBoolean('avgset')
         //Easter
@@ -47,6 +48,17 @@ module.exports = {
             .setDescription(`<a:LYG_LoadSlot:1087377575107645569> **|** Hệ Thống Đang Kiểm Tra Độ Gay Của ${user}... Xin Chờ Một Lát...\n**LƯU Ý:** Đừng Lấy Chuyện Này Làm Chuyện Nghiêm Túc Nhá! Quạo Rồi Không Ai Chịu Trách Nhiệm Đâu!`)
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+        //Lock User + Hàm Lấy So Sánh
+        const lock_user = ['751225225047179324','786816081032773662','927221951439700058','809259609700302935','888738277044133899']
+        var lock_output = false
+        function Compare(user,lock_user){
+            for(var count in lock_user){
+                if(user.id === lock_user[count]){
+                    lock_output = true
+                }
+            }
+        }
+        Compare(user, lock_user)
         //Lock Embed
         const SpecialEmbed = new EmbedBuilder()
             .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
@@ -233,7 +245,7 @@ module.exports = {
         })
         await wait(3000)
         if(avgbool===false){
-            if(user.id == '751225225047179324' || user.id == '809259609700302935' || user.id == '786816081032773662' || user.id == '927221951439700058'){
+            if(lock_output){
                 await interaction.editReply({
                     embeds: [SpecialEmbed]
                 })
@@ -244,14 +256,14 @@ module.exports = {
                 })
             }
             await wait(500)
-            if(rng>100 && rngv2>=95 && user.id != '751225225047179324' && user.id != '809259609700302935' && user.id != '786816081032773662' && user.id != '927221951439700058'){
+            if(rng>100 && rngv2>=95 && !lock_output){
                 await interaction.followUp({
                     embeds: [H100PlusEmbed]
                 })
             }
         }
         else{
-            if(user.id == '751225225047179324' || user.id == '809259609700302935' || user.id == '786816081032773662' || user.id == '927221951439700058'){
+            if(lock_output){
                 await interaction.editReply({
                     embeds: [SpecialEmbed]
                 })
@@ -262,25 +274,25 @@ module.exports = {
                 })
             }
             await wait(500)
-            if(user.id != '751225225047179324' && user.id != '809259609700302935' && user.id != '786816081032773662' && user.id != '927221951439700058'){
+            if(!lock_output){
                 await interaction.editReply({
                     embeds: [GayEmbed_3]
                 })
             }
             await wait(500)
-            if(user.id != '751225225047179324' && user.id != '809259609700302935' && user.id != '786816081032773662' && user.id != '927221951439700058'){
+            if(!lock_output){
                 await interaction.editReply({
                     embeds: [GayEmbed_4]
                 })
             }
             await wait(500)
-            if(user.id != '751225225047179324' && user.id != '809259609700302935' && user.id != '786816081032773662' && user.id != '927221951439700058'){
+            if(!lock_output){
                 await interaction.editReply({
                     embeds: [GayEmbed_5]
                 })
             }
             await wait(500)
-            if(rng>100 && rngv2>=95 && user.id != '751225225047179324' && user.id != '809259609700302935' && user.id != '786816081032773662' && user.id != '927221951439700058'){
+            if(rng>100 && rngv2>=95 && !lock_output){
                 await interaction.editReply({
                     embeds: [H100PlusEmbed]
                 })

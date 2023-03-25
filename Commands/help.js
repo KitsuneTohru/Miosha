@@ -262,6 +262,7 @@ module.exports = {
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 300000 })
         collector.on('collect', async a => {
             if (a.customId === 'commands1' || a.customId === 'commands3' || a.customId === 'commands4') {
+		j = 0
                 await wait(500)
                 await interaction.editReply({
                     embeds: [CmdEmbed[0]],

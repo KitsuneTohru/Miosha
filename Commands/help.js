@@ -297,7 +297,7 @@ module.exports = {
                     components: [GetRow(j), command_row, desc_row2]
                 })
             }
-            if(a.customId === 'rpage' && j <= testembed.length){
+            if(a.customId === 'rpage' && j <= CmdEmbed.length){
                 j++
                 await wait(500)
                 await interaction.editReply({

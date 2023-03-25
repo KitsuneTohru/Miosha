@@ -1,56 +1,83 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-//const Cooldown = require('../Schemas.js/testcooldown.js');
-
+const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
+const wait = require('node:timers/promises').setTimeout;
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('test')
-        .setDescription('Test Cmd Của Bot'),
+        .setDescription('Test Command Purpose...'),
     async execute(interaction) {
-        /*let user = interaction.user
-        let timeout = 3600000
-        var a = true
-        Cooldown.findOne({GuildID: interaction.guild.id, userID: user.id}, async (err, dataTime) => {
-            if (dataTime && dataTime.test !== null && timeout - (Date.now()-dataTime.test) > 0) {
-                let test = (dataTime.test/1000+timeout/1000).toFixed(0);
-                console.log('===================================\nUNIX Thời Gian Khóa CD Test:\n',test,'\nNote: Giá Trị Sẽ Có Thể Lệch Tí...\n===================================')
-                const CDEmbed = new EmbedBuilder()
-                    .setColor('Red')
-                    .setTitle(`<a:LYG_Clock:1084322030331105370> **Đang Trong Thời Gian Cooldown...**`)
-                    .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png'})
-                    .setDescription(`Bạn Phải Chờ Đến **<t:${test}> (<t:${test}:R>)** Để Có Thể Thực Hiện Tiếp Command Này`)
-                    .setTimestamp(Date.now())
-                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png'});
-                await interaction.reply({embeds: [CDEmbed]})
-           }
-            else {
-                a = false*/
-                const WorkEmbed = new EmbedBuilder()
-                    .setColor('Green')
-                    .setTitle(`<:LYG_Ayame_YoDayo:942441477055844373> **Bạn Đã Thực Hiện Lệnh...**`)
-                    .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png'})
-                    .setDescription('Câu Lệnh Đã Thực Hiện Rồi, Ý Kiến Gì Nữa Kekw')
-                    .setTimestamp(Date.now())
-                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png'});
-                await interaction.reply({embeds: [WorkEmbed]})
-
-            //}
-            
-            /*if (dataTime) {
-                if(a === false) {
-                    dataTime.test = Date.now()
-                    dataTime.save()
-                    a = true
-                }
+        //Setup User
+        const user = interaction.user.id
+        //Mảng Embed
+        const titlearr = [
+            '**Title 1**',
+            '**Title 2**',
+            '**Title 3**',
+            '**Title 4**',
+            '**Title 5**',
+        ]
+        const descarr = [
+            '**Desc 1 (Test)**',
+            '**Desc 2 (Test)**',
+            '**Desc 3 (Test)**',
+            '**Desc 4 (Test)**',
+            '**Desc 5 (Test)**',
+        ]
+        const testembed = []
+        var i = 0, j = 0
+        for(i=0;i<=4;i++){
+            let title = titlearr[i]
+            let desc = descarr[i]
+            testembed[i] = new EmbedBuilder()
+                .setTitle(title)
+                .setDescription(desc)
+        }
+        //Cmd Row
+        function GetRow(j){
+            const testrow = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setCustomId('lpage')
+                    .setLabel('| Previous Page')
+                    .setEmoji('1086297531379613767')
+                    .setStyle(ButtonStyle.Primary)
+                    .setDisabled(j === 0),
+                new ButtonBuilder()
+                    .setCustomId('pages')
+                    .setLabel(`| Trang: ${j+1} |`)
+                    .setStyle(ButtonStyle.Secondary)
+                    .setDisabled(true),
+                new ButtonBuilder()
+                    .setCustomId('rpage')
+                    .setLabel('| Next Page')
+                    .setEmoji('1086297678624854077')
+                    .setStyle(ButtonStyle.Primary)
+                    .setDisabled(j === testembed.length - 1)
+            )
+            return testrow
+        } 
+        await interaction.reply({
+            embeds: [testembed[0]],
+            components: [GetRow(j)]
+        })
+        const filter = a => a.user.id === user;
+        const collector = interaction.channel.createMessageComponentCollector({filter, time: 300000})
+        collector.on('collect',async a => {
+            if(a.customId === 'lpage' && j >= 0){
+                j--
+                await wait(500)
+                await interaction.editReply({
+                    embeds: [testembed[j]],
+                    components: [GetRow(j)]
+                })
             }
-            else {
-                if(a === false) {
-                    new Cooldown({
-                        GuildID: interaction.guild.id,
-                        UserID: user.id,
-                        test: Date.now()
-                    }).save()
-                }   
+            if(a.customId === 'rpage' && j <= testembed.length){
+                j++
+                await wait(500)
+                await interaction.editReply({
+                    embeds: [testembed[j]],
+                    components: [GetRow(j)]
+                })
             }
-        })*/
-    },
-};
+        })
+    }
+}

@@ -283,7 +283,7 @@ module.exports = {
                     components: [faq_row, desc_row4]
                 })
             }
-            if (a.customId === 'goback2' || a.customId === 'goback2' || a.customId === 'goback4') {
+            if (a.customId === 'goback2' || a.customId === 'goback3' || a.customId === 'goback4') {
                 await wait(500)
                 await interaction.editReply({
                     embeds: [HeadEmbed],

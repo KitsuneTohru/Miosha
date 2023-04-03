@@ -24,7 +24,7 @@ module.exports = {
         coinrng = (Math.floor(coinrng * 1000) / 1000).toFixed(3)
         if(coinrng <= 2.999){
             colorx = '#09FF00'
-            descx = `**Kết Quả Tung Xu Của ${interaction.user}:** <:LYG_chead:1090615333498392680> ${headchar}`
+            descx = `**Kết Quả Tung Xu Của ${interaction.user}:** <:LYG_chead:1092473155802640384> ${headchar}`
         }
         else if(coinrng >= 3.001){
             colorx = '#CF0000'

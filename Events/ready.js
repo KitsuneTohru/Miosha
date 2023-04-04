@@ -1,19 +1,27 @@
-const { Events } = require('discord.js');
-const { ActivityType } = require('discord.js');
+const { Events, ActivityType } = require('discord.js');
+const wait = require('node:timers/promises').setTimeout
 //const mongoose = require('mongoose')
 //const mongodbURL = process.env.MONGO_URL;
 
 module.exports = {
     name: Events.ClientReady,
     async execute(client) {
-        await client.user.setPresence({
-            activities: [{
-                name: 'v.0.5.8 -- Dùng /help Nếu Cảm Thấy Khó Hiểu Nhá! • Update /conflip, Thêm /guildavt',
-                type: ActivityType.Playing,
-            }],
-            status: 'idle',
-        })
+        var i=0
         console.log(`${client.user.tag} Đã Online, Bắt Đầu Nhiệm Vụ!`);
+        const namearr = ['v.0.5.8 -- Dùng /help Nếu Cảm Thấy Khỏ Hiểu Nhá!','New Content -- Update /coinflip, Thêm /guildavt','Changelog -- /info','Most Usage -- /howgay']
+        while(i!==-1){
+            await client.user.setPresence({
+                activities: [{
+                    name: `${namearr[i]}`,
+                    type: ActivityType.Playing,
+                }],
+                status: 'idle',
+            })
+            await wait(10000)
+            i++
+            if(i===3)
+            i=0
+        }
         //if(!mongodbURL) return;
         /*await mongoose.connect(mongodbURL || '', {
             keepAlive: true,

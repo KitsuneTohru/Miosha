@@ -5,5 +5,10 @@
 ## • Mục Đích Sử Dụng:
 Chỉ Là 1 Con Bot Vui Được Tạo Nên Bởi: Kitsunezi, Dùng Riêng Trong Server, Không Có Mục Đích Cao Cả Gì Hết,
 Fun Là Chính Thỏa Mãn Sự Hiếu Kì Của Owner Server (LYG) Và Admin (Game Over) Thôi
+## • Contributor List:
++ Kitsunezi
++ IC
++ Mari Lemon
++ Cùng Một Số Người Khác Nữa...
 ## • Ảnh Bot
 ![Preview image](/Assets/svbanner.png)

@@ -13,13 +13,13 @@ for (const file of commandsFiles) {
     commands.push(command.data.toJSON());
 };
 
-const rest = new REST({ version: '10'}).setToken(token);
+const rest = new REST({ version: '10' }).setToken(token);
 
 (async () => {
     try {
         console.log(`Bắt Đầu Làm Mới ${commands.length} Lệnh`);
         const data = await rest.put(
-            Routes.applicationGuildCommands(clientID,guildID),
+            Routes.applicationGuildCommands(clientID, guildID),
             { body: commands },
         );
         console.log(`Thành Công Khởi Tạo ${data.length} Lệnh`)

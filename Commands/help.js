@@ -212,7 +212,7 @@ module.exports = {
         ]
         const CmdEmbed = []
         var i, j = 0
-        for (i = 0; i < titlearr.length(); i++) {
+        for (i = 0; i < 5; i++) {
             const title = titlearr[i]
             const color = colorarr[i]
             const desc = descarr[i]

@@ -17,7 +17,7 @@ module.exports = {
                 }],
                 status: 'idle',
             })
-            await wait(10000)
+            await wait(60000)
             i++
             if(i===4)
             i=0

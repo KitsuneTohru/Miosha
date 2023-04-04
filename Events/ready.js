@@ -8,7 +8,7 @@ module.exports = {
     async execute(client) {
         var i=0
         console.log(`${client.user.tag} Đã Online, Bắt Đầu Nhiệm Vụ!`);
-        const namearr = ['v.0.5.8 -- Dùng /help Nếu Cảm Thấy Khỏ Hiểu Nhá!','New Content -- Update /coinflip, Thêm /guildavt','Changelog -- /info','Most Usage -- /howgay']
+        const namearr = ['v.0.5.8 -- Dùng /help Nếu Cảm Thấy Khó Hiểu Nhá!','New Content -- Update /coinflip, Thêm /guildavt','Changelog -- /info','Most Usage -- /howgay']
         while(i!==-1){
             await client.user.setPresence({
                 activities: [{
@@ -19,7 +19,7 @@ module.exports = {
             })
             await wait(10000)
             i++
-            if(i===3)
+            if(i===4)
             i=0
         }
         //if(!mongodbURL) return;

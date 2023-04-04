@@ -9,7 +9,7 @@ module.exports = {
         await client.user.setPresence({
             activities: [{
                 name: 'v.0.5.8 -- Dùng /help Nếu Cảm Thấy Khó Hiểu Nhá! • Update /conflip, Thêm /guildavt',
-                type: ActivityType.Watching,
+                type: ActivityType.Playing,
             }],
             status: 'idle',
         })

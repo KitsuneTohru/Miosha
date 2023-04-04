@@ -201,7 +201,7 @@ module.exports = {
             '#F6B3FF',
             '#B3FFF6',
             '#D3FFB3',
-            'FF90000',
+            '#F90000',
         ]
         const CmdEmbed = []
         var i, j = 0

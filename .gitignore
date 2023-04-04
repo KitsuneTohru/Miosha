@@ -1,3 +1,7 @@
 /.env
 Scarp Files/*.txt
-Schemas.js/*.js
+Scarp Files/game2048.txt
+Scarp Files/howgay.txt
+Scarp FIles/Omikuji.txt
+Schemas.js/omikujicd.js
+Schemas.js/testcooldown.js

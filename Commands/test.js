@@ -26,12 +26,14 @@ module.exports = {
         checkID(user)
         if (check === false) {
             await interaction.reply({
-                content: 'No! Bạn Không Có Quyền Sử Dụng Command Này!'
+                content: 'No! Bạn Không Có Quyền Sử Dụng Command Này!',
+                emphemeral: true
             })
         }
         else {
             await interaction.reply({
                 embeds: [godembed],
+                emphemeral: true
             });
         }
     }

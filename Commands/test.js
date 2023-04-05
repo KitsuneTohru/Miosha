@@ -1,10 +1,28 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('test')
         .setDescription('Test Command Purpose...'),
     async execute(interaction) {
         const user = interaction.user.id
+        const row = new ActionRowBuilder()
+            .addComponents(
+                new StringSelectMenuBuilder()
+                    .setCustomId('testmenu')
+                    .setPlaceholder('❌ | Không Có Cái Nào Chọn Cả!')
+                    .addOptions(
+                        {
+                            label: 'Test1',
+                            description: 'Test1',
+                            value: 'test1'
+                        },
+                        {
+                            label: 'Test2',
+                            description: 'Test2',
+                            value: 'test2'
+                        }
+                    )
+            )
         const godembed = new EmbedBuilder()
             .setColor('#00FFFF')
             .setTitle(`Test Command`)
@@ -31,8 +49,29 @@ module.exports = {
         else {
             await interaction.reply({
                 embeds: [godembed],
+                components: [row],
                 ephemeral: true
             });
+            const filter = a => a.user.id === user;
+            const collector = interaction.channel.createMessageComponentCollector({ filter })
+            collector.on('collect', async a => {
+                if(a.customId === 'testmenu'){
+                    const selected = a.values[0]
+                    console.log(selected)
+                    if(selected === 'test1'){
+                        await interaction.editReply({
+                            content: 'Test 1 Đã Click',
+                            ephemeral: true
+                        })
+                    } 
+                    if(selected === 'test2'){
+                        await interaction.editReply({
+                            content: 'Test 2 Đã Click',
+                            ephemeral: true
+                        })
+                    }
+                }
+            })
         }
     }
 };

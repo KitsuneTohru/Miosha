@@ -8,7 +8,7 @@ module.exports = {
     async execute(client) {
         var i=0
         console.log(`${client.user.tag} Đã Online, Bắt Đầu Nhiệm Vụ!`);
-        const namearr = ['v.0.5.8 -- Dùng /help Nếu Cảm Thấy Khó Hiểu Nhá!','New Content -- Update /coinflip, Thêm /guildavt','Changelog -- /info','Most Usage -- /howgay']
+        const namearr = ['Phiên Bản: v.0.6.0 -- /help','New -- Update /server, /user','Changelog -- /info','Most Usage -- /howgay']
         while(i!==-1){
             await client.user.setPresence({
                 activities: [{

@@ -19,7 +19,7 @@ const rest = new REST({ version: '10' }).setToken(token);
     try {
         console.log(`Bắt Đầu Làm Mới ${commands.length} Lệnh`);
         const data = await rest.put(
-            Routes.applicationGuildCommands(clientID, guildID),
+            Routes.applicationCommands(clientID),
             { body: commands },
         );
         console.log(`Thành Công Khởi Tạo ${data.length} Lệnh`)

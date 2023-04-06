@@ -7,119 +7,37 @@ module.exports = {
     async execute(interaction) {
         //Setup User
         const user = interaction.user.id
-        //General Row:
-        const outside_row = new ActionRowBuilder()
-            .addComponents(
-                new ButtonBuilder()
-                    .setCustomId('commands1')
-                    .setLabel('| Commands')
-                    .setEmoji('1086172125955633192')
-                    .setStyle(ButtonStyle.Primary),
-                new ButtonBuilder()
-                    .setCustomId('changelog1')
-                    .setLabel('| Changelog')
-                    .setEmoji('1087692048280334347')
-                    .setStyle(ButtonStyle.Primary),
-                new ButtonBuilder()
-                    .setCustomId('faqs1')
-                    .setLabel('| FaQs')
-                    .setEmoji('1084085930266218556')
-                    .setStyle(ButtonStyle.Primary),
-                new ButtonBuilder()
-                    .setCustomId('goback1')
-                    .setLabel('| Go Back')
-                    .setEmoji('1086093232989024407')
-                    .setStyle(ButtonStyle.Secondary)
-                    .setDisabled(true)
-            )
-        //Command Row
-        const command_row = new ActionRowBuilder()
-            .addComponents(
-                new ButtonBuilder()
-                    .setCustomId('commands2')
-                    .setLabel('| Commands')
-                    .setEmoji('1086172125955633192')
-                    .setStyle(ButtonStyle.Secondary)
-                    .setDisabled(true),
-                new ButtonBuilder()
-                    .setCustomId('changelog2')
-                    .setLabel('| Changelog')
-                    .setEmoji('1087692048280334347')
-                    .setStyle(ButtonStyle.Primary),
-                new ButtonBuilder()
-                    .setCustomId('faqs2')
-                    .setLabel('| FaQs')
-                    .setEmoji('1084085930266218556')
-                    .setStyle(ButtonStyle.Primary),
-                new ButtonBuilder()
-                    .setCustomId('goback2')
-                    .setLabel('| Go Back')
-                    .setEmoji('1086093232989024407')
-                    .setStyle(ButtonStyle.Primary)
-            )
-        //Changelog Row
-        const changelog_row = new ActionRowBuilder()
-            .addComponents(
-                new ButtonBuilder()
-                    .setCustomId('commands3')
-                    .setLabel('| Commands')
-                    .setEmoji('1086172125955633192')
-                    .setStyle(ButtonStyle.Primary),
-                new ButtonBuilder()
-                    .setCustomId('changelog3')
-                    .setLabel('| Changelog')
-                    .setEmoji('1087692048280334347')
-                    .setStyle(ButtonStyle.Secondary)
-                    .setDisabled(true),
-                new ButtonBuilder()
-                    .setCustomId('faqs3')
-                    .setLabel('| FaQs')
-                    .setEmoji('1084085930266218556')
-                    .setStyle(ButtonStyle.Primary),
-                new ButtonBuilder()
-                    .setCustomId('goback3')
-                    .setLabel('| Go Back')
-                    .setEmoji('1086093232989024407')
-                    .setStyle(ButtonStyle.Primary)
-            )
-        //FaQ Row:
-        const faq_row = new ActionRowBuilder()
-            .addComponents(
-                new ButtonBuilder()
-                    .setCustomId('commands4')
-                    .setLabel('| Commands')
-                    .setEmoji('1086172125955633192')
-                    .setStyle(ButtonStyle.Primary),
-                new ButtonBuilder()
-                    .setCustomId('changelog4')
-                    .setLabel('| Changelog')
-                    .setEmoji('1087692048280334347')
-                    .setStyle(ButtonStyle.Primary),
-                new ButtonBuilder()
-                    .setCustomId('faqs4')
-                    .setLabel('| FaQs')
-                    .setEmoji('1084085930266218556')
-                    .setStyle(ButtonStyle.Secondary)
-                    .setDisabled(true),
-                new ButtonBuilder()
-                    .setCustomId('goback4')
-                    .setLabel('| Go Back')
-                    .setEmoji('1086093232989024407')
-                    .setStyle(ButtonStyle.Primary)
-            )
         //Desc_Row: Trang Chủ
         const desc_row1 = new ActionRowBuilder()
             .addComponents(
                 new StringSelectMenuBuilder()
-                    .setCustomId('desc1')
-                    .setPlaceholder('Mô Tả Embed Hiện Tại <KHÔNG CÓ CHỨC NĂNG CLICK>')
+                    .setCustomId('d1')
+                    .setPlaceholder('Mô Tả Embed Hiện Tại')
                     .addOptions(
                         {
                             label: '| Main Page',
                             description: 'Trang Chủ Ở Đây, Hãy Click Nút Bên Trên Để Coi Nhá!',
                             emoji: '<a:LYG_404:1086172141998833684>',
-                            value: 'option',
+                            value: 'main',
                             default: true,
+                        },
+                        {
+                            label: '| Commands',
+                            description: 'Tất Tần Tật Command Của Bot',
+                            emoji: '<:LYG_LaylaHmm:1086172125955633192>',
+                            value: 'cmd',
+                        },
+                        {
+                            label: '| Changelogs',
+                            description: 'Tất Tần Tật Mọi Sự Thay Đổi, Update Của Bot',
+                            emoji: '<a:LYG_OkayuLove:1087692048280334347>',
+                            value: 'clog',
+                        },
+                        {
+                            label: '| FaQs',
+                            description: 'Mọi Câu Hỏi Vui Về Con Bot',
+                            emoji: '<a:LYG_FubukiWhat:1084085930266218556>',
+                            value: 'faq',
                         }
                     )
             )
@@ -127,15 +45,33 @@ module.exports = {
         const desc_row2 = new ActionRowBuilder()
             .addComponents(
                 new StringSelectMenuBuilder()
-                    .setCustomId('desc2')
-                    .setPlaceholder('Mô Tả Embed Hiện Tại <KHÔNG CÓ CHỨC NĂNG CLICK>')
+                    .setCustomId('d2')
+                    .setPlaceholder('Mô Tả Embed Hiện Tại')
                     .addOptions(
+                        {
+                            label: '| Main Page',
+                            description: 'Trang Chủ Ở Đây, Hãy Click Nút Bên Trên Để Coi Nhá!',
+                            emoji: '<a:LYG_404:1086172141998833684>',
+                            value: 'main',
+                        },
                         {
                             label: '| Commands',
                             description: 'Tất Tần Tật Command Của Bot',
                             emoji: '<:LYG_LaylaHmm:1086172125955633192>',
-                            value: 'option2',
+                            value: 'cmd',
                             default: true,
+                        },
+                        {
+                            label: '| Changelogs',
+                            description: 'Tất Tần Tật Mọi Sự Thay Đổi, Update Của Bot',
+                            emoji: '<a:LYG_OkayuLove:1087692048280334347>',
+                            value: 'clog',
+                        },
+                        {
+                            label: '| FaQs',
+                            description: 'Mọi Câu Hỏi Vui Về Con Bot',
+                            emoji: '<a:LYG_FubukiWhat:1084085930266218556>',
+                            value: 'faq',
                         }
                     )
             )
@@ -143,15 +79,33 @@ module.exports = {
         const desc_row3 = new ActionRowBuilder()
             .addComponents(
                 new StringSelectMenuBuilder()
-                    .setCustomId('desc3')
-                    .setPlaceholder('Mô Tả Embed Hiện Tại <KHÔNG CÓ CHỨC NĂNG CLICK>')
+                    .setCustomId('d3')
+                    .setPlaceholder('Mô Tả Embed Hiện Tại')
                     .addOptions(
                         {
-                            label: '| Changelog',
+                            label: '| Main Page',
+                            description: 'Trang Chủ Ở Đây, Hãy Click Nút Bên Trên Để Coi Nhá!',
+                            emoji: '<a:LYG_404:1086172141998833684>',
+                            value: 'main',
+                        },
+                        {
+                            label: '| Commands',
+                            description: 'Tất Tần Tật Command Của Bot',
+                            emoji: '<:LYG_LaylaHmm:1086172125955633192>',
+                            value: 'cmd',
+                        },
+                        {
+                            label: '| Changelogs',
                             description: 'Tất Tần Tật Mọi Sự Thay Đổi, Update Của Bot',
                             emoji: '<a:LYG_OkayuLove:1087692048280334347>',
-                            value: 'option3',
+                            value: 'clog',
                             default: true,
+                        },
+                        {
+                            label: '| FaQs',
+                            description: 'Mọi Câu Hỏi Vui Về Con Bot',
+                            emoji: '<a:LYG_FubukiWhat:1084085930266218556>',
+                            value: 'faq',
                         }
                     )
             )
@@ -159,14 +113,32 @@ module.exports = {
         const desc_row4 = new ActionRowBuilder()
             .addComponents(
                 new StringSelectMenuBuilder()
-                    .setCustomId('desc4')
-                    .setPlaceholder('Mô Tả Embed Hiện Tại <KHÔNG CÓ CHỨC NĂNG CLICK>')
+                    .setCustomId('d4')
+                    .setPlaceholder('Mô Tả Embed Hiện Tại')
                     .addOptions(
+                        {
+                            label: '| Main Page',
+                            description: 'Trang Chủ Ở Đây, Hãy Click Nút Bên Trên Để Coi Nhá!',
+                            emoji: '<a:LYG_404:1086172141998833684>',
+                            value: 'main',
+                        },
+                        {
+                            label: '| Commands',
+                            description: 'Tất Tần Tật Command Của Bot',
+                            emoji: '<:LYG_LaylaHmm:1086172125955633192>',
+                            value: 'cmd',
+                        },
+                        {
+                            label: '| Changelogs',
+                            description: 'Tất Tần Tật Mọi Sự Thay Đổi, Update Của Bot',
+                            emoji: '<a:LYG_OkayuLove:1087692048280334347>',
+                            value: 'clog',
+                        },
                         {
                             label: '| FaQs',
                             description: 'Mọi Câu Hỏi Vui Về Con Bot',
                             emoji: '<a:LYG_FubukiWhat:1084085930266218556>',
-                            value: 'option4',
+                            value: 'faq',
                             default: true,
                         }
                     )
@@ -259,47 +231,59 @@ module.exports = {
 
         await interaction.reply({
             embeds: [HeadEmbed],
-            components: [outside_row, desc_row1]
+            components: [desc_row1]
         })
-        //Click Nút
+        //Execute Lệnh
         const filter = a => a.user.id === user;
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 300000 })
         collector.on('collect', async a => {
-            if (a.customId === 'commands1' || a.customId === 'commands3' || a.customId === 'commands4') {
-                j = 0
-                await wait(500)
-                await interaction.editReply({
-                    embeds: [CmdEmbed[0]],
-                    components: [GetRow(j), command_row, desc_row2]
-                })
+            //Lấy Giá Trị Menu
+            var c = false
+            const allvalues = ['d1','d2','d3','d4']
+            for(vcount in allvalues){
+                if(a.customId === allvalues[vcount])
+                c = true
             }
-            if (a.customId === 'changelog1' || a.customId === 'changelog2' || a.customId === 'changelog4') {
-                await wait(500)
-                await interaction.editReply({
-                    embeds: [InfoEmbed],
-                    components: [changelog_row, desc_row3]
-                })
+            //Xuất Giá Trị Menu
+            if (c) {
+                const selected = a.values[0]
+                if (selected === 'cmd') {
+                    j = 0
+                    await wait(500)
+                    await interaction.editReply({
+                        embeds: [CmdEmbed[0]],
+                        components: [GetRow(j), desc_row2]
+                    })
+                }
+                if (selected === 'clog') {
+                    await wait(500)
+                    await interaction.editReply({
+                        embeds: [InfoEmbed],
+                        components: [desc_row3]
+                    })
+                }
+                if (selected === 'faq'){
+                    await wait(500)
+                    await interaction.editReply({
+                        embeds: [FAQEmbed],
+                        components: [desc_row4]
+                    })
+                }
+                if (selected === 'main'){
+                    await wait(500)
+                    await interaction.editReply({
+                        embeds: [HeadEmbed],
+                        components: [desc_row1]
+                    })
+                }   
             }
-            if (a.customId === 'faqs1' || a.customId === 'faqs2' || a.customId === 'faqs3') {
-                await wait(500)
-                await interaction.editReply({
-                    embeds: [FAQEmbed],
-                    components: [faq_row, desc_row4]
-                })
-            }
-            if (a.customId === 'goback2' || a.customId === 'goback3' || a.customId === 'goback4') {
-                await wait(500)
-                await interaction.editReply({
-                    embeds: [HeadEmbed],
-                    components: [outside_row, desc_row1]
-                })
-            }
+            //Command Row Button
             if (a.customId === 'lpage' && j >= 0) {
                 j--
                 await wait(500)
                 await interaction.editReply({
                     embeds: [CmdEmbed[j]],
-                    components: [GetRow(j), command_row, desc_row2]
+                    components: [GetRow(j), desc_row2]
                 })
             }
             if (a.customId === 'rpage' && j <= CmdEmbed.length) {
@@ -307,7 +291,7 @@ module.exports = {
                 await wait(500)
                 await interaction.editReply({
                     embeds: [CmdEmbed[j]],
-                    components: [GetRow(j), command_row, desc_row2]
+                    components: [GetRow(j), desc_row2]
                 })
             }
         })

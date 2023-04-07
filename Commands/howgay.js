@@ -9,7 +9,9 @@
 
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
-
+const cd = new Set();
+const cdend = new Set();
+const cdtime = 300000;
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('howgay')
@@ -49,11 +51,11 @@ module.exports = {
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
         //Lock User + Hàm Lấy So Sánh
-        const lock_user = ['751225225047179324','786816081032773662','927221951439700058','809259609700302935','888738277044133899']
+        const lock_user = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '888738277044133899']
         var lock_output = false
-        function Compare(user,lock_user){
-            for(var count in lock_user){
-                if(user.id === lock_user[count]){
+        function Compare(user, lock_user) {
+            for (var count in lock_user) {
+                if (user.id === lock_user[count]) {
                     lock_output = true
                 }
             }
@@ -70,8 +72,8 @@ module.exports = {
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
         //avgbool == False
         if (avgbool == false) {
-            var rng = Math.random()*101.1
-            rng = (Math.floor(rng*10)/10).toFixed(1)
+            var rng = Math.random() * 101.1
+            rng = (Math.floor(rng * 10) / 10).toFixed(1)
             var img_url, color, result
             if (rng <= 10) {
                 color = "#000000"
@@ -130,15 +132,15 @@ module.exports = {
             var a = []
             var avgpt = 0, colorv2, resultv2, resultv3, img_urlv2, rngv3
             for (var i = 0; i < 3; i++) {
-                rngv3 = Math.random()*101.1
-                rngv3 = (Math.floor(rngv3*10)/10).toFixed(1)
+                rngv3 = Math.random() * 101.1
+                rngv3 = (Math.floor(rngv3 * 10) / 10).toFixed(1)
                 avgpt = avgpt + Number(rngv3)
                 resultv2 = (`<a:LYG_Ping:900775951317737473> **|** Chỉ Số Gay Của ${user} **__(Lần: ${i + 1})__** Là: **${rngv3}%**`)
                 a[i] = resultv2
-                console.log('========================================\nTính Toán Theo Rngv3 (Lần',i + 1, ') =',rngv3, '\n========================================')
+                console.log('========================================\nTính Toán Theo Rngv3 (Lần', i + 1, ') =', rngv3, '\n========================================')
             }
             avgpt = avgpt / 3
-            avgpt = (Math.floor(avgpt*10)/10).toFixed(1)
+            avgpt = (Math.floor(avgpt * 10) / 10).toFixed(1)
             if (avgpt <= 10) {
                 colorv2 = "#000000"
                 resultv3 = `Chỉ Số Gay Của ${user} **(Đã Tính Toán)** Là: **${avgpt}%**\n<a:LYG_GigaChad:1086172112080867359> **|** *Nhận Xét:* GIGA CHAD Đây Rồi, Bạn Xứng Đáng Có 10 Người Vợ, Respect++`
@@ -193,110 +195,129 @@ module.exports = {
         }
         var GayEmbed_1, GayEmbed_2, GayEmbed_3, GayEmbed_4, GayEmbed_5
         //Embed(False)
-        if(avgbool===false){
-        GayEmbed_1 = new EmbedBuilder()
-            .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
-            .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
-            .setColor(color)
-            .setDescription(`${result}`)
-            .setTimestamp()
-            .setImage(img_url)
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+        if (avgbool === false) {
+            GayEmbed_1 = new EmbedBuilder()
+                .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
+                .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
+                .setColor(color)
+                .setDescription(`${result}`)
+                .setTimestamp()
+                .setImage(img_url)
+                .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
         }
         //Embed(True)
-        if(avgbool===true){
+        if (avgbool === true) {
             GayEmbed_2 = new EmbedBuilder()
-            .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
-            .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
-            .setColor('DarkButNotBlack')
-            .setDescription(`<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}`)
-            .setTimestamp()
-            .setImage(img_urlv2)
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+                .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
+                .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
+                .setColor('DarkButNotBlack')
+                .setDescription(`<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}`)
+                .setTimestamp()
+                .setImage(img_urlv2)
+                .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
             GayEmbed_3 = new EmbedBuilder()
-            .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
-            .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
-            .setColor('DarkButNotBlack')
-            .setDescription(`<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}\n> ${a[1]}`)
-            .setTimestamp()
-            .setImage(img_urlv2)
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+                .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
+                .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
+                .setColor('DarkButNotBlack')
+                .setDescription(`<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}\n> ${a[1]}`)
+                .setTimestamp()
+                .setImage(img_urlv2)
+                .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
             GayEmbed_4 = new EmbedBuilder()
-            .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
-            .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
-            .setColor('DarkButNotBlack')
-            .setDescription(`<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}\n> ${a[1]}\n> ${a[2]}`)
-            .setTimestamp()
-            .setImage(img_urlv2)
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+                .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
+                .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
+                .setColor('DarkButNotBlack')
+                .setDescription(`<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}\n> ${a[1]}\n> ${a[2]}`)
+                .setTimestamp()
+                .setImage(img_urlv2)
+                .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
             GayEmbed_5 = new EmbedBuilder()
-            .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
-            .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
-            .setColor(colorv2)
-            .setDescription(`<a:LYG_Star:1084085189174632538> Kết Quả Khảo Sát:\n> ${a[0]}\n> ${a[1]}\n> ${a[2]}\n${resultv3}`)
-            .setTimestamp()
-            .setImage(img_urlv2)
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+                .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
+                .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
+                .setColor(colorv2)
+                .setDescription(`<a:LYG_Star:1084085189174632538> Kết Quả Khảo Sát:\n> ${a[0]}\n> ${a[1]}\n> ${a[2]}\n${resultv3}`)
+                .setTimestamp()
+                .setImage(img_urlv2)
+                .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
         }
-
-        //Reply(Phụ Thuộc Vào Điều Kiện)
-        await interaction.reply({
-            embeds: [CalcEmbed]
-        })
-        await wait(3000)
-        if(avgbool===false){
-            if(lock_output){
-                await interaction.editReply({
-                    embeds: [SpecialEmbed]
-                })
+        const cduser = interaction.user.id
+        const cdembed = new EmbedBuilder()
+            .setColor('Red')
+            .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
+            .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(cdend[cduser] / 1000)}> (<t:${Math.round(cdend[cduser] / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
+            .setTimestamp()
+            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+        if (cd.has(interaction.user.id)) {
+            await interaction.reply({
+                embeds: [cdembed]
+            })
+        } else {
+            cdend[cduser] = Date.now()
+            cdend[cduser] = cdend[cduser] + cdtime
+            //Reply(Phụ Thuộc Vào Điều Kiện)
+            await interaction.reply({
+                embeds: [CalcEmbed]
+            })
+            await wait(3000)
+            if (avgbool === false) {
+                if (lock_output) {
+                    await interaction.editReply({
+                        embeds: [SpecialEmbed]
+                    })
+                }
+                else {
+                    await interaction.editReply({
+                        embeds: [GayEmbed_1]
+                    })
+                }
+                await wait(500)
+                if (rng > 100 && rngv2 >= 95 && !lock_output) {
+                    await interaction.followUp({
+                        embeds: [H100PlusEmbed]
+                    })
+                }
             }
             else {
-                await interaction.editReply({
-                    embeds: [GayEmbed_1]
-                })
+                if (lock_output) {
+                    await interaction.editReply({
+                        embeds: [SpecialEmbed]
+                    })
+                }
+                else {
+                    await interaction.editReply({
+                        embeds: [GayEmbed_2]
+                    })
+                }
+                await wait(500)
+                if (!lock_output) {
+                    await interaction.editReply({
+                        embeds: [GayEmbed_3]
+                    })
+                }
+                await wait(500)
+                if (!lock_output) {
+                    await interaction.editReply({
+                        embeds: [GayEmbed_4]
+                    })
+                }
+                await wait(500)
+                if (!lock_output) {
+                    await interaction.editReply({
+                        embeds: [GayEmbed_5]
+                    })
+                }
+                await wait(500)
+                if (rng > 100 && rngv2 >= 95 && !lock_output) {
+                    await interaction.editReply({
+                        embeds: [H100PlusEmbed]
+                    })
+                }
             }
-            await wait(500)
-            if(rng>100 && rngv2>=95 && !lock_output){
-                await interaction.followUp({
-                    embeds: [H100PlusEmbed]
-                })
-            }
-        }
-        else{
-            if(lock_output){
-                await interaction.editReply({
-                    embeds: [SpecialEmbed]
-                })
-            }
-            else{
-                await interaction.editReply({
-                    embeds: [GayEmbed_2]
-                })
-            }
-            await wait(500)
-            if(!lock_output){
-                await interaction.editReply({
-                    embeds: [GayEmbed_3]
-                })
-            }
-            await wait(500)
-            if(!lock_output){
-                await interaction.editReply({
-                    embeds: [GayEmbed_4]
-                })
-            }
-            await wait(500)
-            if(!lock_output){
-                await interaction.editReply({
-                    embeds: [GayEmbed_5]
-                })
-            }
-            await wait(500)
-            if(rng>100 && rngv2>=95 && !lock_output){
-                await interaction.editReply({
-                    embeds: [H100PlusEmbed]
-                })
-            }
+            cd.add(interaction.user.id)
+            setTimeout(() => {
+                cd.delete(interaction.user.id)
+            }, cdtime)
         }
     },
 };

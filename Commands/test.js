@@ -1,4 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
+const cd = new Set();
+const cdend = new Set();
+const cdtime = 100000;
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('test')
@@ -23,6 +26,15 @@ module.exports = {
                         }
                     )
             )
+        const cdembed = new EmbedBuilder()
+            .setColor('Red')
+            .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
+            .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${user}> Oi! Bạn Phải Chờ Đến <t:${Math.round(cdend[user]/1000)}> (<t:${Math.round(cdend[user]/1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
+            .setImage('https://media.discordapp.net/attachments/993475207828361266/1061636491702435860/png_20221122_230528_0000.png')
+            .setTimestamp()
+            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+   
         const godembed = new EmbedBuilder()
             .setColor('#00FFFF')
             .setTitle(`Test Command`)
@@ -40,38 +52,52 @@ module.exports = {
                     check = true
             }
         }
-        checkID(user)
-        if (check === false) {
+        
+        if (cd.has(interaction.user.id)) {
             await interaction.reply({
-                content: 'No! Bạn Không Có Quyền Sử Dụng Command Này!',
+                embeds: [cdembed]
             })
-        }
-        else {
-            await interaction.reply({
-                embeds: [godembed],
-                components: [row],
-                ephemeral: true
-            });
-            const filter = a => a.user.id === user;
-            const collector = interaction.channel.createMessageComponentCollector({ filter })
-            collector.on('collect', async a => {
-                if(a.customId === 'testmenu'){
-                    const selected = a.values[0]
-                    console.log(selected)
-                    if(selected === 'test1'){
-                        await interaction.editReply({
-                            content: 'Test 1 Đã Click',
-                            ephemeral: true
-                        })
-                    } 
-                    if(selected === 'test2'){
-                        await interaction.editReply({
-                            content: 'Test 2 Đã Click',
-                            ephemeral: true
-                        })
+        } else {
+            cdend[user] = Date.now()
+            cdend[user] = cdend[user]+cdtime
+            checkID(user)
+            if (check === false) {
+                await interaction.reply({
+                    content: 'No! Bạn Không Có Quyền Sử Dụng Command Này!',
+                })
+            }
+            else {
+                await interaction.reply({
+                    embeds: [godembed],
+                    components: [row],
+                    ephemeral: true
+                });
+                const filter = a => a.user.id === user;
+                const collector = interaction.channel.createMessageComponentCollector({ filter })
+                collector.on('collect', async a => {
+                    if (a.customId === 'testmenu') {
+                        const selected = a.values[0]
+                        console.log(selected)
+                        if (selected === 'test1') {
+                            await interaction.editReply({
+                                content: 'Test 1 Đã Click',
+                                ephemeral: true
+                            })
+                        }
+                        if (selected === 'test2') {
+                            await interaction.editReply({
+                                content: 'Test 2 Đã Click',
+                                ephemeral: true
+                            })
+                        }
                     }
-                }
-            })
+                })
+                cd.add(interaction.user.id)
+                setTimeout(() => {
+                    cd.delete(interaction.user.id)
+                }, cdtime)
+            }
         }
+        console.log(user,' ',cdend[user])
     }
 };

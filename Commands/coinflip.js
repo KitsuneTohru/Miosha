@@ -1,6 +1,8 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
-
+const cd = new Set();
+const cdend = new Set();
+const cdtime = 15000;
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('coinflip')
@@ -66,7 +68,7 @@ module.exports = {
             else if (userstr !== coinstr && coinstr === 'Stand') {
                 descx = `<a:LYG_FubukiWhat:1084085930266218556> Mặt Lựa Chọn Của ${interaction.user}... Là Mặt: ${facingstr}\n> ${result}\n> ${losechar}\n> Note: ${speciallose}`
             }
-            else if (userstr === 'Stand' && userstr !== coinstr){
+            else if (userstr === 'Stand' && userstr !== coinstr) {
                 descx = `<a:LYG_FubukiWhat:1084085930266218556> Mặt Lựa Chọn Của ${interaction.user}... Là Mặt: ${facingstr}\n> ${result}\n> ${losechar}\n> Note: ${speciallose}`
             }
             else {
@@ -84,7 +86,7 @@ module.exports = {
             else if (userstr !== coinstr && coinstr === 'Stand') {
                 colorx = '#00C1FF'
             }
-            else if (userstr === 'Stand' && userstr !== coinstr){
+            else if (userstr === 'Stand' && userstr !== coinstr) {
                 colorx = '#00C1FF'
             }
             else {
@@ -99,19 +101,40 @@ module.exports = {
             .setDescription(ResultDesc(userstr, coinstr))
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-        if (userstr) {
-            await interaction.reply({
-                embeds: [SetupEmbed],
-            })
-            await wait(1000)
-            await interaction.editReply({
-                embeds: [WaitEmbed]
-            })
-            await wait(2500)
-            await interaction.editReply({
-                embeds: [ResultEmbed],
-            })
+        const cduser = interaction.user.id
+        const cdembed = new EmbedBuilder()
+                .setColor('Red')
+                .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
+                .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
+                .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(cdend[cduser] / 1000)}> (<t:${Math.round(cdend[cduser] / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
+                .setImage('https://media.discordapp.net/attachments/993475207828361266/1061636491702435860/png_20221122_230528_0000.png')
+                .setTimestamp()
+                .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            if (cd.has(interaction.user.id)) {
+                await interaction.reply({
+                    embeds: [cdembed]
+                })
+            } else {
+                cdend[cduser] = Date.now()
+                cdend[cduser] = cdend[cduser] + cdtime
+            if (userstr) {
+                await interaction.reply({
+                    embeds: [SetupEmbed],
+                })
+                await wait(1000)
+                await interaction.editReply({
+                    embeds: [WaitEmbed]
+                })
+                await wait(2500)
+                await interaction.editReply({
+                    embeds: [ResultEmbed],
+                })
+            }
+            cd.add(interaction.user.id)
+            setTimeout(() => {
+                cd.delete(interaction.user.id)
+            }, cdtime)
+            console.log('========================================\nRng Encounter:', coinrng, `\nUser Char: ${userstr}\nCoin Char: ${coinstr}`, '\n========================================')
         }
-        console.log('========================================\nRng Encounter:', coinrng, `\nUser Char: ${userstr}\nCoin Char: ${coinstr}`, '\n========================================')
     }
 };

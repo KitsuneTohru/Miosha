@@ -10,6 +10,7 @@ module.exports = {
         const hrng = Math.floor(Math.random() * 12) + 1
         const himgf = new AttachmentBuilder(`Assets/Emotions/Happy/a${hrng}Happy.gif`)
         const himge = `attachment://a${hrng}Happy.gif`
+        console.log(himge)
         const HappyEmbed = new EmbedBuilder()
             .setColor('Yellow')
             .setDescription(`<:LYG_OkayuYay:1084085932254298122> ${interaction.user} **Đang Vui!!!**`)

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, AttachmentBuilder } = require('discord.js');
 const cd = new Set();
 const cdend = new Set();
 const cdtime = 100000;
@@ -26,21 +26,21 @@ module.exports = {
                         }
                     )
             )
+        const files = new AttachmentBuilder('Assets/svbanner.png')
         const cdembed = new EmbedBuilder()
             .setColor('Red')
             .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
-            .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
+            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
             .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${user}> Oi! Bạn Phải Chờ Đến <t:${Math.round(cdend[user]/1000)}> (<t:${Math.round(cdend[user]/1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
-            .setImage('https://media.discordapp.net/attachments/993475207828361266/1061636491702435860/png_20221122_230528_0000.png')
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
    
         const godembed = new EmbedBuilder()
             .setColor('#00FFFF')
             .setTitle(`Test Command`)
-            .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
+            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
             .setDescription('Hiện Không Có Gì Để Check Cả!')
-            .setImage('https://media.discordapp.net/attachments/993475207828361266/1061636491702435860/png_20221122_230528_0000.png')
+            .setImage('attachment://svbanner.png')
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
         var check = false
@@ -70,6 +70,7 @@ module.exports = {
                 await interaction.reply({
                     embeds: [godembed],
                     components: [row],
+                    files: [files],
                     ephemeral: true
                 });
                 const filter = a => a.user.id === user;
@@ -81,12 +82,14 @@ module.exports = {
                         if (selected === 'test1') {
                             await interaction.editReply({
                                 content: 'Test 1 Đã Click',
+                                files: [files],
                                 ephemeral: true
                             })
                         }
                         if (selected === 'test2') {
                             await interaction.editReply({
                                 content: 'Test 2 Đã Click',
+                                files: [files],
                                 ephemeral: true
                             })
                         }

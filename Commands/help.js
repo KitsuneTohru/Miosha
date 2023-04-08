@@ -144,12 +144,12 @@ module.exports = {
                     )
             )
         //Embed Trang Chủ
-        const time = 1680884100
+        const time = 1680934500
         const HeadEmbed = new EmbedBuilder()
             .setColor('White')
             .setTitle(`<a:LYG_Sparkle:1084084997398470747> LYG Bot: Trang Chủ <a:LYG_Sparkle:1084084997398470747>`)
-            .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** **[LYG]** v.0.6.5/**[Game Over]** v.0.4.0\n<a:LYG_Clock:1084322030331105370> **Last Update:** <t:${time}> (<t:${time}:R>)\n\n**Lựa Chọn Các Phần Bên Dưới Để Xem Thông Tin Nhá!**\n> <:LYG_LaylaHmm:1086172125955633192> **Commands**\n> <a:LYG_OkayuLove:1087692048280334347> **Changelogs**\n> <a:LYG_FubukiWhat:1084085930266218556> **FaQs**\n\n❌**Link Mời Bot (KHÔNG KHẢ DỤNG)**\n🔗[[Support Server Link 1]](https://discord.gg/HPGXJKzhfW)\n🔗[[Support Server Link 2]](https://discord.gg/vfDWAT7xmy)\n**Ghi Chú: Cả 2 Đều Cần Verify Nhé!!!**\n*(Note: Đang Trong Quá Trình Test Nhá...)*`)
+            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** **[LYG]** v.0.7.0/**[Game Over]** v.0.4.2\n<a:LYG_Clock:1084322030331105370> **Last Update:** <t:${time}> (<t:${time}:R>)\n\n**Lựa Chọn Các Phần Bên Dưới Để Xem Thông Tin Nhá!**\n> <:LYG_LaylaHmm:1086172125955633192> **Commands**\n> <a:LYG_OkayuLove:1087692048280334347> **Changelogs**\n> <a:LYG_FubukiWhat:1084085930266218556> **FaQs**\n\n❌**Link Mời Bot (KHÔNG KHẢ DỤNG)**\n🔗[[Support Server Link 1]](https://discord.gg/HPGXJKzhfW)\n🔗[[Support Server Link 2]](https://discord.gg/vfDWAT7xmy)\n**Ghi Chú: Cả 2 Đều Cần Verify Nhé!!!**\n*(Note: Đang Trong Quá Trình Test Nhá...)*`)
             .setImage('https://media.discordapp.net/attachments/993475207828361266/1061636491702435860/png_20221122_230528_0000.png')
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
@@ -158,6 +158,7 @@ module.exports = {
             '<a:LYG_Sparkle:1084084997398470747> **LYG Bot: Commands (Overall)** <a:LYG_Sparkle:1084084997398470747>',
             '<a:LYG_Sparkle:1084084997398470747> **LYG Bot: Commands (Fun Commands)** <a:LYG_Sparkle:1084084997398470747>',
             '<a:LYG_Sparkle:1084084997398470747> **LYG Bot: Commands (Info Commands)** <a:LYG_Sparkle:1084084997398470747>',
+            '<a:LYG_Sparkle:1084084997398470747> **LYG Bot: Commands (Emo Commands)** <a:LYG_Sparkle:1084084997398470747>',
             '<a:LYG_Sparkle:1084084997398470747> **LYG Bot: Commands (Mysc Commands)** <a:LYG_Sparkle:1084084997398470747>',
             '<a:LYG_Sparkle:1084084997398470747> **LYG Bot: Commands (User Commands)** <a:LYG_Sparkle:1084084997398470747>'
         ]
@@ -165,6 +166,7 @@ module.exports = {
             '<a:LYG_FubukiWhat:1084085930266218556> **Chào Mừng Bạn Đến Với Bảng Trợ Giúp Command**\n\n**Hãy Nhấn Nút Bên Dưới Để Coi Chi Tiết Nhá!**\n<a:LYG_TighnariNotes:1090126010571300874> **Lưu Ý:** Desc Ở Slash Command Sẽ Không Chi Tiết Như Trong Này Nhé!, CD Command Chỉ Là Tạm Thời, Sẽ Tự Reset Lại Khi Restart Bot',
             '<:LYG_XD:1087375888276000788> **Fun Commands** (Số Lệnh Hiện Có: 4)\n\n> **• /howgay**\nCấu Trúc Lệnh: `/howgay [target] [avgset]`\nCD: 5 Phút\nCheck Chỉ Số Gay Của Ai Đó\nTrong Đó: `[target]` (Bắt Buộc): `(@user)` Chỉ Mention Người Dùng, `[avgset]` (Bắt Buộc): `(true/false)` Tính Giá Trị Trung Bình (3 Lần) Bật/Tắt\nLƯU Ý: Command Dễ Gây Nghiện, Lạm Dụng Quá Dễ Addiction Và Khó Thoát Ra Lắm, Quạo Ráng Chịu, Đồng Thời Sẽ Có Một Số User Được Bypass Nó Nhá =))\n\n> **• /omikuji**\nCấu Trúc Lệnh: `/omikuji`\nCD: 1 Ngày\nBốc Thẻ Vui Hàng Ngày (Do Cooldown Đang Bị Issue Nên Không Xét Đến "Hàng Ngày")\n\n> **• /coinflip**\nCấu Trúc Lệnh: `/coinflip [facing]`\nCD: 15 Giây\nDùng Để Tung Đồng Xu\nTrong Đó: `[Facing]` (Bắt Buộc): `(Head/Tail/Stand)` Chọn 1 Trong 3 Giá Trị Trên\n\n> **• /dice**\nCấu Trúc Lệnh: `/dice`\nCD: 15 Giây\nDùng Để Tung Xúc Xắc (Loại 6 Mặt)',
             '<:LYG_LaylaHmm:1086172125955633192> **Info Commands** (Số Lệnh Hiện Có: 3)\n\n> **• /info**\nCấu Trúc Lệnh: `/info`\nCD: Không Có\nHiển Thị Info Của Bot\n\n> **• /help**\nCấu Trúc Lệnh: `/help`\nCD: Không Có\nHiển Thị Trợ Giúp Của Bot (Bạn Đang Ở Đây)\n\n> **• /ping**\nCấu Trúc Lệnh: `/ping`\nCD: 5 Giây\nKiểm Tra Độ Trễ Của Bot Trong Server',
+            '<:LYG_AyameYoDayo:1086171244031922237> **Emo Commands** (Số Lệnh Hiện Có: 1)\n\n> **•/happy**\nCấu Trúc Lệnh: `/happy`\nCD: 10s\nThể Hiện Cảm Xúc Của Bạn: Vui Vẻ',
             '<:LYG_Error:1087366990160740452> **Mysc Commands** (Số Lệnh Hiện Có: 1)\n\n> **• /test**\nCấu Trúc Lệnh: `/test` (TESTER ONLY)\nCD: [___]\nCâu Lệnh Này Chỉ Dùng Để Test Một Số Chức Năng Từ Chủ Bot Thôi',
             '<a:LYG_FubukiBorger:975937199486951464> **User Commands** (Số Lệnh Hiện Có: 4)\n\n> **• /avatar**\nCấu Trúc Lệnh: `/avatar [user]`\nCD: 5 Giây\nLấy Avatar Của Người Dùng (Hoặc Của Bạn)\nTrong Đó: `[user]` (Không Bắt Buộc): `(@user)` Chỉ Người Bạn Muốn Lấy Avatar\n\n> **•/guildavt**\nCấu Trúc Lệnh: `/guildavt [user]`\nCD: 5 Giây\nTrong Đó: `[user]` (Bắt Buộc): `(@user)` Chỉ User Nào Đó\nDùng Để Lấy Avatar Của User (Nếu User Đó Có Guild Avatar)\n\n> **• /server**\nCấu Trúc Lệnh: `/server`\nCD: 10 Giây\nHiển Thị Thông Tin Về Server\n\n> **• /user**\nCấu Trúc Lệnh: `/user [name]`\nCD: 10 Giây\nTrong Đó: `[name]` (Bắt Buộc): `(@user)`: Chỉ Mention Người Dùng\nDùng Để Coi Thông Tin Cơ Bản Của Người Dùng',
         ]
@@ -172,17 +174,18 @@ module.exports = {
             '#EFFFB3',
             '#F6B3FF',
             '#B3FFF6',
+            '#dd9bff',
             '#D3FFB3',
             '#F90000',
         ]
         const CmdEmbed = []
         var i, j = 0
-        for (i = 0; i < 5; i++) {
+        for (i = 0; i < 6; i++) {
             const title = titlearr[i]
             const color = colorarr[i]
             const desc = descarr[i]
             CmdEmbed[i] = new EmbedBuilder()
-                .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
+                .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
                 .setColor(color)
                 .setTitle(title)
                 .setDescription(desc)
@@ -215,8 +218,8 @@ module.exports = {
         const InfoEmbed = new EmbedBuilder()
             .setColor('#00FFFF')
             .setTitle(`<a:LYG_Sparkle:1084084997398470747> LYG Bot: Changelogs <a:LYG_Sparkle:1084084997398470747>`)
-            .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** **[LYG]** v.0.6.5/**[Game Over]** v.0.4.0: Tạm Sửa CD Command\n**Lưu Ý:** CD Sẽ Bị Reset Khi Bot Restart, Hiện Chưa Có Cách Khắc Phục\n<a:LYG_Clock:1084322030331105370> **Thời Gian Update:** <t:${time}> (<t:${time}:R>)`)
+            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** **Phiên Bản:** **[LYG]** v.0.7.0/**[Game Over]** v.0.4.2: Đổi Tên Bot Từ: **LYG Bot** ▶ **Miosha**\nBắt Đầu Category Mới: **Emotions** (Chi Tiết: **/help** Và **/happy**\n<a:LYG_Clock:1084322030331105370> **Thời Gian Update:** <t:${time}> (<t:${time}:R>)`)
             .setImage('https://media.discordapp.net/attachments/993475207828361266/1061636491702435860/png_20221122_230528_0000.png')
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
@@ -224,7 +227,7 @@ module.exports = {
         const FAQEmbed = new EmbedBuilder()
             .setColor('Green')
             .setTitle(`<a:LYG_Sparkle:1084084997398470747> LYG Bot: FaQs <a:LYG_Sparkle:1084084997398470747>`)
-            .setAuthor({ name: 'LYG Bot#5189', iconURL: 'https://images-ext-1.discordapp.net/external/dDSr9ZFmlXp54AiCmfU3IxWk3MNZJprYwKOiw6GJdlo/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1061527111829041242/8d17657d432afefb163bc17ab15af205.png' })
+            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
             .setDescription('<:LYG_LaylaHmm:1086172125955633192> • Người Tạo Bot Là Ai?\n- <@751225225047179324>\n\n<:LYG_LaylaHmm:1086172125955633192> • Từ Đâu Mà Lại Làm Ra Con Bot Này?\n- Ý Tưởng Dựa Trên Pre Release Venti Bot Của <@809259609700302935>\n\n<:LYG_LaylaHmm:1086172125955633192> • Đâu Là Câu Lệnh Dễ Gây Nghiện Nhất?\n- `/howgay`, Ngay Cả Chủ Bot Còn Bị Addicted Mà <:LYG_XD:1087375888276000788>\n\n<:LYG_LaylaHmm:1086172125955633192> • Vậy Con Bot Này Có Thể Cho Vào Server Khác Ngoài 2 Server Này Chứ?\n- Chỉ Có Số Ít Thôi, Nên Link Mời Không Khả Dụng, Và Vì Đây Là Private Bot, Nên Sẽ Là Không Đâu Nhá')
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
@@ -239,10 +242,10 @@ module.exports = {
         collector.on('collect', async a => {
             //Lấy Giá Trị Menu
             var c = false
-            const allvalues = ['d1','d2','d3','d4']
-            for(vcount in allvalues){
-                if(a.customId === allvalues[vcount])
-                c = true
+            const allvalues = ['d1', 'd2', 'd3', 'd4']
+            for (vcount in allvalues) {
+                if (a.customId === allvalues[vcount])
+                    c = true
             }
             //Xuất Giá Trị Menu
             if (c) {
@@ -262,20 +265,20 @@ module.exports = {
                         components: [desc_row3]
                     })
                 }
-                if (selected === 'faq'){
+                if (selected === 'faq') {
                     await wait(500)
                     await interaction.editReply({
                         embeds: [FAQEmbed],
                         components: [desc_row4]
                     })
                 }
-                if (selected === 'main'){
+                if (selected === 'main') {
                     await wait(500)
                     await interaction.editReply({
                         embeds: [HeadEmbed],
                         components: [desc_row1]
                     })
-                }   
+                }
             }
             //Command Row Button
             if (a.customId === 'lpage' && j >= 0) {

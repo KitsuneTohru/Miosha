@@ -18,7 +18,7 @@ module.exports = {
         }*/
         var i=0
         console.log(`${client.user.tag} Đã Online, Bắt Đầu Nhiệm Vụ!`);
-        const namearr = ['Phiên Bản: v.0.7.0 -- /help','Secial -- Đổi Tên Bot Từ LYG Bot ▶ Miosha','New -- /happy','Changelog -- /info','Most Usage -- /howgay']
+        const namearr = ['Phiên Bản: v.0.7.0 -- /help','Special -- Đổi Tên Bot Từ LYG Bot ▶ Miosha','New -- /happy','Changelog -- /info','Most Usage -- /howgay']
         while(i!==-1){
             await client.user.setPresence({
                 activities: [{

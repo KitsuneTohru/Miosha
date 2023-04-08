@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, Attachment, AttachmentBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const cd = new Set();
 const cdend = new Set();
 const cdtime = 10000;

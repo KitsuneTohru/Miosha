@@ -15,6 +15,16 @@ module.exports = {
             .setTimestamp(Date.now())
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
         const cduser = interaction.user.id
+        var CDBool = false
+        function BypassCD(cduser) {
+            const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058']
+            for (var i in CDPassList) {
+                if (cduser === CDPassList[i]) {
+                    CDBool = true
+                }
+            }
+        }
+        BypassCD(cduser)
         const cdembed = new EmbedBuilder()
             .setColor('Red')
             .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
@@ -22,7 +32,7 @@ module.exports = {
             .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(cdend[cduser] / 1000)}> (<t:${Math.round(cdend[cduser] / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-        if (cd.has(interaction.user.id)) {
+        if (cd.has(interaction.user.id) && !CDBool) {
             await interaction.reply({
                 embeds: [cdembed]
             })

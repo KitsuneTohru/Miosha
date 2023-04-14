@@ -19,7 +19,7 @@ module.exports = {
         const cduser = interaction.user.id
         var CDBool = false
         function BypassCD(cduser) {
-            const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058']
+            const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '729671009631862834', '888738277044133899', '912514337602666526', '961838901792735243']
             for (var i in CDPassList) {
                 if (cduser === CDPassList[i]) {
                     CDBool = true

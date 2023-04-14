@@ -144,7 +144,7 @@ module.exports = {
                     )
             )
         //Embed Trang Chủ
-        const time = 1681451100
+        const time = 1681488600
         const HeadEmbed = new EmbedBuilder()
             .setColor('White')
             .setTitle(`<a:LYG_Sparkle:1084084997398470747> LYG Bot: Trang Chủ <a:LYG_Sparkle:1084084997398470747>`)

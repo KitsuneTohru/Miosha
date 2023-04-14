@@ -15,6 +15,7 @@ module.exports = {
         const user = interaction.user.id
         //Lấy Dữ Liệu
         var prestr = interaction.options.getString('number')
+        prestr = prestr.toUpperCase()
         var typech //Key Xác Định Dữ Liệu Chạy Function
         //Lấy Key Xác Định
         function checknumtype(prestr) {

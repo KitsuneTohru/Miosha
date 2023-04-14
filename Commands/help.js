@@ -267,7 +267,7 @@ module.exports = {
             .setColor('#00FFFF')
             .setTitle(`<a:LYG_Sparkle:1084084997398470747> LYG Bot: Changelogs <a:LYG_Sparkle:1084084997398470747>`)
             .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** **[LYG]** v.0.7.5/**[Game Over]** v.0.4.8: Thêm Lệnh **/numconv**\n<a:LYG_Butterfly:1084085919210012722> **Tiến ĐỘ:** ▰▰▰▱▱▱▱▱▱▱ 35%\n<a:LYG_Clock:1084322030331105370> **Thời Gian Update:** <t:${time}> (<t:${time}:R>)`)
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** **[LYG]** v.0.7.5/**[Game Over]** v.0.4.8: Thêm Lệnh **/numconv**\n<a:LYG_Butterfly:1084085919210012722> **Tiến Độ:** ▰▰▰▱▱▱▱▱▱▱ 35%\n<a:LYG_Clock:1084322030331105370> **Thời Gian Update:** <t:${time}> (<t:${time}:R>)`)
             .setImage('https://cdn.discordapp.com/attachments/948615835369472064/1096301056188760084/Miosha_-_Info.png')
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });

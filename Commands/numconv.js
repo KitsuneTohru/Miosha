@@ -1,14 +1,14 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const cd = new Set();
 const cdend = new Set();
-const cdtime = 100000;
+const cdtime = 10000;
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('test')
-        .setDescription('Test Command Purpose...')
+        .setName('numconv')
+        .setDescription('Chuyển Đổi Số Sang Các Hệ Cơ Số Khác Nhau (DEC/HEX/BIN)/OCT')
         .addStringOption(option =>
             option.setName('number')
-                .setDescription('Nhập Số Bạn Cần Quy Đổi, Giới Hạn 32 Kí Tự (DEC/HEX/BIN)/OCT (Output Only)')
+                .setDescription('Nhập Số Bạn Cần Quy Đổi, Giới Hạn 32 Kí Tự (NOTE: OCT: CHỈ CÓ Ở OUTPUT DO THUỘC DEC)')
                 .setMaxLength(32)
                 .setRequired(true)),
     async execute(interaction) {
@@ -203,21 +203,13 @@ module.exports = {
             .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${user}> Oi! Bạn Phải Chờ Đến <t:${Math.round(cdend[user] / 1000)}> (<t:${Math.round(cdend[user] / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-        var check = false
-        const userarr2 = ['751225225047179324', '809259609700302935', '927221951439700058', '786816081032773662', '729671009631862834', '1084992470074531960']
-        function checkID(user) {
-            var i
-            for (i in userarr2) {
-                if (user === userarr2[i])
-                    check = true
-            }
-        }
+        
         var CDBool = false
-        const userarr = ['751225225047179324', '809259609700302935', '927221951439700058', '786816081032773662', '729671009631862834', '1084992470074531960']
+        const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058','729671009631862834', '961838901792735243']
         function checkCD(user) {
             var i
-            for (i in userarr) {
-                if (user === userarr[i])
+            for (i in CDPassList) {
+                if (user === CDPassList[i])
                     CDBool = true
             }
         }
@@ -229,13 +221,6 @@ module.exports = {
         } else {
             cdend[user] = Date.now()
             cdend[user] = cdend[user] + cdtime
-            checkID(user)
-            if (check === false) {
-                await interaction.reply({
-                    content: 'No! Bạn Không Có Quyền Sử Dụng Command Này!',
-                })
-            }
-            else {
                 switch (typech) {
                     case 'DEC': {
                         await interaction.reply({
@@ -247,36 +232,30 @@ module.exports = {
                     case 'HEX': {
                         await interaction.reply({
                             embeds: [HexEmbed],
-                            ephemeral: true,
                         })
                         break
                     }
                     case 'BIN': {
                         await interaction.reply({
                             embeds: [BinEmbed],
-                            ephemeral: true,
                         })
                         break
                     }
                     case 'ERROR': {
                         await interaction.reply({
                             embeds: [ErrorEmbed],
-                            ephemeral: true,
                         })
                         break
                     }
                     default:
                         await interaction.reply({
                             embeds: [ErrorEmbed],
-                            ephemeral: true,
                         })
                 }
-            }
             cd.add(interaction.user.id)
             setTimeout(() => {
                 cd.delete(interaction.user.id)
             }, cdtime)
         }
-        console.log(user, ' ', cdend[user])
     }
 };

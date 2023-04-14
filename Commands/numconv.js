@@ -226,7 +226,6 @@ module.exports = {
                     case 'DEC': {
                         await interaction.reply({
                             embeds: [DecEmbed],
-                            ephemeral: true,
                         })
                         break
                     }

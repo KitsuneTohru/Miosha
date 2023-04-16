@@ -14,7 +14,7 @@ Fun Là Chính Thỏa Mãn Sự Hiếu Kì Của Owner Server (LYG) Và Admin (G
 + Mari Lemon
 ## • Sponsor List
 + Yamai (From LYG)
-+ Waton (From LYG)
++ Watson (From LYG)
 + ...
 ## • Special Thanks
 + Layyes (Friend)

@@ -18,9 +18,9 @@ module.exports = {
         }*/
         var i=0
         console.log(`${client.user.tag} Đã Online, Bắt Đầu Nhiệm Vụ!`);
-        const namearr = ['v0.7.5: /help',
-                        '▰▰▰▱▱▱▱▱▱▱ 35%',
-                        'New: Thêm /numconv',
+        const namearr = ['v0.7.8: /help',
+                        '▰▰▰▱▱▱▱▱▱▱ 38%',
+                        'New: Thêm /slot',
                         'Changelog: /info',
                         'Most Usage: /howgay',
                         'Special -- <NOTHING YET>']

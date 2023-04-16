@@ -1,8 +1,10 @@
 # LYG Bot - Overview
 ## • Phiên Bản
-+ LYG: 0.7.5
-+ Game Over: 0.4.8
-+ Tiến Độ: ▰▰▰▱▱▱▱▱▱▱ 35%
++ LYG: 0.7.8
++ Game Over: 0.5.0
+> Tiến Độ: ▰▰▰▱▱▱▱▱▱▱ 38%
+# • Changelog: 
++ Thêm Lệnh: /slot
 ## • Mục Đích Sử Dụng:
 Chỉ Là 1 Con Bot Vui Được Tạo Nên Bởi: Kitsunezi, Dùng Riêng Trong Server, Không Có Mục Đích Cao Cả Gì Hết,
 Fun Là Chính Thỏa Mãn Sự Hiếu Kì Của Owner Server (LYG) Và Admin (Game Over) Thôi

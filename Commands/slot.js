@@ -2,11 +2,11 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout
 const cd = new Set();
 const cdend = new Set();
-const cdtime = 100000;
+const cdtime = 15000;
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('test')
-        .setDescription('Test Command Purpose...')
+        .setName('slot')
+        .setDescription('Giả Sử Bạn Chơi Slot Bên OwO, Vui Là Chính')
         .addStringOption(option =>
             option.setName('amount')
                 .setDescription('Số Lượng Giả Sử Bạn Ném Vô (Max: 150000), Keyword: "all"')
@@ -64,7 +64,7 @@ module.exports = {
         else if (rng <= 0.475) {
             multi = 4
         }
-        else if (rng <= 0.875) {
+        else if (rng <= 0.485) {
             multi = 9
         }
         else {
@@ -114,11 +114,11 @@ module.exports = {
             default:
                 {
                     var s1, s2, s3
-                    s1 = Math.floor(Math.random() * (emoarr.length - 1))
-                    s2 = Math.floor(Math.random() * (emoarr.length - 1))
-                    s3 = Math.floor(Math.random() * (emoarr.length - 1))
+                    s1 = Math.floor(Math.random() * (emoarr.length))
+                    s2 = Math.floor(Math.random() * (emoarr.length))
+                    s3 = Math.floor(Math.random() * (emoarr.length))
                     if (s1 == s3) {
-                        s2 = s2 = (s1 + Math.ceil(Math.random() * (emoarr.length - 2))) % (emoarr.length - 1)
+                        s2 = s2 = (s1 + Math.ceil(Math.random() * (emoarr.length - 1))) % (emoarr.length)
                     }
                     result.push(emoarr[s1])
                     result.push(emoarr[s2])
@@ -130,13 +130,14 @@ module.exports = {
         resultdesc[1] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr}${result[0]}${spinstr}${result[2]}${blankstr}` + ' |\n' + `| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |\n| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |`
         resultdesc[2] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr}${result[0]}${result[1]}${result[2]}${blankstr}` + ' |\n' + `| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |\n| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |`
         if (multi !== -1) {
-            resultdesc[3] = resultdesc[2] + `\n> Bạn Đã Thắng ${resultamount} <:LYG_Cowoncy:1097147478018629632>!!!\n**Note:** Đây Chỉ Là Giả Sử Thôi Nhé, Kết Quả Thật Tùy May Mắn Nhá!`
+            resultdesc[3] = resultdesc[2] + `\n> Bạn Đã Thắng **${resultamount}** <:LYG_Cowoncy:1097147478018629632>!!!\n**Note:** Đây Chỉ Là Giả Sử Thôi Nhé, Kết Quả Thật Tùy May Mắn Nhá!`
             color = '#00FF05'
         }
         else {
-            resultdesc[3] = resultdesc[2] + `\n> Bạn Đã Mất ${resultamount} <:LYG_Cowoncy:1097147478018629632>!!!\n**Note:** Đây Chỉ Là Giả Sử Thôi Nhé, Kết Quả Thật Tùy May Mắn Nhá!`
+            resultdesc[3] = resultdesc[2] + `\n> Bạn Đã Mất **${resultamount}** <:LYG_Cowoncy:1097147478018629632>!!!\n**Note:** Đây Chỉ Là Giả Sử Thôi Nhé, Kết Quả Thật Tùy May Mắn Nhá!`
             color = '#FF0000'
         }
+        console.log('========================================\nRng Encounter:', rng,'\n Mảng Encounter:', result,'\nLose Slot Rng',s1,s2,s3,'\nĐộ Dài Mảng', emoarr.length,'\n========================================')
         const ErrorEmbed = new EmbedBuilder()
             .setColor('Red')
             .setTitle(`<a:LYG_Slots:1096856649051938916> **Game - Slots**`)
@@ -172,15 +173,6 @@ module.exports = {
             .setDescription(resultdesc[3])
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-        var check = false
-        const userarr2 = ['751225225047179324', '809259609700302935', '927221951439700058', '786816081032773662', '729671009631862834', '1084992470074531960']
-        function checkID(user) {
-            var i
-            for (i in userarr2) {
-                if (user === userarr2[i])
-                    check = true
-            }
-        }
         var CDBool = false
         const userarr = ['751225225047179324', '809259609700302935', '927221951439700058', '786816081032773662', '729671009631862834', '1084992470074531960']
         function checkCD(user) {
@@ -198,46 +190,32 @@ module.exports = {
         } else {
             cdend[user] = Date.now()
             cdend[user] = cdend[user] + cdtime
-            checkID(user)
-            if (check === false) {
-                await interaction.reply({
-                    content: 'No! Bạn Không Có Quyền Sử Dụng Command Này!',
-                })
-            }
-            else {
                 if (!err) {
                     await interaction.reply({
-                        embeds: [ReadyEmbed],
-                        ephemeral: true
+                        embeds: [ReadyEmbed]
                     })
                     await wait(1000)
                     await interaction.editReply({
-                        embeds: [Embed1],
-                        ephemeral: true
+                        embeds: [Embed1]
                     })
                     await wait(1000)
                     await interaction.editReply({
-                        embeds: [Embed2],
-                        ephemeral: true
+                        embeds: [Embed2]
                     })
                     await wait(1000)
                     await interaction.editReply({
-                        embeds: [Embed3],
-                        ephemeral: true
+                        embeds: [Embed3]
                     })
                 }
                 else {
                     await interaction.reply({
-                        embeds: [ErrorEmbed],
-                        ephemeral: true
+                        embeds: [ErrorEmbed]
                     })
                 }
-            }
             cd.add(interaction.user.id)
             setTimeout(() => {
                 cd.delete(interaction.user.id)
             }, cdtime)
         }
-        console.log(user, ' ', cdend[user])
     }
 };

@@ -167,7 +167,7 @@ module.exports = {
         //DEC Embed
         const DecEmbed = new EmbedBuilder()
             .setColor('Green')
-            .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đối Số**`)
+            .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
             .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
             .setDescription(decconv(prestr))
             .setTimestamp()
@@ -175,7 +175,7 @@ module.exports = {
         //HEX Embed
         const HexEmbed = new EmbedBuilder()
             .setColor('Yellow')
-            .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đối Số**`)
+            .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
             .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
             .setDescription(hexconv(prestr))
             .setTimestamp()
@@ -183,7 +183,7 @@ module.exports = {
         //BIN Embed
         const BinEmbed = new EmbedBuilder()
             .setColor('Blue')
-            .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đối Số**`)
+            .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
             .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
             .setDescription(binconv(prestr))
             .setTimestamp()
@@ -191,7 +191,7 @@ module.exports = {
         //Khi Key = ERROR, Xuất Embed Này
         const ErrorEmbed = new EmbedBuilder()
             .setColor('Red')
-            .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đối Số**`)
+            .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
             .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
             .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | Oi! Bạn Đã Nhập Sai Định Dạng Số Rồi! (**${prestr}**)`)
             .setTimestamp()

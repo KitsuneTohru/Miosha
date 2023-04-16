@@ -122,8 +122,11 @@ module.exports = {
                     s3 = Math.floor(Math.random() * (emoarr.length))
                     if (s1 == s3) {
                         s2 = (s1 + Math.ceil(Math.random() * (emoarr.length - 1))) % (emoarr.length) 
-                        if(s1 == s2) {
+                        if (s1 == s2 && s1 != 4) {
                             s2++
+                        }
+                        if (s1 == s2 && s1 == 4) {
+                            s2--
                         }
                     }
                     result.push(emoarr[s1])

@@ -12,6 +12,7 @@ module.exports = {
                 .setDescription('Số Lượng Giả Sử Bạn Ném Vô (Max: 150000), Keyword: "all"')
                 .setRequired(true)),
     async execute(interaction) {
+        //Setup (Cursed Vãi Vì Nhiều Biến Phải Lưu Trữ :])
         const user = interaction.user.id
         const str = interaction.options.getString('amount')
         const spinstr = '<a:LYG_SlSpin:1097139730635833415>'
@@ -25,6 +26,7 @@ module.exports = {
         var numcount = 0
         var multi = 0
         var resultamount = ''
+        //Set Key Cho Lệnh Chạy
         var err = false
         stramount = str.toLowerCase()
         if (stramount === 'all') {
@@ -49,6 +51,7 @@ module.exports = {
                 err = true
             }
         }
+        //Chạy Lệnh + Lấy Random
         var resultdesc = []
         const desc1 = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr}${spinstr}${spinstr}${spinstr}${blankstr}` + ' |\n' + `| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |\n| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |`
         var rng = Math.random()
@@ -118,7 +121,10 @@ module.exports = {
                     s2 = Math.floor(Math.random() * (emoarr.length))
                     s3 = Math.floor(Math.random() * (emoarr.length))
                     if (s1 == s3) {
-                        s2 = s2 = (s1 + Math.ceil(Math.random() * (emoarr.length - 1))) % (emoarr.length)
+                        s2 = (s1 + Math.ceil(Math.random() * (emoarr.length - 1))) % (emoarr.length) 
+                        if(s1 == s2) {
+                            s2++
+                        }
                     }
                     result.push(emoarr[s1])
                     result.push(emoarr[s2])
@@ -138,6 +144,7 @@ module.exports = {
             color = '#FF0000'
         }
         console.log('========================================\nRng Encounter:', rng,'\n Mảng Encounter:', result,'\nLose Slot Rng',s1,s2,s3,'\nĐộ Dài Mảng', emoarr.length,'\n========================================')
+        //Embed Lệnh
         const ErrorEmbed = new EmbedBuilder()
             .setColor('Red')
             .setTitle(`<a:LYG_Slots:1096856649051938916> **Game - Slots**`)

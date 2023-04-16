@@ -111,7 +111,7 @@ module.exports = {
             img_url = 'https://cdn.discordapp.com/attachments/1075642010347786281/1081229261882523688/Kitsunezi_Official_Avt_March_2023.png'
         }
         else {
-            result = '<:LYG_OkayuYay:1084085932254298122> **Lazy Gang: Cảm Ơn Bạn!!!**\n> **Nội Dung Thẻ:** Chúc Mừng Bạn Đã Mở Được Thẻ Có Tỉ Lệ Thấp Nhất Trong Server Này Với `0.05%` Tỉ Lệ!!! Với Thẻ Này, Bạn Sẽ Được Xem Bí Mật Trước Kia Của Server Này (Tuy Vô Dụng Nhưng Click Nút Để Xem Tiếp Nhá!)\n\n> **Nhân Vật Đồng Hành:** LYG Bot#5189\n> **Vật May Mắn:** `CHÍNH BẢN THÂN BẠN!!!`'
+            result = '<:LYG_OkayuYay:1084085932254298122> **Lazy Gang: Cảm Ơn Bạn!!!**\n> **Nội Dung Thẻ:** Chúc Mừng Bạn Đã Mở Được Thẻ Có Tỉ Lệ Thấp Nhất Trong Server Này Với `0.05%` Tỉ Lệ!!! Với Thẻ Này, Bạn Sẽ Được Xem Bí Mật Trước Kia Của Server Này (Tuy Vô Dụng Nhưng Click Nút Để Xem Tiếp Nhá!)\n\n> **Nhân Vật Đồng Hành:** Miosha#5189\n> **Vật May Mắn:** `CHÍNH BẢN THÂN BẠN!!!`'
             img_url = 'https://media.discordapp.net/attachments/993475207828361266/1061636491702435860/png_20221122_230528_0000.png'
         }
         //EMBED TYPE 5 ENTRY

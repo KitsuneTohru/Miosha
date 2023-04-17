@@ -121,7 +121,7 @@ module.exports = {
                     s2 = Math.floor(Math.random() * (emoarr.length))
                     s3 = Math.floor(Math.random() * (emoarr.length))
                     if (s1 == s3) {
-                        s2 = (s1 + Math.ceil(Math.random() * (emoarr.length - 1))) % (emoarr.length) 
+                        s2 = (s1 + Math.ceil(Math.random() * (emoarr.length))) % (emoarr.length) 
                         if (s1 == s2 && s1 != 4) {
                             s2++
                         }

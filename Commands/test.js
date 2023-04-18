@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout
 const cd = new Set();
 const cdend = new Set();
@@ -8,170 +8,348 @@ module.exports = {
         .setName('test')
         .setDescription('Test Command Purpose...')
         .addStringOption(option =>
-            option.setName('amount')
-                .setDescription('Số Lượng Giả Sử Bạn Ném Vô (Max: 150000), Keyword: "all"')
+            option.setName('numinput')
+                .setDescription('Giá Trị Số Nhập Vào')
                 .setRequired(true)),
     async execute(interaction) {
         const user = interaction.user.id
-        const str = interaction.options.getString('amount')
-        const spinstr = '<a:LYG_SlSpin:1097139730635833415>'
-        const blankstr = '<:LYG_blank:1097172753985056859>'
-        const maxamount = 150000
-        const numarr = '0123456789'
-        const emoarr = ['<:LYG_SlNormal:1097003902857121934>', '<:LYG_SlStar:1097003847303577660>', '<:LYG_SlCorn:1097003771906764921>', '<:LYG_SlCover:1097003703128555614>', '<:LYG_SlMio:1097003631783456909>']
-        var result = []
-        var color = ''
-        var stramount = ''
-        var numcount = 0
-        var multi = 0
-        var resultamount = ''
-        var err = false
-        stramount = str.toLowerCase()
-        if (stramount === 'all') {
-            stramount = maxamount
-            err = false
-        } else {
-            for (i in stramount) {
-                var num = stramount[i]
-                var checknum = numarr.indexOf(num)
-                if (checknum != -1) {
-                    numcount++
-                }
-            }
-            if (numcount === stramount.length) {
-                err = false
-                stramount = str
-                if(Number(stramount) > maxamount){
-                    err = true
-                }
-            }
-            else {
-                err = true
-            }
-        }
-        var resultdesc = []
-        const desc1 = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr}${spinstr}${spinstr}${spinstr}${blankstr}` + ' |\n' + `| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |\n| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |`
-        var rng = Math.random()
-        if (rng <= 0.20) {
-            multi = 1
-        }
-        else if (rng <= 0.40) {
-            multi = 2
-        }
-        else if (rng <= 0.45) {
-            multi = 3
-        }
-        else if (rng <= 0.475) {
-            multi = 4
-        }
-        else if (rng <= 0.875) {
-            multi = 9
-        }
-        else {
-            multi = -1
-        }
-        switch (multi) {
-            case 1:
-                {
-                    result.push(emoarr[0])
-                    result.push(emoarr[0])
-                    result.push(emoarr[0])
-                    resultamount = Number(stramount) * multi
-                    break
-                }
-            case 2:
-                {
-                    result.push(emoarr[1])
-                    result.push(emoarr[1])
-                    result.push(emoarr[1])
-                    resultamount = Number(stramount) * multi
-                    break
-                }
-            case 3:
-                {
-                    result.push(emoarr[2])
-                    result.push(emoarr[2])
-                    result.push(emoarr[2])
-                    resultamount = Number(stramount) * multi
-                    break
-                }
-            case 4:
-                {
-                    result.push(emoarr[3])
-                    result.push(emoarr[3])
-                    result.push(emoarr[3])
-                    resultamount = Number(stramount) * multi
-                    break
-                }
-            case 9:
-                {
-                    result.push(emoarr[4])
-                    result.push(emoarr[4])
-                    result.push(emoarr[4])
-                    resultamount = Number(stramount) * multi
-                    break
-                }
-            default:
-                {
-                    var s1, s2, s3
-                    s1 = Math.floor(Math.random() * (emoarr.length - 1))
-                    s2 = Math.floor(Math.random() * (emoarr.length - 1))
-                    s3 = Math.floor(Math.random() * (emoarr.length - 1))
-                    if (s1 == s3) {
-                        s2 = s2 = (s1 + Math.ceil(Math.random() * (emoarr.length - 2))) % (emoarr.length - 1)
+        const str = interaction.options.getString('numinput')
+        var checkstr = str.toUpperCase()
+        const NumRow = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setCustomId('dec')
+                    .setLabel('[DEC]')
+                    .setStyle(ButtonStyle.Primary),
+                new ButtonBuilder()
+                    .setCustomId('hex')
+                    .setLabel('[HEX]')
+                    .setStyle(ButtonStyle.Primary),
+                new ButtonBuilder()
+                    .setCustomId('bin')
+                    .setLabel('[BIN]')
+                    .setStyle(ButtonStyle.Primary),
+                new ButtonBuilder()
+                    .setCustomId('oct')
+                    .setLabel('[OCT]')
+                    .setStyle(ButtonStyle.Primary)
+            )
+        var key = 'NONE' //Check Key, Khi Lấy Custom ID ==> Chạy Function Nhất Định
+        function CheckStr(key) {
+            if (key === 'DEC') {
+                const decarr = '0123456789'
+                var dcount = 0
+                for (i in checkstr) {
+                    var ch = checkstr[i]
+                    var dnum = decarr.indexOf(ch)
+                    if (dnum !== -1) {
+                        dcount++
                     }
-                    result.push(emoarr[s1])
-                    result.push(emoarr[s2])
-                    result.push(emoarr[s3])
-                    resultamount = Number(stramount) * multi * -1
                 }
+                if (dcount === checkstr.length) {
+                    return key = 'DEC'
+                }
+                else return key = 'ERROR'
+            }
+            if (key === 'HEX') {
+                const hexarr = '012345678ABCDEF'
+                var hcount = 0
+                for (i in checkstr) {
+                    var ch = checkstr[i]
+                    var hnum = hexarr.indexOf(ch)
+                    if (hnum !== -1) {
+                        hcount++
+                    }
+                }
+                if (hcount === checkstr.length) {
+                    return key = 'HEX'
+                }
+                else return key = 'ERROR'
+            }
+            if (key === 'BIN') {
+                const binarr = '01'
+                var bcount = 0
+                for (i in checkstr) {
+                    var ch = checkstr[i]
+                    var bnum = binarr.indexOf(ch)
+                    if (bnum !== -1) {
+                        bcount++
+                    }
+                }
+                if (bcount === checkstr.length) {
+                    return key = 'BIN'
+                }
+                else return key = 'ERROR'
+            }
+            if (key === 'OCT') {
+                const octarr = '01234567'
+                var ocount = 0
+                for (i in checkstr) {
+                    var ch = checkstr[i]
+                    var onum = octarr.indexOf(ch)
+                    if (onum !== -1) {
+                        ocount++
+                    }
+                }
+                if (ocount === checkstr.length) {
+                    return KEY = 'OCT'
+                }
+                else return key = 'ERROR'
+            }
         }
-        resultdesc[0] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr}${result[0]}${spinstr}${spinstr}${blankstr}` + ' |\n' + `| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |\n| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |`
-        resultdesc[1] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr}${result[0]}${spinstr}${result[2]}${blankstr}` + ' |\n' + `| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |\n| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |`
-        resultdesc[2] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr}${result[0]}${result[1]}${result[2]}${blankstr}` + ' |\n' + `| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |\n| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |`
-        if (multi !== -1) {
-            resultdesc[3] = resultdesc[2] + `\n> Bạn Đã Thắng ${resultamount} <:LYG_Cowoncy:1097147478018629632>!!!\n**Note:** Đây Chỉ Là Giả Sử Thôi Nhé, Kết Quả Thật Tùy May Mắn Nhá!`
-            color = '#00FF05'
-        }
-        else {
-            resultdesc[3] = resultdesc[2] + `\n> Bạn Đã Mất ${resultamount} <:LYG_Cowoncy:1097147478018629632>!!!\n**Note:** Đây Chỉ Là Giả Sử Thôi Nhé, Kết Quả Thật Tùy May Mắn Nhá!`
-            color = '#FF0000'
-        }
+        //Ready Embed
+        const ReadyEmbed = new EmbedBuilder()
+            .setColor('Default')
+            .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
+            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | Quy Đổi Số: (**${checkstr}**)\n\n**Hãy Chọn Nút Bên Dưới Để Chọn Kiểu Giá Trị Nhập Vào Nhé!!!**\n• [DEC]\n• [HEX]\n• [BIN]\n• [OCT]`)
+            .setTimestamp()
+            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+        //Error Embed
         const ErrorEmbed = new EmbedBuilder()
             .setColor('Red')
-            .setTitle(`<a:LYG_Slots:1096856649051938916> **Game - Slots**`)
+            .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
             .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | Oi! Hãy Định Giá Lúc Bạn Giả Sử Coi Nào! (**${stramount}**)`)
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | Oi! Bạn Đã Nhập Sai Định Dạng Số Rồi! (**${checkstr}**)`)
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-        const ReadyEmbed = new EmbedBuilder()
-            .setColor('Purple')
-            .setTitle(`<a:LYG_Slots:1096856649051938916> **Game - Slots**`)
-            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-            .setDescription(desc1)
-            .setTimestamp()
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-        const Embed1 = new EmbedBuilder()
-            .setColor('Purple')
-            .setTitle(`<a:LYG_Slots:1096856649051938916> **Game - Slots**`)
-            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-            .setDescription(resultdesc[0])
-            .setTimestamp()
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-        const Embed2 = new EmbedBuilder()
-            .setColor('Purple')
-            .setTitle(`<a:LYG_Slots:1096856649051938916> **Game - Slots**`)
-            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-            .setDescription(resultdesc[1])
-            .setTimestamp()
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-        const Embed3 = new EmbedBuilder()
-            .setColor(color)
-            .setTitle(`<a:LYG_Slots:1096856649051938916> **Game - Slots**`)
-            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-            .setDescription(resultdesc[3])
-            .setTimestamp()
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+        //Wait Embed
+        function SetWaitEmbed(key) {
+            var WaitEmbed
+            if (key === 'DEC') {
+                WaitEmbed = new EmbedBuilder()
+                    .setColor('Grey')
+                    .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(`<a:LYG_Loading:900784653701627925> | ${interaction.user}... Xin Chờ Một Lát, Số Sẽ Được Chuyển Đổi: **[DEC]** ` + '`' + checkstr + '`')
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            }
+            if (key === 'HEX') {
+                WaitEmbed = new EmbedBuilder()
+                    .setColor('Grey')
+                    .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(`<a:LYG_Loading:900784653701627925> | ${interaction.user}... Xin Chờ Một Lát, Số Sẽ Được Chuyển Đổi: **[HEX]** ` + '`' + checkstr + '`')
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            }
+            if (key === 'BIN') {
+                WaitEmbed = new EmbedBuilder()
+                    .setColor('Grey')
+                    .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(`<a:LYG_Loading:900784653701627925> | ${interaction.user}... Xin Chờ Một Lát, Số Sẽ Được Chuyển Đổi: **[BIN]** ` + '`' + checkstr + '`')
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            }
+            if (key === 'OCT') {
+                WaitEmbed = new EmbedBuilder()
+                    .setColor('Grey')
+                    .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(`<a:LYG_Loading:900784653701627925> | ${interaction.user}... Xin Chờ Một Lát, Số Sẽ Được Chuyển Đổi: **[OCT]** ` + '`' + checkstr + '`')
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            }
+            return WaitEmbed
+        }
+        //Function End Embed
+        //Key = DEC
+        function decconv(checkstr) {
+            var hexnumber = Number(checkstr), binnumber = Number(checkstr), octnumber = Number(checkstr),
+                hexch = '0123456789ABCDEF',
+                hexresult = '', binresult = [], octresult = [],
+                i = 0, j = 0, result = []
+            //DEC => HEX
+            while (hexnumber > 0) {
+                var a
+                a = hexnumber % 16
+                hexresult += hexch[Number(a)]
+                hexnumber = Math.floor(hexnumber / 16)
+            }
+            result[0] = hexresult
+            result[0] = result[0].split("").reverse().join("")
+            result[0] = result[0].replace(/,/g, "")
+            //DEC => BIN
+            while (binnumber > 0) {
+                binresult[i] = binnumber % 2
+                binnumber = Math.floor(binnumber / 2)
+                i++
+            }
+            result[1] = binresult.toString()
+            result[1] = result[1].split("").reverse().join("")
+            result[1] = result[1].replace(/,/g, "")
+            //DEC => OCT
+            while (octnumber > 0) {
+                octresult[j] = octnumber % 8
+                octnumber = Math.floor(octnumber / 8)
+                j++
+            }
+            result[2] = octresult.toString()
+            result[2] = result[2].split("").reverse().join("")
+            result[2] = result[2].replace(/,/g, "")
+            //Desc Embed
+            const D_Desc = `<a:LYG_TighnariNotes:1090126010571300874> | **Số Cần Quy Đổi:** **[DEC]** ` + '`' + checkstr + '`' + `\n\n> [HEX] ${result[0]}\n> [BIN] ${result[1]}\n> [OCT] ${result[2]}`
+            return D_Desc
+        }
+        //Key = HEX
+        function hexconv(checkstr) {
+            var decnumber = checkstr.toUpperCase(), binnumber, octnumber
+            hexch = '0123456789ABCDEF',
+                decresult = 0, binresult = [], octresult = [],
+                i = 0, j = 0, k = 0, result = []
+            //HEX => DEC
+            for (i = 0; i < decnumber.length; i++) {
+                var ch = decnumber[i]
+                var x = hexch.indexOf(ch)
+                decresult = decresult + x * Math.pow(16, decnumber.length - (i + 1))
+            }
+            result[0] = decresult
+            //HEX => BIN
+            binnumber = Number(decresult)
+            while (binnumber > 0) {
+                binresult[j] = binnumber % 2
+                binnumber = Math.floor(binnumber / 2)
+                j++
+            }
+            result[1] = binresult.toString()
+            result[1] = result[1].split("").reverse().join("")
+            result[1] = result[1].replace(/,/g, "")
+            //HEX => OCT
+            octnumber = Number(decresult)
+            while (octnumber > 0) {
+                octresult[k] = octnumber % 8
+                octnumber = Math.floor(octnumber / 8)
+                k++
+            }
+            result[2] = octresult.toString()
+            result[2] = result[2].split("").reverse().join("")
+            result[2] = result[2].replace(/,/g, "")
+            //Desc Embed
+            const H_Desc = `<a:LYG_TighnariNotes:1090126010571300874> | **Số Cần Quy Đổi:** [HEX] ` + '`' + checkstr + '`' + `\n\n> [DEC] ${result[0]}\n> [BIN] ${result[1]}\n> [OCT] ${result[2]}`
+            return H_Desc
+        }
+        //KEY = BIN
+        function binconv(checkstr) {
+            var decnumber = checkstr, hexnumber, octnumber
+            hexch = '0123456789ABCDEF'
+            decresult = 0, hexresult = '', octresult = [],
+                i = 0, j = 0, result = []
+            //BIN => DEC
+            for (i = 0; i < decnumber.length; i++) {
+                if (Number(decnumber[i]) == 1) {
+                    decresult = decresult + Math.pow(2, decnumber.length - (i + 1))
+                }
+            }
+            result[0] = decresult
+            //BIN => HEX
+            hexnumber = Number(decresult)
+            while (hexnumber > 0) {
+                var a
+                a = hexnumber % 16
+                hexresult += hexch[Number(a)]
+                hexnumber = Math.floor(hexnumber / 16)
+            }
+            result[1] = hexresult
+            result[1] = result[1].split("").reverse().join("")
+            result[1] = result[1].replace(/,/g, "")
+            //BIN => OCT
+            octnumber = Number(decresult)
+            while (octnumber > 0) {
+                octresult[j] = octnumber % 8
+                octnumber = Math.floor(octnumber / 8)
+                j++
+            }
+            result[2] = octresult.toString()
+            result[2] = result[2].split("").reverse().join("")
+            result[2] = result[2].replace(/,/g, "")
+            //Desc Embed
+            const B_Desc = `<a:LYG_TighnariNotes:1090126010571300874> | **Số Cần Quy Đổi:** [BIN] ` + '`' + checkstr + '`' + `\n\n> [DEC] ${result[0]}\n> [HEX] ${result[1]}\n> [OCT] ${result[2]}`
+            return B_Desc
+        }
+        //Key = OCT
+        function octconv(checkstr) {
+            var decnumber = Number(checkstr), hexnumber, binnumber
+            hexch = '0123456789ABCDEF'
+            decresult = 0, hexresult = [], binresult = [],
+                i = 0, j = 0, result = []
+            //OCT => DEC
+            while (decnumber > 0) {
+                decresult = decresult + (decnumber % 10) * Math.pow(8, i)
+                decnumber = Math.floor(decnumber / 10)
+                i++
+            }
+            result[0] = decresult
+            //OCT => HEX
+            hexnumber = Number(decresult)
+            while (hexnumber > 0) {
+                var a
+                a = hexnumber % 16
+                hexresult += hexch[Number(a)]
+                hexnumber = Math.floor(hexnumber / 16)
+            }
+            result[1] = hexresult.toString()
+            result[1] = result[1].split("").reverse().join("")
+            result[1] = result[1].replace(/,/g, "")
+            //OCT => BIN
+            binnumber = Number(decresult)
+            while (binnumber > 0) {
+                binresult[i] = binnumber % 2
+                binnumber = Math.floor(binnumber / 2)
+                i++
+            }
+            result[2] = binresult.toString()
+            result[2] = result[2].split("").reverse().join("")
+            result[2] = result[2].replace(/,/g, "")
+            //Desc Embed
+            const O_Desc = `<a:LYG_TighnariNotes:1090126010571300874> | **Số Cần Quy Đổi:** [OCT] ` + '`' + checkstr + '`' + `\n\n> [DEC] ${result[0]}\n> [HEX] ${result[1]}\n> [BIN] ${result[2]}`
+            return O_Desc
+        }
+        //DEC Embed
+        function FinalEmbed(key) {
+            var FinalEmbed
+            if (key === 'DEC') {
+                FinalEmbed = new EmbedBuilder()
+                    .setColor('Green')
+                    .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(decconv(checkstr))
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            }
+            if (key === 'HEX') {
+                FinalEmbed = new EmbedBuilder()
+                    .setColor('Yellow')
+                    .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(hexconv(checkstr))
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+
+            }
+            if (key === 'BIN') {
+                FinalEmbed = new EmbedBuilder()
+                    .setColor('Blue')
+                    .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(binconv(checkstr))
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+
+            }
+            if (key === 'OCT') {
+                FinalEmbed = new EmbedBuilder()
+                    .setColor('Purple')
+                    .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(octconv(checkstr))
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+
+            }
+            return FinalEmbed
+        }
         var check = false
         const userarr2 = ['751225225047179324', '809259609700302935', '927221951439700058', '786816081032773662', '729671009631862834', '1084992470074531960']
         function checkID(user) {
@@ -205,33 +383,124 @@ module.exports = {
                 })
             }
             else {
-                if (!err) {
-                    await interaction.reply({
-                        embeds: [ReadyEmbed],
-                        ephemeral: true
-                    })
-                    await wait(1000)
-                    await interaction.editReply({
-                        embeds: [Embed1],
-                        ephemeral: true
-                    })
-                    await wait(1000)
-                    await interaction.editReply({
-                        embeds: [Embed2],
-                        ephemeral: true
-                    })
-                    await wait(1000)
-                    await interaction.editReply({
-                        embeds: [Embed3],
-                        ephemeral: true
-                    })
-                }
-                else {
-                    await interaction.reply({
-                        embeds: [ErrorEmbed],
-                        ephemeral: true
-                    })
-                }
+                await interaction.reply({
+                    embeds: [ReadyEmbed],
+                    components: [NumRow],
+                    ephemeral: true
+                })
+                const filter = a => a.user.id === user;
+                const collector = interaction.channel.createMessageComponentCollector({ filter })
+                collector.on('collect', async a => {
+                    switch (a.customId) {
+                        default:
+                            {
+                                break
+                            }
+                        case 'dec':
+                            {
+                                key = 'DEC'
+                                CheckStr(key)
+                                if (key === 'ERROR') {
+                                    await interaction.editReply({
+                                        embeds: [ErrorEmbed],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                                else {
+                                    await interaction.editReply({
+                                        embeds: [SetWaitEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                    await wait(2500)
+                                    await interaction.editReply({
+                                        embeds: [FinalEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                                break
+                            }
+                        case 'hex':
+                            {
+                                key = 'HEX'
+                                CheckStr(key)
+                                if (key === 'ERROR') {
+                                    await interaction.editReply({
+                                        embeds: [ErrorEmbed],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                                else {
+                                    await interaction.editReply({
+                                        embeds: [SetWaitEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                    await wait(2500)
+                                    await interaction.editReply({
+                                        embeds: [FinalEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                                break
+                            }
+                        case 'bin':
+                            {
+                                key = 'BIN'
+                                CheckStr(key)
+                                if (key === 'ERROR') {
+                                    await interaction.editReply({
+                                        embeds: [ErrorEmbed],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                                else {
+                                    await interaction.editReply({
+                                        embeds: [SetWaitEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                    await wait(2500)
+                                    await interaction.editReply({
+                                        embeds: [FinalEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                                break
+                            }
+                        case 'oct':
+                            {
+                                key = 'OCT'
+                                CheckStr(key)
+                                if (key === 'ERROR') {
+                                    await interaction.editReply({
+                                        embeds: [ErrorEmbed],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                                else {
+                                    await interaction.editReply({
+                                        embeds: [SetWaitEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                    await wait(2500)
+                                    await interaction.editReply({
+                                        embeds: [FinalEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                            }
+                    }
+                })
             }
             cd.add(interaction.user.id)
             setTimeout(() => {

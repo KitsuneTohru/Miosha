@@ -1,57 +1,164 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const wait = require('node:timers/promises').setTimeout
 const cd = new Set();
 const cdend = new Set();
 const cdtime = 10000;
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('numconv')
-        .setDescription('Chuyển Đổi Số Sang Các Hệ Cơ Số Khác Nhau (DEC/HEX/BIN)/OCT')
+        .setDescription('Nhập Vào Một Giá Trị Số Nguyên Dương Bất Kì, Sau Đó Trả Về Giá Trị Đã Quy Đổi')
         .addStringOption(option =>
             option.setName('number')
-                .setDescription('Nhập Số Bạn Cần Quy Đổi, Giới Hạn 32 Kí Tự (NOTE: OCT: CHỈ CÓ Ở OUTPUT DO THUỘC DEC)')
+                .setDescription('Giá Trị Số Nhập Vào (Giới Hạn 32 Chữ Số)')
                 .setMaxLength(32)
                 .setRequired(true)),
     async execute(interaction) {
         const user = interaction.user.id
-        //Lấy Dữ Liệu
-        var prestr = interaction.options.getString('number')
-        prestr = prestr.toUpperCase()
-        var typech //Key Xác Định Dữ Liệu Chạy Function
-        //Lấy Key Xác Định
-        function checknumtype(prestr) {
-            prestr = prestr.toUpperCase()
-            const decarr = '0123456789', hexarr = '0123456789ABCDEF', binarr = '01'
-            var dcount = 0, hcount = 0, bcount = 0
-            for (var i in prestr) {
-                var ch = prestr[i]
-                var dnum = decarr.indexOf(ch), hnum = hexarr.indexOf(ch), bnum = binarr.indexOf(ch)
-                if (bnum !== -1) {
-                    bcount++
+        const str = interaction.options.getString('numinput')
+        var checkstr = str.toUpperCase()
+        const NumRow = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setCustomId('dec')
+                    .setLabel('[DEC]')
+                    .setStyle(ButtonStyle.Primary),
+                new ButtonBuilder()
+                    .setCustomId('hex')
+                    .setLabel('[HEX]')
+                    .setStyle(ButtonStyle.Primary),
+                new ButtonBuilder()
+                    .setCustomId('bin')
+                    .setLabel('[BIN]')
+                    .setStyle(ButtonStyle.Primary),
+                new ButtonBuilder()
+                    .setCustomId('oct')
+                    .setLabel('[OCT]')
+                    .setStyle(ButtonStyle.Primary)
+            )
+        var key = 'NONE' //Check Key, Khi Lấy Custom ID ==> Chạy Function Nhất Định
+        function CheckStr(key) {
+            if (key === 'DEC') {
+                const decarr = '0123456789'
+                var dcount = 0
+                for (i in checkstr) {
+                    var ch = checkstr[i]
+                    var dnum = decarr.indexOf(ch)
+                    if (dnum !== -1) {
+                        dcount++
+                    }
                 }
-                if (dnum !== -1) {
-                    dcount++
+                if (dcount === checkstr.length) {
+                    return key = 'DEC'
                 }
-                if (hnum !== -1) {
-                    hcount++
+                else return key = 'ERROR'
+            }
+            if (key === 'HEX') {
+                const hexarr = '012345678ABCDEF'
+                var hcount = 0
+                for (i in checkstr) {
+                    var ch = checkstr[i]
+                    var hnum = hexarr.indexOf(ch)
+                    if (hnum !== -1) {
+                        hcount++
+                    }
                 }
+                if (hcount === checkstr.length) {
+                    return key = 'HEX'
+                }
+                else return key = 'ERROR'
             }
-            if (bcount === prestr.length) {
-                typech = 'BIN'
-                return
+            if (key === 'BIN') {
+                const binarr = '01'
+                var bcount = 0
+                for (i in checkstr) {
+                    var ch = checkstr[i]
+                    var bnum = binarr.indexOf(ch)
+                    if (bnum !== -1) {
+                        bcount++
+                    }
+                }
+                if (bcount === checkstr.length) {
+                    return key = 'BIN'
+                }
+                else return key = 'ERROR'
             }
-            if (dcount === prestr.length) {
-                typech = 'DEC'
-                return
+            if (key === 'OCT') {
+                const octarr = '01234567'
+                var ocount = 0
+                for (i in checkstr) {
+                    var ch = checkstr[i]
+                    var onum = octarr.indexOf(ch)
+                    if (onum !== -1) {
+                        ocount++
+                    }
+                }
+                if (ocount === checkstr.length) {
+                    return KEY = 'OCT'
+                }
+                else return key = 'ERROR'
             }
-            if (hcount === prestr.length) {
-                typech = 'HEX'
-                return
-            }
-            return typech = 'ERROR'
         }
+        //Ready Embed
+        const ReadyEmbed = new EmbedBuilder()
+            .setColor('Default')
+            .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
+            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | Quy Đổi Số: (**${checkstr}**)\n\n**Hãy Chọn Nút Bên Dưới Để Chọn Kiểu Giá Trị Nhập Vào Nhé!!!**\n• [DEC]\n• [HEX]\n• [BIN]\n• [OCT]`)
+            .setTimestamp()
+            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+        //Error Embed
+        const ErrorEmbed = new EmbedBuilder()
+            .setColor('Red')
+            .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
+            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | Oi! Bạn Đã Nhập Sai Định Dạng Số Rồi! (**${checkstr}**)`)
+            .setTimestamp()
+            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+        //Wait Embed
+        function SetWaitEmbed(key) {
+            var WaitEmbed
+            if (key === 'DEC') {
+                WaitEmbed = new EmbedBuilder()
+                    .setColor('Grey')
+                    .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(`<a:LYG_Loading:900784653701627925> | ${interaction.user}... Xin Chờ Một Lát, Số Sẽ Được Chuyển Đổi: **[DEC]** ` + '`' + checkstr + '`')
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            }
+            if (key === 'HEX') {
+                WaitEmbed = new EmbedBuilder()
+                    .setColor('Grey')
+                    .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(`<a:LYG_Loading:900784653701627925> | ${interaction.user}... Xin Chờ Một Lát, Số Sẽ Được Chuyển Đổi: **[HEX]** ` + '`' + checkstr + '`')
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            }
+            if (key === 'BIN') {
+                WaitEmbed = new EmbedBuilder()
+                    .setColor('Grey')
+                    .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(`<a:LYG_Loading:900784653701627925> | ${interaction.user}... Xin Chờ Một Lát, Số Sẽ Được Chuyển Đổi: **[BIN]** ` + '`' + checkstr + '`')
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            }
+            if (key === 'OCT') {
+                WaitEmbed = new EmbedBuilder()
+                    .setColor('Grey')
+                    .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(`<a:LYG_Loading:900784653701627925> | ${interaction.user}... Xin Chờ Một Lát, Số Sẽ Được Chuyển Đổi: **[OCT]** ` + '`' + checkstr + '`')
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            }
+            return WaitEmbed
+        }
+        //Function End Embed
         //Key = DEC
-        function decconv(prestr) {
-            var hexnumber = Number(prestr), binnumber = Number(prestr), octnumber = Number(prestr),
+        function decconv(checkstr) {
+            var hexnumber = Number(checkstr), binnumber = Number(checkstr), octnumber = Number(checkstr),
                 hexch = '0123456789ABCDEF',
                 hexresult = '', binresult = [], octresult = [],
                 i = 0, j = 0, result = []
@@ -84,12 +191,12 @@ module.exports = {
             result[2] = result[2].split("").reverse().join("")
             result[2] = result[2].replace(/,/g, "")
             //Desc Embed
-            const D_Desc = `<a:LYG_TighnariNotes:1090126010571300874> | **Số Cần Quy Đổi:** [DEC] ${prestr}\n\n> [HEX] ${result[0]}\n> [BIN] ${result[1]}\n> [OCT] ${result[2]}`
+            const D_Desc = `<a:LYG_TighnariNotes:1090126010571300874> | **Số Cần Quy Đổi:** **[DEC]** ` + '`' + checkstr + '`' + `\n\n> [HEX] ${result[0]}\n> [BIN] ${result[1]}\n> [OCT] ${result[2]}`
             return D_Desc
         }
         //Key = HEX
-        function hexconv(prestr) {
-            var decnumber = prestr.toUpperCase(), binnumber, octnumber
+        function hexconv(checkstr) {
+            var decnumber = checkstr.toUpperCase(), binnumber, octnumber
             hexch = '0123456789ABCDEF',
                 decresult = 0, binresult = [], octresult = [],
                 i = 0, j = 0, k = 0, result = []
@@ -121,12 +228,12 @@ module.exports = {
             result[2] = result[2].split("").reverse().join("")
             result[2] = result[2].replace(/,/g, "")
             //Desc Embed
-            const H_Desc = `<a:LYG_TighnariNotes:1090126010571300874> | **Số Cần Quy Đổi:** [HEX] ${prestr}\n\n> [DEC] ${result[0]}\n> [BIN] ${result[1]}\n> [OCT] ${result[2]}`
+            const H_Desc = `<a:LYG_TighnariNotes:1090126010571300874> | **Số Cần Quy Đổi:** [HEX] ` + '`' + checkstr + '`' + `\n\n> [DEC] ${result[0]}\n> [BIN] ${result[1]}\n> [OCT] ${result[2]}`
             return H_Desc
         }
         //KEY = BIN
-        function binconv(prestr) {
-            var decnumber = prestr, hexnumber, octnumber
+        function binconv(checkstr) {
+            var decnumber = checkstr, hexnumber, octnumber
             hexch = '0123456789ABCDEF'
             decresult = 0, hexresult = '', octresult = [],
                 i = 0, j = 0, result = []
@@ -159,58 +266,97 @@ module.exports = {
             result[2] = result[2].split("").reverse().join("")
             result[2] = result[2].replace(/,/g, "")
             //Desc Embed
-            const B_Desc = `<a:LYG_TighnariNotes:1090126010571300874> | **Số Cần Quy Đổi:** [BIN] ${prestr}\n\n> [DEC] ${result[0]}\n> [HEX] ${result[1]}\n> [OCT] ${result[2]}`
+            const B_Desc = `<a:LYG_TighnariNotes:1090126010571300874> | **Số Cần Quy Đổi:** [BIN] ` + '`' + checkstr + '`' + `\n\n> [DEC] ${result[0]}\n> [HEX] ${result[1]}\n> [OCT] ${result[2]}`
             return B_Desc
         }
-        //Chạy Key
-        checknumtype(prestr)
+        //Key = OCT
+        function octconv(checkstr) {
+            var decnumber = Number(checkstr), hexnumber, binnumber
+            hexch = '0123456789ABCDEF'
+            decresult = 0, hexresult = [], binresult = [],
+                i = 0, j = 0, result = []
+            //OCT => DEC
+            while (decnumber > 0) {
+                decresult = decresult + (decnumber % 10) * Math.pow(8, i)
+                decnumber = Math.floor(decnumber / 10)
+                i++
+            }
+            result[0] = decresult
+            //OCT => HEX
+            hexnumber = Number(decresult)
+            while (hexnumber > 0) {
+                var a
+                a = hexnumber % 16
+                hexresult += hexch[Number(a)]
+                hexnumber = Math.floor(hexnumber / 16)
+            }
+            result[1] = hexresult.toString()
+            result[1] = result[1].split("").reverse().join("")
+            result[1] = result[1].replace(/,/g, "")
+            //OCT => BIN
+            binnumber = Number(decresult)
+            while (binnumber > 0) {
+                binresult[i] = binnumber % 2
+                binnumber = Math.floor(binnumber / 2)
+                i++
+            }
+            result[2] = binresult.toString()
+            result[2] = result[2].split("").reverse().join("")
+            result[2] = result[2].replace(/,/g, "")
+            //Desc Embed
+            const O_Desc = `<a:LYG_TighnariNotes:1090126010571300874> | **Số Cần Quy Đổi:** [OCT] ` + '`' + checkstr + '`' + `\n\n> [DEC] ${result[0]}\n> [HEX] ${result[1]}\n> [BIN] ${result[2]}`
+            return O_Desc
+        }
         //DEC Embed
-        const DecEmbed = new EmbedBuilder()
-            .setColor('Green')
-            .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
-            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-            .setDescription(decconv(prestr))
-            .setTimestamp()
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-        //HEX Embed
-        const HexEmbed = new EmbedBuilder()
-            .setColor('Yellow')
-            .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
-            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-            .setDescription(hexconv(prestr))
-            .setTimestamp()
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-        //BIN Embed
-        const BinEmbed = new EmbedBuilder()
-            .setColor('Blue')
-            .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
-            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-            .setDescription(binconv(prestr))
-            .setTimestamp()
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-        //Khi Key = ERROR, Xuất Embed Này
-        const ErrorEmbed = new EmbedBuilder()
-            .setColor('Red')
-            .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
-            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | Oi! Bạn Đã Nhập Sai Định Dạng Số Rồi! (**${prestr}**)`)
-            .setTimestamp()
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+        function FinalEmbed(key) {
+            var FinalEmbed
+            if (key === 'DEC') {
+                FinalEmbed = new EmbedBuilder()
+                    .setColor('Green')
+                    .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(decconv(checkstr))
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            }
+            if (key === 'HEX') {
+                FinalEmbed = new EmbedBuilder()
+                    .setColor('Yellow')
+                    .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(hexconv(checkstr))
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
 
-        const cdembed = new EmbedBuilder()
-            .setColor('Red')
-            .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
-            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${user}> Oi! Bạn Phải Chờ Đến <t:${Math.round(cdend[user] / 1000)}> (<t:${Math.round(cdend[user] / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
-            .setTimestamp()
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-        
+            }
+            if (key === 'BIN') {
+                FinalEmbed = new EmbedBuilder()
+                    .setColor('Blue')
+                    .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(binconv(checkstr))
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+
+            }
+            if (key === 'OCT') {
+                FinalEmbed = new EmbedBuilder()
+                    .setColor('Purple')
+                    .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setDescription(octconv(checkstr))
+                    .setTimestamp()
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+
+            }
+            return FinalEmbed
+        }
         var CDBool = false
-        const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058','729671009631862834', '961838901792735243']
+        const userarr = ['751225225047179324', '809259609700302935', '927221951439700058', '786816081032773662', '729671009631862834', '1084992470074531960']
         function checkCD(user) {
             var i
-            for (i in CDPassList) {
-                if (user === CDPassList[i])
+            for (i in userarr) {
+                if (user === userarr[i])
                     CDBool = true
             }
         }
@@ -222,40 +368,129 @@ module.exports = {
         } else {
             cdend[user] = Date.now()
             cdend[user] = cdend[user] + cdtime
-                switch (typech) {
-                    case 'DEC': {
-                        await interaction.reply({
-                            embeds: [DecEmbed],
-                        })
-                        break
+            await interaction.reply({
+                    embeds: [ReadyEmbed],
+                    components: [NumRow],
+                    ephemeral: true
+                })
+                const filter = a => a.user.id === user;
+                const collector = interaction.channel.createMessageComponentCollector({ filter })
+                collector.on('collect', async a => {
+                    switch (a.customId) {
+                        default:
+                            {
+                                break
+                            }
+                        case 'dec':
+                            {
+                                key = 'DEC'
+                                CheckStr(key)
+                                if (key === 'ERROR') {
+                                    await interaction.editReply({
+                                        embeds: [ErrorEmbed],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                                else {
+                                    await interaction.editReply({
+                                        embeds: [SetWaitEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                    await wait(2500)
+                                    await interaction.editReply({
+                                        embeds: [FinalEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                                break
+                            }
+                        case 'hex':
+                            {
+                                key = 'HEX'
+                                CheckStr(key)
+                                if (key === 'ERROR') {
+                                    await interaction.editReply({
+                                        embeds: [ErrorEmbed],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                                else {
+                                    await interaction.editReply({
+                                        embeds: [SetWaitEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                    await wait(2500)
+                                    await interaction.editReply({
+                                        embeds: [FinalEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                                break
+                            }
+                        case 'bin':
+                            {
+                                key = 'BIN'
+                                CheckStr(key)
+                                if (key === 'ERROR') {
+                                    await interaction.editReply({
+                                        embeds: [ErrorEmbed],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                                else {
+                                    await interaction.editReply({
+                                        embeds: [SetWaitEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                    await wait(2500)
+                                    await interaction.editReply({
+                                        embeds: [FinalEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                                break
+                            }
+                        case 'oct':
+                            {
+                                key = 'OCT'
+                                CheckStr(key)
+                                if (key === 'ERROR') {
+                                    await interaction.editReply({
+                                        embeds: [ErrorEmbed],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                                else {
+                                    await interaction.editReply({
+                                        embeds: [SetWaitEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                    await wait(2500)
+                                    await interaction.editReply({
+                                        embeds: [FinalEmbed(key)],
+                                        components: [],
+                                        ephemeral: true
+                                    })
+                                }
+                            }
                     }
-                    case 'HEX': {
-                        await interaction.reply({
-                            embeds: [HexEmbed],
-                        })
-                        break
-                    }
-                    case 'BIN': {
-                        await interaction.reply({
-                            embeds: [BinEmbed],
-                        })
-                        break
-                    }
-                    case 'ERROR': {
-                        await interaction.reply({
-                            embeds: [ErrorEmbed],
-                        })
-                        break
-                    }
-                    default:
-                        await interaction.reply({
-                            embeds: [ErrorEmbed],
-                        })
-                }
+                })
             cd.add(interaction.user.id)
             setTimeout(() => {
                 cd.delete(interaction.user.id)
             }, cdtime)
         }
+        console.log(user, ' ', cdend[user])
     }
 };

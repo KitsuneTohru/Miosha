@@ -478,6 +478,5 @@ module.exports = {
                 cd.delete(interaction.user.id)
             }, cdtime)
         }
-        console.log(user, ' ', cdend[user])
     }
 };

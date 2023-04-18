@@ -14,7 +14,7 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction) {
         const user = interaction.user.id
-        const str = interaction.options.getString('numinput')
+        const str = interaction.options.getString('number')
         var checkstr = str.toUpperCase()
         const NumRow = new ActionRowBuilder()
             .addComponents(

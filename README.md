@@ -12,6 +12,7 @@
     + Tối Ưu Hóa: /numconv
 - Special Update
     + Hiện Không Có!
+
 ![Img](/Assets/README.md/Miosha-Info.png)
 ## • Mục Đích Sử Dụng:
 - Mục Đích Chính:
@@ -38,6 +39,7 @@
     + ...
 - Testing
     + ...
+    
 ![Img2](/Assets/README.md/Miosha-Credits.png)
 ## • Ảnh Bot
 ![Preview image](/Assets/README.md/Banner.png)

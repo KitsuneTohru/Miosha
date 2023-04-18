@@ -2,8 +2,8 @@
 ## • Phiên Bản
     + LYG: 0.7.8
     + Game Over: 0.5.0
-    > Tiến Độ ▰▰▰▰▱▱▱▱▱▱ 40%
-    > 100% Code Do Tự Tay Kitsunezi Viết, Có Tham Khảo Nguồn Từ Các Con Bot Khác Và Trên Mạng, Hoàn Toàn KHÔNG SỬ DỤNG TEMPLATE
+> Tiến Độ ▰▰▰▰▱▱▱▱▱▱ 40%
+> 100% Code Do Tự Tay Kitsunezi Viết, Có Tham Khảo Nguồn Từ Các Con Bot Khác Và Trên Mạng, Hoàn Toàn KHÔNG SỬ DỤNG TEMPLATE
 ## • Changelog: 
     + Tối Ưu Hóa: /numconv
 ## • Mục Đích Sử Dụng:

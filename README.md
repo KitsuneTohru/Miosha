@@ -1,4 +1,4 @@
-# LYG Bot - Overview
+# Miosha - Overview
 ## • Phiên Bản
 + LYG: 0.7.8
 + Game Over: 0.5.0

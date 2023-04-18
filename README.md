@@ -1,4 +1,4 @@
-# LYG Bot - Overview
+# Miosha - Overview
 ## • Phiên Bản
 - Phiên Bản Chính
     + Server LYG: 0.7.8

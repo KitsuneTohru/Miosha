@@ -1,16 +1,16 @@
 # LYG Bot - Overview
 ## • Phiên Bản
-- Phiên Bản Chính:
+- Phiên Bản Chính
     + Server LYG: 0.7.8
-- Phiên Bản Phụ:
+- Phiên Bản Phụ
     + Game Over: 0.5.0
 > Tiến Độ ▰▰▰▰▱▱▱▱▱▱ 40%
 
 > 100% Code Do Tự Tay Kitsunezi Viết, Có Tham Khảo Nguồn Từ Các Con Bot Khác Và Trên Mạng, Hoàn Toàn KHÔNG SỬ DỤNG TEMPLATE
 ## • Changelog: 
-- Mới/Đã Chỉnh Sửa:
+- Mới/Đã Chỉnh Sửa
     + Tối Ưu Hóa: /numconv
-- Special Update:
+- Special Update
     + Hiện Không Có!
 ## • Mục Đích Sử Dụng:
 - Mục Đích Chính:
@@ -18,7 +18,7 @@
 - Mục Đích Riêng Từ Chủ BotL
     + Thỏa Mãn Sự Hiếu Kì Của Owner Server (LYG) Và Admin (Game Over) Thôi
 ## • Contributor List:
-- Main Contributor:
+- Main Contributor
     + Kitsunezi
 - Co-Contributor
     + IC
@@ -31,11 +31,11 @@
 - Another Server
     + ...
 ## • Special Thanks
-- Idea:
+- Idea
     + Layyes (Friend)
     + Kong (Friend)
     + ...
-- Testing:
+- Testing
     + ...
 ## • Ảnh Bot
 ![Preview image](/Assets/svbanner.png)

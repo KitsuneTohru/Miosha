@@ -369,123 +369,110 @@ module.exports = {
             cdend[user] = Date.now()
             cdend[user] = cdend[user] + cdtime
             await interaction.reply({
-                    embeds: [ReadyEmbed],
-                    components: [NumRow],
-                    ephemeral: true
-                })
-                const filter = a => a.user.id === user;
-                const collector = interaction.channel.createMessageComponentCollector({ filter })
-                collector.on('collect', async a => {
-                    switch (a.customId) {
-                        default:
-                            {
-                                break
+                embeds: [ReadyEmbed],
+                components: [NumRow],
+            })
+            const filter = a => a.user.id === user;
+            const collector = interaction.channel.createMessageComponentCollector({ filter })
+            collector.on('collect', async a => {
+                switch (a.customId) {
+                    default:
+                        {
+                            break
+                        }
+                    case 'dec':
+                        {
+                            key = 'DEC'
+                            CheckStr(key)
+                            if (key === 'ERROR') {
+                                await interaction.editReply({
+                                    embeds: [ErrorEmbed],
+                                    components: [],
+                                })
                             }
-                        case 'dec':
-                            {
-                                key = 'DEC'
-                                CheckStr(key)
-                                if (key === 'ERROR') {
-                                    await interaction.editReply({
-                                        embeds: [ErrorEmbed],
-                                        components: [],
-                                        ephemeral: true
-                                    })
-                                }
-                                else {
-                                    await interaction.editReply({
-                                        embeds: [SetWaitEmbed(key)],
-                                        components: [],
-                                        ephemeral: true
-                                    })
-                                    await wait(2500)
-                                    await interaction.editReply({
-                                        embeds: [FinalEmbed(key)],
-                                        components: [],
-                                        ephemeral: true
-                                    })
-                                }
-                                break
+                            else {
+                                await interaction.editReply({
+                                    embeds: [SetWaitEmbed(key)],
+                                    components: [],
+                                })
+                                await wait(2500)
+                                await interaction.editReply({
+                                    embeds: [FinalEmbed(key)],
+                                    components: [],
+                                })
                             }
-                        case 'hex':
-                            {
-                                key = 'HEX'
-                                CheckStr(key)
-                                if (key === 'ERROR') {
-                                    await interaction.editReply({
-                                        embeds: [ErrorEmbed],
-                                        components: [],
-                                        ephemeral: true
-                                    })
-                                }
-                                else {
-                                    await interaction.editReply({
-                                        embeds: [SetWaitEmbed(key)],
-                                        components: [],
-                                        ephemeral: true
-                                    })
-                                    await wait(2500)
-                                    await interaction.editReply({
-                                        embeds: [FinalEmbed(key)],
-                                        components: [],
-                                        ephemeral: true
-                                    })
-                                }
-                                break
+                            break
+                        }
+                    case 'hex':
+                        {
+                            key = 'HEX'
+                            CheckStr(key)
+                            if (key === 'ERROR') {
+                                await interaction.editReply({
+                                    embeds: [ErrorEmbed],
+                                    components: [],
+                                })
                             }
-                        case 'bin':
-                            {
-                                key = 'BIN'
-                                CheckStr(key)
-                                if (key === 'ERROR') {
-                                    await interaction.editReply({
-                                        embeds: [ErrorEmbed],
-                                        components: [],
-                                        ephemeral: true
-                                    })
-                                }
-                                else {
-                                    await interaction.editReply({
-                                        embeds: [SetWaitEmbed(key)],
-                                        components: [],
-                                        ephemeral: true
-                                    })
-                                    await wait(2500)
-                                    await interaction.editReply({
-                                        embeds: [FinalEmbed(key)],
-                                        components: [],
-                                        ephemeral: true
-                                    })
-                                }
-                                break
+                            else {
+                                await interaction.editReply({
+                                    embeds: [SetWaitEmbed(key)],
+                                    components: [],
+                                })
+                                await wait(2500)
+                                await interaction.editReply({
+                                    embeds: [FinalEmbed(key)],
+                                    components: [],
+                                })
                             }
-                        case 'oct':
-                            {
-                                key = 'OCT'
-                                CheckStr(key)
-                                if (key === 'ERROR') {
-                                    await interaction.editReply({
-                                        embeds: [ErrorEmbed],
-                                        components: [],
-                                        ephemeral: true
-                                    })
-                                }
-                                else {
-                                    await interaction.editReply({
-                                        embeds: [SetWaitEmbed(key)],
-                                        components: [],
-                                        ephemeral: true
-                                    })
-                                    await wait(2500)
-                                    await interaction.editReply({
-                                        embeds: [FinalEmbed(key)],
-                                        components: [],
-                                        ephemeral: true
-                                    })
-                                }
+                            break
+                        }
+                    case 'bin':
+                        {
+                            key = 'BIN'
+                            CheckStr(key)
+                            if (key === 'ERROR') {
+                                await interaction.editReply({
+                                    embeds: [ErrorEmbed],
+                                    components: [],
+                                })
                             }
-                    }
-                })
+                            else {
+                                await interaction.editReply({
+                                    embeds: [SetWaitEmbed(key)],
+                                    components: [],
+                                })
+                                await wait(2500)
+                                await interaction.editReply({
+                                    embeds: [FinalEmbed(key)],
+                                    components: [],
+                                })
+                            }
+                            break
+                        }
+                    case 'oct':
+                        {
+                            key = 'OCT'
+                            CheckStr(key)
+                            if (key === 'ERROR') {
+                                await interaction.editReply({
+                                    embeds: [ErrorEmbed],
+                                    components: [],
+                                })
+                            }
+                            else {
+                                await interaction.editReply({
+                                    embeds: [SetWaitEmbed(key)],
+                                    components: [],
+                                })
+                                await wait(2500)
+                                await interaction.editReply({
+                                    embeds: [FinalEmbed(key)],
+                                    components: [],
+                                })
+                            }
+                        }
+                }
+            })
             cd.add(interaction.user.id)
             setTimeout(() => {
                 cd.delete(interaction.user.id)

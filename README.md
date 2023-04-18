@@ -5,6 +5,7 @@
 - Phiên Bản Phụ:
     + Game Over: 0.5.0
 > Tiến Độ ▰▰▰▰▱▱▱▱▱▱ 40%
+
 > 100% Code Do Tự Tay Kitsunezi Viết, Có Tham Khảo Nguồn Từ Các Con Bot Khác Và Trên Mạng, Hoàn Toàn KHÔNG SỬ DỤNG TEMPLATE
 ## • Changelog: 
 - Mới/Đã Chỉnh Sửa:

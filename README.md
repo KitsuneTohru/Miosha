@@ -1,6 +1,6 @@
 # Miosha - Overview
 
-![Img0](/Assets/README.md/Miosha-Overall.png)
+![Img0](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034504577074/Miosha-Overall.png)
 ## • Phiên Bản
 - Phiên Bản Chính
     + Server LYG: 0.7.8
@@ -15,7 +15,7 @@
 - Mục Đích Riêng Từ Chủ Bot
     + Thỏa Mãn Sự Hiếu Kì Của Owner Server (LYG) Và Admin (Game Over) Thôi
 
-![Img1](/Assets/README.md/Miosha-Info.png)
+![Img1](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034269683782/Miosha-Info.png)
 ## • Changelog: 
 
 - Mới/Đã Chỉnh Sửa
@@ -23,7 +23,7 @@
 - Special Update
     + Hiện Không Có!
 
-![Img2](/Assets/README.md/Miosha-Credits.png)
+![Img2](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034072563823/Miosha-Credits.png)
 ## • Contributor List:
 - Main Contributor
     + Kitsunezi
@@ -45,4 +45,4 @@
 - Testing
     + ...
 ## • Ảnh Bot
-![Preview image](/Assets/README.md/Banner.png)
+![Preview image](https://cdn.discordapp.com/attachments/1098463125268873216/1098468033556656178/Banner.png)

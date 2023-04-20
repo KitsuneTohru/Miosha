@@ -115,7 +115,7 @@ module.exports = {
                 result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n<:LYG_AyameEh:1086172364414386206> **|** *Nhận Xét:* Oh Nyo, Quả Này Gay Quá Rồi, Gọi Cha Sứ Đến Mau`
                 img_url = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'
             }
-            else if (rng <= 100) {
+            else if (rng < 100) {
                 color = "#6D00D2"
                 result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n<:LYG_PepeHoly:1086172373306323016> **|** *Nhận Xét:* CODE RED CODE RED!!! Nguy Hiểm Rồi, Không Ổn Rồi Bà Con Ơi, Thằng Cha Đó Gay Quá Rồi!!!`
                 img_url = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'
@@ -181,7 +181,7 @@ module.exports = {
                 resultv3 = `Chỉ Số Gay Của ${user} **(Đã Tính Toán)** Là: **${avgpt}%**\n<:LYG_AyameEh:1086172364414386206> **|** *Nhận Xét:* Oh Nyo, Quả Này Gay Quá Rồi, Gọi Cha Sứ Đến Mau`
                 img_urlv2 = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'
             }
-            else if (avgpt <= 100) {
+            else if (avgpt < 100) {
                 colorv2 = "#6D00D2"
                 resultv3 = `Chỉ Số Gay Của ${user} **(Đã Tính Toán)** Là: **${avgpt}%**\n<:LYG_PepeHoly:1086172373306323016> **|** *Nhận Xét:* CODE RED CODE RED!!! Nguy Hiểm Rồi, Không Ổn Rồi Bà Con Ơi, Thằng Cha Đó Gay Quá Rồi!!!`
                 img_urlv2 = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'

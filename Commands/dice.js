@@ -6,61 +6,125 @@ const cdtime = 15000;
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('dice')
-        .setDescription('Tung Xúc Xắc (Loại 6 Mặt)'),
+        .setDescription('Tung Xúc Xắc (Loại 6 Mặt)')
+        .addNumberOption(option =>
+            option.setName('quantity')
+                .setDescription('Số Lượng Xúc Xắc Bạn Nhập Vào (Max: 10 Xúc Xắc, Loại 6 Mặt)')
+                .setRequired(false)
+                .setMinValue(1)
+                .setMaxValue(10)),
     async execute(interaction) {
-        //Setup Game
-        var dicerng, diceresult
-        //Setup Embed
+        const user = interaction.user.id
+        const quantity = interaction.options.getNumber('quantity')
+        var runquantity = 0
+        //runquantity (Biến Chính Để Chạy Function)
+        if (quantity === null) {
+            runquantity = 1
+        }
+        else {
+            runquantity = quantity
+        }
+        //Face 6 Mặt
+        const facearr = [
+            '<:LYG_Dice1:1090613349571629096>',
+            '<:LYG_Dice2:1090613355967959140>',
+            '<:LYG_Dice3:1090613362292969512>',
+            '<:LYG_Dice4:1090613368731226263>',
+            '<:LYG_Dice5:1090613373198155846>',
+            '<:LYG_Dice6:1090613378923372544>',
+        ]
+        const chrarr = ['`1 Nút`', '`2 Nút`', '`3 Nút`', '`4 Nút`', '`5 Nút`', '`6 Nút`',]
+        var totalscore = 0
+        var DiceEmbeds = []
+        function Roll(runquantity) {
+            var rollrng = []
+            var rollrngchr = []
+            var rollrngchr2 = []
+            var finalrng = ['',]
+            var total_scores = 0
+            for (var i = 1; i <= runquantity; i++) {
+                rollrng[i] = Math.floor(Math.random() * 6) + 1
+                total_scores += rollrng[i]
+                switch (rollrng[i]) {
+                    default:
+                        {
+                            break
+                        }
+                    case 1:
+                        {
+                            rollrngchr[i] = facearr[0]
+                            rollrngchr2[i] = chrarr[0]
+                            break
+                        }
+                    case 2:
+                        {
+                            rollrngchr[i] = facearr[1]
+                            rollrngchr2[i] = chrarr[1]
+                            break
+                        }
+                    case 3:
+                        {
+                            rollrngchr[i] = facearr[2]
+                            rollrngchr2[i] = chrarr[2]
+                            break
+                        }
+                    case 4:
+                        {
+                            rollrngchr[i] = facearr[3]
+                            rollrngchr2[i] = chrarr[3]
+                            break
+                        }
+                    case 5:
+                        {
+                            rollrngchr[i] = facearr[4]
+                            rollrngchr2[i] = chrarr[4]
+                            break
+                        }
+                    case 6:
+                        {
+                            rollrngchr[i] = facearr[5]
+                            rollrngchr2[i] = chrarr[5]
+                            break
+                        }
+                }
+                finalrng.push(rollrngchr[i] + ' ' + rollrngchr2[i])
+            }
+            finalrng.push(total_scores)
+            return finalrng
+        }
         const WaitEmbed = new EmbedBuilder()
-            .setColor('Grey')
+            .setColor('White')
             .setTitle(`<a:LYG_DiceRoll:1090613205149175941> Game: Tung Xúc Xắc`)
             .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
             .setDescription(`<a:LYG_FubukiWhat:1084085930266218556> Đang Tung Xúc Xắc Cho ${interaction.user}... *(Xin Chờ Một Lát...)*`)
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-        dicerng = Math.floor(Math.random() * 6)
-        switch (dicerng) {
-            case 0:
-                {
-                    diceresult = '<:LYG_Dice1:1090613349571629096> `1 Nút`'
-                    break
-                }
-            case 1:
-                {
-                    diceresult = '<:LYG_Dice2:1090613355967959140> `2 Nút`'
-                    break
-                }
-            case 2:
-                {
-                    diceresult = '<:LYG_Dice3:1090613362292969512> `3 Nút`'
-                    break
-                }
-            case 3:
-                {
-                    diceresult = '<:LYG_Dice4:1090613368731226263> `4 Nút`'
-                    break
-                }
-            case 4:
-                {
-                    diceresult = '<:LYG_Dice5:1090613373198155846>  `5 Nút`'
-                    break
-                }
-            case 5:
-                {
-                    diceresult = '<:LYG_Dice6:1090613378923372544> `6 Nút`'
-                    break
-                }
-            default:
-                diceresult = null
+        const final_arr = Roll(runquantity)
+        totalscore = final_arr[final_arr.length - 1]
+        const totaldesc = `<a:LYG_FubukiWhat:1084085930266218556> Tổng Số Nút Đã Roll Của ${interaction.user} Là: **${totalscore} Nút**`
+        var executedesc = ''
+        var descembed = []
+        for (var embed = 1; embed <= final_arr.length - 2; embed++) {
+            descembed.push(`> Kết Quả Roll Xúc Xắc **Lần ${embed} Là**: ${final_arr[embed]}\n`)
+            executedesc = descembed.join('')
+            DiceEmbeds[embed] = new EmbedBuilder()
+                .setColor('Grey')
+                .setTitle(`<a:LYG_DiceRoll:1090613205149175941> Game: Tung Xúc Xắc`)
+                .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                .setDescription(executedesc)
+                .setTimestamp()
+                .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
         }
-        const ResultEmbed = new EmbedBuilder()
+        descembed.push(totaldesc)
+        executedesc = descembed.join('')
+        const FinalEmbed = new EmbedBuilder()
             .setColor('White')
             .setTitle(`<a:LYG_DiceRoll:1090613205149175941> Game: Tung Xúc Xắc`)
             .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-            .setDescription(`Kết Quả Roll Xúc Xắc Của ${interaction.user} Là: ${diceresult}`)
+            .setDescription(executedesc)
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-        //Reply Đầu:
+
         const cduser = interaction.user.id
         var CDBool = false
         function BypassCD(cduser) {
@@ -84,20 +148,21 @@ module.exports = {
                 embeds: [cdembed]
             })
         } else {
-            cdend[cduser] = Date.now()
-            cdend[cduser] = cdend[cduser] + cdtime
+            console.log('========================================\nRng Encounter:', final_arr, '\n========================================')
             await interaction.reply({
-                embeds: [WaitEmbed],
+                embeds: [WaitEmbed]
             })
             await wait(2500)
+            for (var embed = 1; embed <= final_arr.length - 2; embed++) {
+                await interaction.editReply({
+                    embeds: [DiceEmbeds[embed]]
+                })
+                await wait(1000)
+            }
+            await wait(1500)
             await interaction.editReply({
-                embeds: [ResultEmbed],
+                embeds: [FinalEmbed]
             })
-            cd.add(interaction.user.id)
-            setTimeout(() => {
-                cd.delete(interaction.user.id)
-            }, cdtime)
-            console.log('========================================\nRng Encounter:', dicerng, '\n========================================')
         }
     }
 }

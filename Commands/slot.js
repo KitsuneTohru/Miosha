@@ -43,7 +43,7 @@ module.exports = {
             if (numcount === stramount.length) {
                 err = false
                 stramount = str
-                if(Number(stramount) > maxamount){
+                if (Number(stramount) > maxamount) {
                     err = true
                 }
             }
@@ -121,7 +121,7 @@ module.exports = {
                     s2 = Math.floor(Math.random() * (emoarr.length))
                     s3 = Math.floor(Math.random() * (emoarr.length))
                     if (s1 == s3) {
-                        s2 = (s1 + Math.ceil(Math.random() * (emoarr.length))) % (emoarr.length) 
+                        s2 = (s1 + Math.ceil(Math.random() * (emoarr.length))) % (emoarr.length)
                         if (s1 == s2 && s1 != 4) {
                             s2++
                         }
@@ -146,7 +146,7 @@ module.exports = {
             resultdesc[3] = resultdesc[2] + `\n> Bạn Đã Mất **${resultamount}** <:LYG_Cowoncy:1097147478018629632>!!!\n**Note:** Đây Chỉ Là Giả Sử Thôi Nhé, Kết Quả Thật Tùy May Mắn Nhá!`
             color = '#FF0000'
         }
-        console.log('========================================\nRng Encounter:', rng,'\n Mảng Encounter:', result,'\nLose Slot Rng',s1,s2,s3,'\nĐộ Dài Mảng', emoarr.length,'\n========================================')
+        console.log('========================================\nRng Encounter:', rng, '\n Mảng Encounter:', result, '\nLose Slot Rng', s1, s2, s3, '\nĐộ Dài Mảng', emoarr.length, '\n========================================')
         //Embed Lệnh
         const ErrorEmbed = new EmbedBuilder()
             .setColor('Red')
@@ -183,6 +183,13 @@ module.exports = {
             .setDescription(resultdesc[3])
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+        const cdembed = new EmbedBuilder()
+            .setColor('Red')
+            .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
+            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(cdend[cduser] / 1000)}> (<t:${Math.round(cdend[cduser] / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
+            .setTimestamp()
+            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
         var CDBool = false
         const userarr = ['751225225047179324', '809259609700302935', '927221951439700058', '786816081032773662', '729671009631862834', '1084992470074531960']
         function checkCD(user) {
@@ -200,28 +207,28 @@ module.exports = {
         } else {
             cdend[user] = Date.now()
             cdend[user] = cdend[user] + cdtime
-                if (!err) {
-                    await interaction.reply({
-                        embeds: [ReadyEmbed]
-                    })
-                    await wait(1000)
-                    await interaction.editReply({
-                        embeds: [Embed1]
-                    })
-                    await wait(1000)
-                    await interaction.editReply({
-                        embeds: [Embed2]
-                    })
-                    await wait(1000)
-                    await interaction.editReply({
-                        embeds: [Embed3]
-                    })
-                }
-                else {
-                    await interaction.reply({
-                        embeds: [ErrorEmbed]
-                    })
-                }
+            if (!err) {
+                await interaction.reply({
+                    embeds: [ReadyEmbed]
+                })
+                await wait(1000)
+                await interaction.editReply({
+                    embeds: [Embed1]
+                })
+                await wait(1000)
+                await interaction.editReply({
+                    embeds: [Embed2]
+                })
+                await wait(1000)
+                await interaction.editReply({
+                    embeds: [Embed3]
+                })
+            }
+            else {
+                await interaction.reply({
+                    embeds: [ErrorEmbed]
+                })
+            }
             cd.add(interaction.user.id)
             setTimeout(() => {
                 cd.delete(interaction.user.id)

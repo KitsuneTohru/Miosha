@@ -57,8 +57,7 @@ module.exports = {
             cdend[cduser] = Date.now()
             cdend[cduser] = cdend[cduser] + cdtime
             await interaction.reply({
-                embeds: [HappyEmbed],
-                files: [himgf]
+                embeds: [HappyEmbed]
             })
             cd.add(interaction.user.id)
             setTimeout(() => {

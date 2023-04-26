@@ -53,7 +53,7 @@ module.exports = {
                 else return key = 'ERROR'
             }
             if (key === 'HEX') {
-                const hexarr = '012345678ABCDEF'
+                const hexarr = '0123456789ABCDEF'
                 var hcount = 0
                 for (i in checkstr) {
                     var ch = checkstr[i]
@@ -93,7 +93,7 @@ module.exports = {
                     }
                 }
                 if (ocount === checkstr.length) {
-                    return KEY = 'OCT'
+                    return key = 'OCT'
                 }
                 else return key = 'ERROR'
             }
@@ -373,7 +373,7 @@ module.exports = {
                 components: [NumRow],
             })
             const filter = a => a.user.id === user;
-            const collector = interaction.channel.createMessageComponentCollector({ filter })
+            const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 })
             collector.on('collect', async a => {
                 switch (a.customId) {
                     default:
@@ -394,6 +394,7 @@ module.exports = {
                                 await interaction.editReply({
                                     embeds: [SetWaitEmbed(key)],
                                     components: [],
+
                                 })
                                 await wait(2500)
                                 await interaction.editReply({

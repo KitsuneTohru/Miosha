@@ -4,7 +4,7 @@ dotenv.config();
 const fs = require('node:fs');
 const token = process.env.TOKEN;
 const clientID = process.env.CLIENT_ID;
-const guildID = process.env.GUILD_ID;
+//const guildID = process.env.GUILD_ID;
 const commands = [];
 const commandsFiles = fs.readdirSync(`./Commands`).filter(file => file.endsWith('.js'));
 

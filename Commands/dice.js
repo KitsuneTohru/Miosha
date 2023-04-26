@@ -159,7 +159,6 @@ module.exports = {
                 })
                 await wait(1000)
             }
-            await wait(1500)
             await interaction.editReply({
                 embeds: [FinalEmbed]
             })

@@ -58,7 +58,7 @@ module.exports = {
             components: [CreditButton]
         });
         const filter = a => a.user.id === user;
-        const collector = interaction.channel.createMessageComponentCollector({ filter })
+        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 20000 })
         collector.on('collect', async a => {
             if (a.customId === 'credit1') {
                 await interaction.editReply({

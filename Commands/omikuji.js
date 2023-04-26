@@ -173,7 +173,7 @@ module.exports = {
             }
             //Trigger Nút    
             const filter = a => a.user.id === user;
-            const collector = interaction.channel.createMessageComponentCollector({ filter })
+            const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 })
             collector.on('collect', async a => {
                 if (a.customId === 'entrytype5_1') {
                     await interaction.editReply({

@@ -193,7 +193,6 @@ module.exports = {
             }
             console.log('========================================\nRng Encounter:', avgpt, '\nRngv2 Encounter:', rngv2, '\n========================================')
         }
-        var GayEmbed_1, GayEmbed_2, GayEmbed_3, GayEmbed_4, GayEmbed_5
         //Embed(False)
         if (avgbool === false) {
             GayEmbed_1 = new EmbedBuilder()
@@ -207,43 +206,38 @@ module.exports = {
         }
         //Embed(True)
         if (avgbool === true) {
-            GayEmbed_2 = new EmbedBuilder()
-                .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-                .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
-                .setColor('DarkButNotBlack')
-                .setDescription(`<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}`)
-                .setTimestamp()
-                .setImage(img_urlv2)
-                .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-            GayEmbed_3 = new EmbedBuilder()
-                .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-                .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
-                .setColor('DarkButNotBlack')
-                .setDescription(`<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}\n> ${a[1]}`)
-                .setTimestamp()
-                .setImage(img_urlv2)
-                .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-            GayEmbed_4 = new EmbedBuilder()
-                .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-                .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
-                .setColor('DarkButNotBlack')
-                .setDescription(`<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}\n> ${a[1]}\n> ${a[2]}`)
-                .setTimestamp()
-                .setImage(img_urlv2)
-                .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
-            GayEmbed_5 = new EmbedBuilder()
-                .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-                .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
-                .setColor(colorv2)
-                .setDescription(`<a:LYG_Star:1084085189174632538> Kết Quả Khảo Sát:\n> ${a[0]}\n> ${a[1]}\n> ${a[2]}\n${resultv3}`)
-                .setTimestamp()
-                .setImage(img_urlv2)
-                .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            var AvgGayEmbed = []
+            const color1 = 'DarkButNotBlack'
+            const color2 = colorv2
+            const imgv2 = img_urlv2
+            const avgdesc = [
+                `<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}`,
+                `<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}\n> ${a[1]}`,
+                `<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}\n> ${a[1]}\n> ${a[2]}`,
+                `<a:LYG_Star:1084085189174632538> Kết Quả Khảo Sát:\n> ${a[0]}\n> ${a[1]}\n> ${a[2]}\n${resultv3}`,
+            ]
+            for (var count = 0; count <= 3; count++) {
+                var finalcolor
+                if (count < 3) {
+                    finalcolor = color1
+                }
+                else {
+                    finalcolor = color2
+                }
+                AvgGayEmbed[count] = new EmbedBuilder()
+                    .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
+                    .setColor(finalcolor)
+                    .setDescription(avgdesc[count])
+                    .setTimestamp()
+                    .setImage(imgv2)
+                    .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            }
         }
         const cduser = interaction.user.id
         var CDBool = false
         function BypassCD(cduser) {
-            const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058','729671009631862834', '961838901792735243']
+            const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058', '729671009631862834', '961838901792735243']
             for (var i in CDPassList) {
                 if (cduser === CDPassList[i]) {
                     CDBool = true
@@ -295,27 +289,15 @@ module.exports = {
                     })
                 }
                 else {
-                    await interaction.editReply({
-                        embeds: [GayEmbed_2]
-                    })
-                }
-                await wait(500)
-                if (!lock_output) {
-                    await interaction.editReply({
-                        embeds: [GayEmbed_3]
-                    })
-                }
-                await wait(500)
-                if (!lock_output) {
-                    await interaction.editReply({
-                        embeds: [GayEmbed_4]
-                    })
-                }
-                await wait(500)
-                if (!lock_output) {
-                    await interaction.editReply({
-                        embeds: [GayEmbed_5]
-                    })
+                    for (var embed = 0; embed <= 3; embed++) {
+                        if (!lock_output) {
+                            await wait(500)
+                            await interaction.editReply({
+                                embeds: [AvgGayEmbed[embed]]
+                            })
+                        }
+                        else break
+                    }
                 }
                 await wait(500)
                 if (rng > 100 && rngv2 >= 95 && !lock_output) {

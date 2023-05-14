@@ -3,10 +3,10 @@
 ![Img0](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034504577074/Miosha-Overall.png)
 ## • Phiên Bản
 - Phiên Bản Chính
-    + Server LYG: 0.8.0
+    + Server LYG: 0.8.2
 - Phiên Bản Phụ
-    + Game Over: 0.5.2
-> Tiến Độ ▰▰▰▰▱▱▱▱▱▱ 45%
+    + Game Over: 0.5.5
+> Tiến Độ ▰▰▰▰▰▱▱▱▱▱ 50%
 
 > 100% Code Do Tự Tay Kitsunezi Viết, Có Tham Khảo Nguồn Từ Các Con Bot Khác Và Trên Mạng, Hoàn Toàn KHÔNG SỬ DỤNG TEMPLATE
 ## • Mục Đích Sử Dụng:

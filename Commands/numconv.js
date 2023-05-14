@@ -48,9 +48,9 @@ module.exports = {
                     }
                 }
                 if (dcount === checkstr.length) {
-                    return key = 'DEC'
+                    key = 'DEC'
                 }
-                else return key = 'ERROR'
+                else key = 'ERROR'
             }
             if (key === 'HEX') {
                 const hexarr = '0123456789ABCDEF'
@@ -63,9 +63,9 @@ module.exports = {
                     }
                 }
                 if (hcount === checkstr.length) {
-                    return key = 'HEX'
+                     key = 'HEX'
                 }
-                else return key = 'ERROR'
+                else key = 'ERROR'
             }
             if (key === 'BIN') {
                 const binarr = '01'
@@ -78,9 +78,9 @@ module.exports = {
                     }
                 }
                 if (bcount === checkstr.length) {
-                    return key = 'BIN'
+                    key = 'BIN'
                 }
-                else return key = 'ERROR'
+                else key = 'ERROR'
             }
             if (key === 'OCT') {
                 const octarr = '01234567'
@@ -93,10 +93,11 @@ module.exports = {
                     }
                 }
                 if (ocount === checkstr.length) {
-                    return key = 'OCT'
+                    key = 'OCT'
                 }
-                else return key = 'ERROR'
+                else key = 'ERROR'
             }
+            return key
         }
         //Ready Embed
         const ReadyEmbed = new EmbedBuilder()
@@ -383,7 +384,8 @@ module.exports = {
                     case 'dec':
                         {
                             key = 'DEC'
-                            CheckStr(key)
+                            key = CheckStr(key)
+                            console.log(key)
                             if (key === 'ERROR') {
                                 await interaction.editReply({
                                     embeds: [ErrorEmbed],
@@ -407,7 +409,8 @@ module.exports = {
                     case 'hex':
                         {
                             key = 'HEX'
-                            CheckStr(key)
+                            key = CheckStr(key)
+                            console.log(key)
                             if (key === 'ERROR') {
                                 await interaction.editReply({
                                     embeds: [ErrorEmbed],
@@ -430,7 +433,8 @@ module.exports = {
                     case 'bin':
                         {
                             key = 'BIN'
-                            CheckStr(key)
+                            key = CheckStr(key)
+                            console.log(key)
                             if (key === 'ERROR') {
                                 await interaction.editReply({
                                     embeds: [ErrorEmbed],
@@ -453,7 +457,8 @@ module.exports = {
                     case 'oct':
                         {
                             key = 'OCT'
-                            CheckStr(key)
+                            key = CheckStr(key)
+                            console.log(key)
                             if (key === 'ERROR') {
                                 await interaction.editReply({
                                     embeds: [ErrorEmbed],

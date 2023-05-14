@@ -2,7 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout
 const cd = new Set();
 const cdend = new Set();
-const cdtime = 15000;
+const cdtime = 5000;
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('slot')
@@ -14,6 +14,7 @@ module.exports = {
     async execute(interaction) {
         //Setup (Cursed Vãi Vì Nhiều Biến Phải Lưu Trữ :])
         const user = interaction.user.id
+        const cduser = interaction.user.id
         const str = interaction.options.getString('amount')
         const spinstr = '<a:LYG_SlSpin:1097139730635833415>'
         const blankstr = '<:LYG_blank:1097172753985056859>'
@@ -205,8 +206,8 @@ module.exports = {
                 embeds: [cdembed]
             })
         } else {
-            cdend[user] = Date.now()
-            cdend[user] = cdend[user] + cdtime
+            cdend[cduser] = Date.now()
+            cdend[cduser] = cdend[cduser] + cdtime
             if (!err) {
                 await interaction.reply({
                     embeds: [ReadyEmbed]

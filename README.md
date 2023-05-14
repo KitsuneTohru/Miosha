@@ -19,9 +19,7 @@
 ## • Changelog: 
 
 - Mới/Đã Chỉnh Sửa
-    + Tối Ưu Hóa: /dice
-    + Tạo Mới Lệnh: /roll
-    + Sửa Info Panel Sao Cho Nó Dễ Nhìn Hơn
+    + Tạo Mới Lệnh: /pick
 - Special Update
     + Hiện Không Có!
 

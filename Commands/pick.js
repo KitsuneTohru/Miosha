@@ -8,11 +8,11 @@ module.exports = {
         .setDescription('Pick Lựa Chọn Random Bất Kì Mà Bạn Đưa Ra')
         .addStringOption(option =>
             option.setName('options')
-                .setDescription('Ghi Theo Format Này Nhá: [Option],...')
+                .setDescription('Ghi Theo Format Này Nhá: [Option], ...')
                 .setRequired(false)),
     async execute(interaction) {
         const str = interaction.options.getString('options');
-        var strlist = str.split(/,/)
+        var strlist = str.split(/, /)
         console.log(strlist)
         var rng = Math.round(Math.random()*strlist.length)
         if (rng >= strlist.length) {
@@ -21,6 +21,9 @@ module.exports = {
         var rngstr = strlist[rng]
         const responselist = ['Tớ Chọn Cái Này:','Theo Tớ Thì Là Cái Này: ','Lựa Chọn Của Tớ Đây: ','Tớ Chọn Cho Bạn Cái Này: ','Đây, Ổn Chứ?']
         var rerng = Math.round(Math.random()*5)
+        if (rerng >= responselist.length){
+            rerng--
+        }
         var responsestr = responselist[rerng]
         console.log(strlist.length,rng,rerng)
         const cduser = interaction.user.id

@@ -17,8 +17,8 @@ module.exports = {
             console.error(error);
             console.error(`[ERROR] Có Lỗi Khi Thực Hiện ${interaction.commandName}`);
         }
+        if(!interaction.isModalSubmit()) return;
         if(!interaction.isButton()) return;
         if(!interaction.isStringSelectMenu()) return;
-        
     },
 };

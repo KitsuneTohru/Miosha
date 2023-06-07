@@ -8,10 +8,10 @@ module.exports = {
         .setDescription('Lấy Avatar URL Của Người Dùng Bạn Chọn, Hoặc Avatar Của Bạn (Trong Server, Nếu Có)')
         .addUserOption(option =>
             option.setName('user')
-                .setDescription('Avatar Của Người Dùng Cần Show (Lần Này Thì Bắt Buộc Nhá)')
+                .setDescription('Avatar Của Người Dùng Cần Show')
                 .setRequired(true)),
     async execute(interaction) {
-        const user = interaction.options.getMember('user');
+        var user = interaction.options.getMember('user');
         const cduser = interaction.user.id
         var CDBool = false
         function BypassCD(cduser) {

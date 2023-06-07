@@ -23,12 +23,15 @@ module.exports = {
         .addBooleanOption(option =>
             option.setName('avgset')
                 .setDescription('Tính Trung Bình Gay Của User Nào Đó (CỐ ĐỊNH: 3 LẦN)')
-                .setRequired(true)),
+                .setRequired(false)),
 
     async execute(interaction) {
         //Lấy User Và AvgSet
         const user = interaction.options.getUser('target')
-        const avgbool = interaction.options.getBoolean('avgset')
+        var avgbool = interaction.options.getBoolean('avgset')
+        if (avgbool === null){
+            avgbool = false
+        }
         //Easter
         const rngv2 = Math.floor(Math.random() * 100)
         const easter_url = 'https://cdn.discordapp.com/attachments/1084992874212495393/1087363317309394984/Page_07.jpg'
@@ -51,7 +54,7 @@ module.exports = {
             .setTimestamp()
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
         //Lock User + Hàm Lấy So Sánh
-        const lock_user = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '888738277044133899']
+        const lock_user = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '888738277044133899', '764825231335620619']
         var lock_output = false
         function Compare(user, lock_user) {
             for (var count in lock_user) {
@@ -62,13 +65,22 @@ module.exports = {
         }
         Compare(user, lock_user)
         //Lock Embed
+        var lock_desc, lock_img
+        lock_desc = `<:LYG_KeqingDoi:1086190826536849499> **|** Oi! Bạn **KHÔNG THỂ** Check Câu Lệnh ${spcl_chr} Lên ${user} Được! Hãy Thử Với Người Khác Đi!`
+        lock_img = 'https://cdn.discordapp.com/attachments/1084992874212495393/1087382405943402558/genshin-impact-yae-miko.gif'
+        if (user.id === '764825231335620619') {
+            lock_desc = `<:go_MokouFire:1092052285732954132> **|** Để Tưởng Nhớ Người Bạn Đã Khuất Của Chủ Bot, Bạn **KHÔNG THỂ** Check Câu Lệnh ${spcl_chr} Lên ${user} Được! Hãy Thử Với Người Khác Đi Nhá!\n> **Kitsunezi's Note:** *"Vĩnh Biệt, Người Bạn Tốt Của Tôi, Ông Là Người Đã Mở Đường Cho Tôi Đến Với Sự Nghiệp Này. An Nghỉ Nhé, Shen, Bạn Tôi..."*`
+            lock_img = `https://media.discordapp.net/attachments/1098462997472608389/1115987915269472306/Youmu.gif`
+        }
+        
+
         const SpecialEmbed = new EmbedBuilder()
             .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
             .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
             .setColor('#6E0000')
-            .setDescription(`<:LYG_KeqingDoi:1086190826536849499> **|** Oi! Bạn **KHÔNG THỂ** Check Câu Lệnh ${spcl_chr} Lên ${user} Được! Hãy Thử Với Người Khác Đi!`)
+            .setDescription(lock_desc)
             .setTimestamp()
-            .setImage('https://cdn.discordapp.com/attachments/1084992874212495393/1087382405943402558/genshin-impact-yae-miko.gif')
+            .setImage(lock_img)
             .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
         //avgbool == False
         if (avgbool == false) {

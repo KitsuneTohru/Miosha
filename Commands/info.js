@@ -6,7 +6,7 @@ module.exports = {
         .setDescription('Hiển Thị Info Của Bot'),
     async execute(interaction) {
         const user = interaction.user.id
-        const time = 1684065900
+        const time = 1686145200
         const date = new Date().setTime(Number(time) * 1000)
         const CreditButton = new ActionRowBuilder()
             .addComponents(

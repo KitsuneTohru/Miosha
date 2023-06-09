@@ -13,18 +13,17 @@ client.on("ready", () => {
 });
 
 client.commands = new Collection();
-const commandsPath = path.join(__dirname, 'Commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+const commandFolders = fs.readdirSync('./Commands');
+for(const folder of commandFolders){
+    const commandFiles = fs.readdirSync(`./Commands/${folder}`).filter(file => file.endsWith('.js'))
+    for (const file of commandFiles) {
+        const command = require(`./Commands/${folder}/${file}`);
+        if ('data' in command && 'execute' in command) {
+            client.commands.set(command.data.name, command);
+        }
+    };
+}
 
-for (const file of commandFiles) {
-    const filePath = path.join(commandsPath, file);
-    const command = require(filePath);
-    if ('data' in command && 'execute' in command) {
-        client.commands.set(command.data.name, command);
-    } else {
-        console.log(`[WARNING] Command Ở ${filePath} Thiếu Phần Cần Có "data" Và "execute"`)
-    }
-};
 
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));

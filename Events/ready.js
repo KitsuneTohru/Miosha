@@ -1,7 +1,7 @@
 const { Events, ActivityType } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout
-//const mongoose = require('mongoose')
-//const mongodbURL = process.env.MONGO_URL;
+/*const mongoose = require('mongoose')
+const mongodbURL = process.env.MONGO_URL;*/
 
 module.exports = {
     name: Events.ClientReady,

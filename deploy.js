@@ -6,13 +6,16 @@ const token = process.env.TOKEN;
 const clientID = process.env.CLIENT_ID;
 //const guildID = process.env.GUILD_ID;
 const commands = [];
-const commandsFiles = fs.readdirSync(`./Commands`).filter(file => file.endsWith('.js'));
 
-for (const file of commandsFiles) {
-    const command = require(`./Commands/${file}`);
-    commands.push(command.data.toJSON());
-};
-
+const commandFolers = fs.readdirSync('./Commands')
+for (const folder of commandFolers){
+    const commandFiles = fs.readdirSync(`./Commands/${folder}`).filter((file) => file.endsWith('.js'))
+    for (const file of commandFiles) {
+        const command = require(`./Commands/${folder}/${file}`)
+        commands.push(command.data.toJSON())
+    }
+}
+console.log(commands)
 const rest = new REST({ version: '10' }).setToken(token);
 
 (async () => {

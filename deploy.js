@@ -4,7 +4,7 @@ dotenv.config();
 const fs = require('node:fs');
 const token = process.env.TOKEN;
 const clientID = process.env.CLIENT_ID;
-const guildID = process.env.GUILD_ID;
+//const guildID = process.env.GUILD_ID;
 const commands = [];
 
 const commandFolers = fs.readdirSync('./Commands')
@@ -20,18 +20,12 @@ const rest = new REST({ version: '10' }).setToken(token);
 
 (async () => {
     try {
-        const a = commands.length-commands.slice(4).length
         console.log(`Bắt Đầu Làm Mới ${commands.length} Lệnh`);
-        let data
-        data = await rest.put(
-            Routes.applicationGuildCommands(clientID, guildID),
+        const data = await rest.put(
+            Routes.applicationCommands(clientID),
             { body: commands },
         );
-        data = await rest.put(
-            Routes.applicationCommands(clientID),
-            { body: commands.slice(4) },
-        );
-        console.log(`Thành Công Khởi Tạo ${data.length} Lệnh\nLYG Command Only: ${a} Lệnh`)
+        console.log(`Thành Công Khởi Tạo ${data.length} Lệnh`)
     } catch (error) {
         console.error(error);
     }

@@ -9,7 +9,7 @@ module.exports = {
         .setDescription('Giả Sử Bạn Chơi Slot Bên OwO, Vui Là Chính')
         .addStringOption(option =>
             option.setName('amount')
-                .setDescription('Số Lượng Giả Sử Bạn Ném Vô (Max: 150000), Keyword: "all"')
+                .setDescription('Số Lượng Giả Sử Bạn Ném Vô (Max: 250000), Keyword: "all"')
                 .setRequired(true)),
     async execute(interaction) {
         //Setup (Cursed Vãi Vì Nhiều Biến Phải Lưu Trữ :])
@@ -18,7 +18,7 @@ module.exports = {
         const str = interaction.options.getString('amount')
         const spinstr = '<a:LYG_SlSpin:1097139730635833415>'
         const blankstr = '<:LYG_blank:1097172753985056859>'
-        const maxamount = 150000
+        const maxamount = 250000
         const numarr = '0123456789'
         const emoarr = ['<:LYG_SlNormal:1097003902857121934>', '<:LYG_SlStar:1097003847303577660>', '<:LYG_SlCorn:1097003771906764921>', '<:LYG_SlCover:1097003703128555614>', '<:LYG_SlMio:1097003631783456909>']
         var result = []

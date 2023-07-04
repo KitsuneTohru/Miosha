@@ -1,5 +1,4 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-import { CDBool } from 'D:/Test/Miosha-Bot/Utils/bypasscd'
 const cd = new Set();
 const cdend = new Set();
 const cdtime = 100000;
@@ -26,7 +25,6 @@ module.exports = {
                     check = true
             }
         }
-        console.log(CDBool)
         const cdembed = new EmbedBuilder()
             .setColor('Red')
             .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)

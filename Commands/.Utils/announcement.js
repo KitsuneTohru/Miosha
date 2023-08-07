@@ -8,6 +8,7 @@ module.exports = {
         .addChannelOption(option =>
             option.setName('channel')
                 .setDescription('Channel Bạn Muốn Đăng Thông Báo')
+                .addChannelTypes(ChannelType.GuildAnnouncement)
                 .addChannelTypes(ChannelType.GuildText)
                 .setRequired(true))
         .addStringOption(option =>

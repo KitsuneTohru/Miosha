@@ -18,23 +18,23 @@ module.exports = {
         }*/
         var i=0
         console.log(`${client.user.tag} Đã Online, Bắt Đầu Nhiệm Vụ!`);
-        const namearr = ['v0.8.5: /help',
-                        '▰▰▰▰▰▱▱▱▱▱ 52%',
-                        'New: Tối Ưu Hóa Lại /howgay',
+        const namearr = ['v0.9.0: /help',
+                        '▰▰▰▰▰▱▱▱▱▱ 55%',
+                        'New: Add: /announcement',
                         'Changelog: /info',
                         'Most Usage: /howgay',
-                        'Special -- <NOTHING YET>']
+                        'Special -- Lệnh Moderation Cho Server']
         while(i!==-1){
             await client.user.setPresence({
                 activities: [{
                     name: `${namearr[i]}`,
                     type: ActivityType.Playing,
                 }],
-                status: 'idle',
+                status: 'online',
             })
             await wait(20000)
             i++
-            if(i===4)
+            if(i===5)
             i=0
         }
     },

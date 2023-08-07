@@ -32,17 +32,17 @@ module.exports = {
         const SetupEmbed = new EmbedBuilder()
             .setColor('Yellow')
             .setTitle(`<a:LYG_cflip:1090615324551942225> Game: Tung Xu`)
-            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<a:LYG_FubukiWhat:1084085930266218556> Mặt Lựa Chọn Của ${interaction.user}... Là Mặt: ${facingstr}`)
             .setTimestamp()
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         const WaitEmbed = new EmbedBuilder()
             .setColor('Grey')
             .setTitle(`<a:LYG_cflip:1090615324551942225> Game: Tung Xu`)
-            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<a:LYG_FubukiWhat:1084085930266218556> Đang Tung Xu Cho ${interaction.user}... *(Xin Chờ Một Lát...)*`)
             .setTimestamp()
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         coinrng = Math.random() * 6.001
         coinrng = (Math.floor(coinrng * 1000) / 1000).toFixed(3)
         if (coinrng <= 2.999) {
@@ -97,10 +97,10 @@ module.exports = {
         const ResultEmbed = new EmbedBuilder()
             .setColor(Color(userstr, coinstr))
             .setTitle(`<a:LYG_cflip:1090615324551942225> Game: Tung Xu`)
-            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(ResultDesc(userstr, coinstr))
             .setTimestamp()
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         const cduser = interaction.user.id
         var CDBool = false
         function BypassCD(cduser) {
@@ -115,10 +115,10 @@ module.exports = {
         const cdembed = new EmbedBuilder()
             .setColor('Red')
             .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
-            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(cdend[cduser] / 1000)}> (<t:${Math.round(cdend[cduser] / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
             .setTimestamp()
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         if (cd.has(interaction.user.id) && !CDBool) {
             await interaction.reply({
                 embeds: [cdembed]

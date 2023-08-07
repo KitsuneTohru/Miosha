@@ -24,18 +24,18 @@ module.exports = {
         const ErrEmbed = new EmbedBuilder()
             .setColor('Green')
             .setTitle(`Miosha#5189 - Kick`)
-            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Bạn Không Thể Kick ${target} Được Vì Tớ Không Đủ Thẩm Quyền!!!`)
             .setTimestamp()
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
 
         const KickEmbed = new EmbedBuilder()
             .setColor('Red')
             .setTitle(`Miosha#5189 - Kick`)
-            .setAuthor({ name: 'Miosha#5189', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_RushiaKnife:977202151480766565> | Đã Kick Người Dùng ${target}\n> **Lí Do Ban:** ${reason}`)
             .setTimestamp()
-            .setFooter({ text: 'Bot Được Tạo Bởi: Kitsunezi#2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/962948410472816650/1084078406561443900/Kitsunezi_March_2023.png' });
+            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         if (member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
             return interaction.reply({
                 embeds: [ErrEmbed]

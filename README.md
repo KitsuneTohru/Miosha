@@ -3,10 +3,10 @@
 ![Img0](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034504577074/Miosha-Overall.png)
 ## • Phiên Bản
 - Phiên Bản Chính
-    + Server LYG: 0.8.5
+    + Server LYG: 0.9.0
 - Phiên Bản Phụ
-    + Game Over: 0.5.8
-> Tiến Độ ▰▰▰▰▰▱▱▱▱▱ 52%
+    + Game Over: 0.6.0
+> Tiến Độ ▰▰▰▰▰▱▱▱▱▱ 55%
 
 > 100% Code Do Tự Tay Kitsunezi Viết, Có Tham Khảo Nguồn Từ Các Con Bot Khác Và Trên Mạng, Hoàn Toàn KHÔNG SỬ DỤNG TEMPLATE
 ## • Mục Đích Sử Dụng:
@@ -19,9 +19,10 @@
 ## • Changelog: 
 
 - Mới/Đã Chỉnh Sửa
-    + Tối Ưu Hóa: /howgay
+    + Add: /announcement
+    + Chỉnh Sửa Nội Dung Embed
 - Special Update
-    + Hiện Không Có!
+    + Lệnh Moderation Riêng Cho Server
 
 ![Img2](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034072563823/Miosha-Credits.png)
 ## • Contributor List:

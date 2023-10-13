@@ -41,7 +41,7 @@ module.exports = {
                 const user_embed = new EmbedBuilder()
                     .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setTitle(`<:LYG_Okayu_Mogu:1089566808719237210> **Avatar Displayer**`)
-                    .setDescription(`[Avatar URL](${user.displayAvatarURL({ dynamic: true, size: 512 })}) **(User: ${user})**`)
+                    .setDescription(`[PNG Format](${user.displayAvatarURL({ dynamic: true, size: 512, extension: 'png'})}) • [JPG Format](${user.displayAvatarURL({ dynamic: true, size: 512, extension: 'jpg'})}) • [WEBP Format](${user.displayAvatarURL({ dynamic: true, size: 512, extension: 'webp'})})\n<a:OrinSway:1160295722009251870> **(User: ${user})**`)
                     .setColor('Blue')
                     .setImage(`${user.displayAvatarURL({ dynamic: true, size: 512 })}`)
                     .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })

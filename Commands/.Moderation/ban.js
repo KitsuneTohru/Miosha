@@ -16,7 +16,6 @@ module.exports = {
                 .setDescription('Lí Do Mà Bạn Muốn Ban (Không Bắt Buộc)')
                 .setRequired(false)),
     async execute(interaction) {
-        const channel = interaction.channels.cache.get('1138232687673475143')
         const target = interaction.options.getUser('user')
         const reason = interaction.options.getString('reason') || 'Không Có Lí Do Nào Cả, Thẳng Tay Thi Hành Án'
 

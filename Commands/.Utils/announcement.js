@@ -20,6 +20,10 @@ module.exports = {
                 .setDescription('Nội Dung Thông Tin Bạn Muốn Thông Báo')
                 .setRequired(true))
         .addStringOption(option =>
+            option.setName('context')
+            .setDescription('Thông Báo Đi Kèm, Default Chỉ Là Ping Role')
+            .setRequired(false))
+        .addStringOption(option =>
             option.setName('imglink')
                 .setDescription('Link Ảnh Cần Dùng')
                 .setRequired(false)),
@@ -28,6 +32,10 @@ module.exports = {
         const title = interaction.options.getString('title')
         const desc = interaction.options.getString('message')
         var img_url = interaction.options.getString('imglink')
+        var context_msg = interaction.options.getString('context')
+        if(context_msg === null){
+            context_msg = '<@&901074521824559125>'
+        }
         function xuatkey(img_url) {
             var key
             if (img_url === null) {
@@ -50,6 +58,7 @@ module.exports = {
             .setTitle(title)
             .setDescription(desc)
             .setImage(img_url)
+            .setTimestamp()
             .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         const id = channel.id
         await interaction.reply({
@@ -57,9 +66,8 @@ module.exports = {
             ephemeral: true
         })
         channel.send({
-            content: `<@&901074521824559125>`,
+            content: `${context_msg}`,
             embeds: [Announce_Embed]
         })
-        console.log(xuatkey(img_url), img_url)
     }
 }

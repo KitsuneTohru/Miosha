@@ -33,7 +33,7 @@ module.exports = {
             .setColor('Red')
             .setTitle(`Miosha#5189 - Kick`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setDescription(`<:LYG_RushiaKnife:977202151480766565> | Đã Kick Người Dùng ${target}\n> **Lí Do Ban:** ${reason}`)
+            .setDescription(`<:LYG_RushiaKnife:977202151480766565> | Đã Kick Người Dùng ${target}\n> **Lí Do Kick:** ${reason}`)
             .setTimestamp()
             .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         if (member.permissions.has(PermissionsBitField.Flags.KickMembers)) {

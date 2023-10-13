@@ -12,7 +12,7 @@ module.exports = {
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setTitle(`<:LYG_Okayu_Mogu:1089566808719237210> **Thông Tin Của Server**`)
             .setColor('#FFFFFF')
-            .setDescription(`<a:LYG_Arrow:1093051541667196949> **Tên Server:** ${interaction.guild.name}\n<a:LYG_Arrow:1093051541667196949> **Server ID:** ${interaction.guild.id}\n<a:LYG_Arrow:1093051541667196949> **Chủ Server:** ${owner}\n<a:LYG_Arrow:1093051541667196949> **Ngày Tạo:** <t:${Math.floor(interaction.guild.createdTimestamp / 1000)}>\n<a:LYG_Arrow:1093051541667196949> **Số Lượng Thành Viên:** ${interaction.guild.memberCount}\n<a:LYG_Arrow:1093051541667196949> **Server Thumbnail:** [Thumbnail_URL](${interaction.guild.iconURL({ dynamic: true, size: 512 })})`)
+            .setDescription(`<a:LYG_Arrow:1093051541667196949> **Tên Server:** ${interaction.guild.name}\n<a:LYG_Arrow:1093051541667196949> **Server ID:** ${interaction.guild.id}\n<a:LYG_Arrow:1093051541667196949> **Chủ Server:** ${owner}\n<a:LYG_Arrow:1093051541667196949> **Ngày Tạo:** <t:${Math.floor(interaction.guild.createdTimestamp / 1000)}>\n<a:LYG_Arrow:1093051541667196949> **Số Lượng Thành Viên:** ${interaction.guild.memberCount}\n<a:LYG_Arrow:1093051541667196949> **Server Thumbnail:** [Thumbnail_URL](${interaction.guild.iconURL({ dynamic: true, size: 512, extension: 'png' })})`)
             .setThumbnail(interaction.guild.iconURL({ dynamic: true, size: 512 }))
             .setTimestamp()
             .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })

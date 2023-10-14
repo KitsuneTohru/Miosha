@@ -6,7 +6,7 @@ module.exports = {
         .setDescription('Hiển Thị Info Của Bot'),
     async execute(interaction) {
         const user = interaction.user.id
-        const time = 1691445600
+        const time = 1697303700
         const date = new Date().setTime(Number(time) * 1000)
         const CreditButton = new ActionRowBuilder()
             .addComponents(
@@ -43,16 +43,16 @@ module.exports = {
             .setDescription('**```\nCẢM ƠN RẤT NHIỀU VÌ SỰ ĐÓNG GÓP CỦA NHỮNG NGƯỜI DƯỚI ĐÂY!!!```**\n> <a:LYG_Fubuki_Chill:903085553145249822> **• Contributor**\n- <@751225225047179324>\n- <@809259609700302935>\n- <@729671009631862834>\n\n> <:LYG_FubukiMoney:1096296266822062080> **• Sponsor**\n- <@888738277044133899>\n- <@912514337602666526>\n- <a:LYG_LoadSlot:1087377575107645569>\n\n> <a:LYG_OkayuLove:1087692048280334347> **• Special Thanks**\n- <@961838901792735243>\n- <a:LYG_LoadSlot:1087377575107645569>')
             .setImage('https://cdn.discordapp.com/attachments/948615835369472064/1096299975530524703/Miosha_-_Credits.png')
             .setTimestamp(date)
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
 
         const changelog_embed = new EmbedBuilder()
             .setColor('#00FFFF')
             .setTitle(`Thông Tin Về Bot: Miosha#5189`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** **[LYG]** v.0.9.0/**[Game Over]** v.0.6.0\n> <:LYG_OkayuBOOM:1138231827140706304> SPECIAL: Lệnh Quản Lí Riêng (Gồm **/ban**, **/kick**, **/unban**, **/timeout**)\n> Add Lệnh: **/announcement**\n> Thay Thế Khá Nhiều Thông Tin Trong Embed\n<a:LYG_Butterfly:1084085919210012722> **Tiến Độ:** ▰▰▰▰▰▱▱▱▱▱ 55%\n<a:LYG_Clock:1084322030331105370> **Last Update:** <t:${time}> (<t:${time}:R>)`)
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** **[LYG]** v.0.9.5/**[Game Over]** v.0.6.5\n> <:LYG_OkayuBOOM:1138231827140706304> SPECIAL: Cooldown Bằng Database Đã Quay Trở Lại!\n> Sửa Lệnh: **/roll**\n> Issue Mới Đang Gặp: Emoji Khi Edit Embed, Nếu Có Ai Đó Giúp Được Thì Giúp Tui Nhé!\n<a:LYG_Butterfly:1084085919210012722> **Tiến Độ:** ▰▰▰▰▰▰▱▱▱▱ 60%\n<a:LYG_Clock:1084322030331105370> **Last Update:** <t:${time}> (<t:${time}:R>)`)
             .setImage('https://cdn.discordapp.com/attachments/948615835369472064/1096301056188760084/Miosha_-_Info.png')
             .setTimestamp(date)
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         await interaction.reply({
             embeds: [changelog_embed],
             components: [CreditButton]

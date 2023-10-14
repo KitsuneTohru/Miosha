@@ -1,6 +1,6 @@
 {
   "name": "miosha",
-  "version": "0.8.5",
+  "version": "0.9.5",
   "description": "LYG Official Bot, Ofc, Just A Newbie Coder Like Me As An CEO For Doing It",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "dependencies": {
     "discord.js": "^14.13.0",
     "dotenv": "^16.0.3",
-    "mongoose": "^6.11.2",
+    "mongoose": "^6.0.2",
     "quick.db": "^9.1.7",
     "sequelize": "^6.33.0",
     "sqlite3": "^5.1.6"

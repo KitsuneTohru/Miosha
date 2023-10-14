@@ -1,8 +1,7 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js'); 
 const wait = require('node:timers/promises').setTimeout
-const cd = new Set();
-const cdend = new Set();
-const cdtime = 5000;
+const cdSchema = require('../../Database/cooldown')
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('slot')
@@ -13,8 +12,8 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction) {
         //Setup (Cursed Vãi Vì Nhiều Biến Phải Lưu Trữ :])
-        const user = interaction.user.id
-        const cduser = interaction.user.id
+        const cdtime = 15000
+        const auser = interaction.user.id
         const str = interaction.options.getString('amount')
         const spinstr = '<a:LYG_SlSpin:1097139730635833415>'
         const blankstr = '<:LYG_blank:1097172753985056859>'
@@ -28,11 +27,11 @@ module.exports = {
         var multi = 0
         var resultamount = ''
         //Set Key Cho Lệnh Chạy
-        var err = false
+        var serr = false
         stramount = str.toLowerCase()
         if (stramount === 'all') {
             stramount = maxamount
-            err = false
+            serr = false
         } else {
             for (i in stramount) {
                 var num = stramount[i]
@@ -42,19 +41,19 @@ module.exports = {
                 }
             }
             if (numcount === stramount.length) {
-                err = false
+                serr = false
                 stramount = str
                 if (Number(stramount) > maxamount) {
-                    err = true
+                    serr = true
                 }
             }
             else {
-                err = true
+                serr = true
             }
         }
         //Chạy Lệnh + Lấy Random
         var resultdesc = []
-        const desc1 = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr}${spinstr}${spinstr}${spinstr}${blankstr}` + ' |\n' + `| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |\n| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |`
+        const desc1 = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr} ${spinstr} ${spinstr} ${spinstr} ${blankstr}` + ' |\n' + `| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |\n| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |`
         var rng = Math.random()
         if (rng <= 0.20) {
             multi = 1
@@ -136,9 +135,9 @@ module.exports = {
                     resultamount = Number(stramount) * multi * -1
                 }
         }
-        resultdesc[0] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr}${result[0]}${spinstr}${spinstr}${blankstr}` + ' |\n' + `| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |\n| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |`
-        resultdesc[1] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr}${result[0]}${spinstr}${result[2]}${blankstr}` + ' |\n' + `| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |\n| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |`
-        resultdesc[2] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr}${result[0]}${result[1]}${result[2]}${blankstr}` + ' |\n' + `| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |\n| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |`
+        resultdesc[0] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr} ${result[0]} ${spinstr} ${spinstr} ${blankstr}` + ' |\n' + `| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |\n| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |`
+        resultdesc[1] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr} ${result[0]} ${spinstr} ${result[2]} ${blankstr}` + ' |\n' + `| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |\n| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |`
+        resultdesc[2] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr} ${result[0]} ${result[1]} ${result[2]} ${blankstr}` + ' |\n' + `| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |\n| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |`
         if (multi !== -1) {
             resultdesc[3] = resultdesc[2] + `\n> Bạn Đã Thắng **${resultamount}** <:LYG_Cowoncy:1097147478018629632>!!!\n**Note:** Đây Chỉ Là Giả Sử Thôi Nhé, Kết Quả Thật Tùy May Mắn Nhá!`
             color = '#00FF05'
@@ -155,85 +154,95 @@ module.exports = {
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | Oi! Hãy Định Giá Lúc Bạn Giả Sử Coi Nào! (**${stramount}**)`)
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         const ReadyEmbed = new EmbedBuilder()
             .setColor('Purple')
             .setTitle(`<a:LYG_Slots:1096856649051938916> **Game - Slots**`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(desc1)
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         const Embed1 = new EmbedBuilder()
             .setColor('Purple')
             .setTitle(`<a:LYG_Slots:1096856649051938916> **Game - Slots**`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(resultdesc[0])
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         const Embed2 = new EmbedBuilder()
             .setColor('Purple')
             .setTitle(`<a:LYG_Slots:1096856649051938916> **Game - Slots**`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(resultdesc[1])
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         const Embed3 = new EmbedBuilder()
             .setColor(color)
             .setTitle(`<a:LYG_Slots:1096856649051938916> **Game - Slots**`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(resultdesc[3])
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-        const cdembed = new EmbedBuilder()
-            .setColor('Red')
-            .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(cdend[cduser] / 1000)}> (<t:${Math.round(cdend[cduser] / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
-            .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-        var CDBool = false
+            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         const userarr = ['751225225047179324', '809259609700302935', '927221951439700058', '786816081032773662', '729671009631862834', '1084992470074531960']
-        function checkCD(user) {
+        function checkCD(auser) {
             var i
             for (i in userarr) {
-                if (user === userarr[i])
-                    CDBool = true
+                if (auser === userarr[i])
+                    return true
             }
+            return false
         }
-        checkCD(user)
-        if (cd.has(interaction.user.id) && !CDBool) {
-            await interaction.reply({
-                embeds: [cdembed]
-            })
-        } else {
-            cdend[cduser] = Date.now()
-            cdend[cduser] = cdend[cduser] + cdtime
-            if (!err) {
-                await interaction.reply({
-                    embeds: [ReadyEmbed]
+        const Bypass_ = checkCD(auser)
+        cdSchema.findOne({ UserID: interaction.user.id }, async (err, data) => {
+            if (err) throw err
+            if (!data) {
+                cdSchema.create({
+                    UserID: interaction.user.id,
+                    CDSlot: Date.now() + cdtime,
                 })
-                await wait(1000)
-                await interaction.editReply({
-                    embeds: [Embed1]
-                })
-                await wait(1000)
-                await interaction.editReply({
-                    embeds: [Embed2]
-                })
-                await wait(1000)
-                await interaction.editReply({
-                    embeds: [Embed3]
-                })
+            } if (data) {
+                const cduser = data.UserID
+                const CDTime = data.CDSlot
+                console.log('[Command: Slot]', cduser, CDTime, Date.now())
+                if (CDTime > Date.now() && !Bypass_) {
+                    const cdembed = new EmbedBuilder()
+                        .setColor('Red')
+                        .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
+                        .setTimestamp()
+                        .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    await interaction.reply({
+                        embeds: [cdembed]
+                    })
+                }
+                else {
+                    data.CDSlot = Date.now() + cdtime
+                    data.save()
+                    if (!serr) {
+                        await interaction.reply({
+                            embeds: [ReadyEmbed]
+                        })
+                        await wait(1000)
+                        await interaction.editReply({
+                            embeds: [Embed1]
+                        })
+                        await wait(1000)
+                        await interaction.editReply({
+                            embeds: [Embed2]
+                        })
+                        await wait(1000)
+                        await interaction.editReply({
+                            embeds: [Embed3]
+                        })
+                    }
+                    else {
+                        await interaction.reply({
+                            embeds: [ErrorEmbed]
+                        })
+                    }
+                }
             }
-            else {
-                await interaction.reply({
-                    embeds: [ErrorEmbed]
-                })
-            }
-            cd.add(interaction.user.id)
-            setTimeout(() => {
-                cd.delete(interaction.user.id)
-            }, cdtime)
-        }
+        })
     }
-};
+}

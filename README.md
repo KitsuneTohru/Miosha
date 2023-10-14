@@ -3,15 +3,15 @@
 ![Img0](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034504577074/Miosha-Overall.png)
 ## • Phiên Bản
 - Phiên Bản Chính
-    + Server LYG: 0.9.0
+    + Server LYG: 0.9.5
 - Phiên Bản Phụ
-    + Game Over: 0.6.0
-> Tiến Độ ▰▰▰▰▰▱▱▱▱▱ 55%
+    + Game Over: 0.6.5
+> Tiến Độ ▰▰▰▰▰▰▱▱▱▱ 60%
 
-> 100% Code Do Tự Tay Kitsunezi Viết, Có Tham Khảo Nguồn Từ Các Con Bot Khác Và Trên Mạng, Hoàn Toàn KHÔNG SỬ DỤNG TEMPLATE
+> 100% Code Do Tự Tay Orin *(Kitsunezi)* Viết, Có Tham Khảo Nguồn Từ Các Con Bot Khác Và Trên Mạng, Hoàn Toàn **KHÔNG SỬ DỤNG TEMPLATE**
 ## • Mục Đích Sử Dụng:
 - Mục Đích Chính:
-    + Chỉ Là 1 Con Bot Vui Được Tạo Nên Bởi: Kitsunezi, Dùng Riêng Trong Server, Không Có Mục Đích Cao Cả Gì Hết, Fun Là Chính
+    + Chỉ Là 1 Con Bot Vui Được Tạo Nên Bởi: Orin *(Kitsunezi)*, Dùng Riêng Trong Server, Không Có Mục Đích Cao Cả Gì Hết, Fun Là Chính
 - Mục Đích Riêng Từ Chủ Bot
     + Thỏa Mãn Sự Hiếu Kì Của Owner Server (LYG) Và Admin (Game Over) Thôi
 
@@ -19,15 +19,15 @@
 ## • Changelog: 
 
 - Mới/Đã Chỉnh Sửa
-    + Add: /announcement
-    + Chỉnh Sửa Nội Dung Embed
+    + Chỉnh Sửa: /roll
 - Special Update
-    + Lệnh Moderation Riêng Cho Server
+    + Cooldown Bằng Database
+- *Hiện Đang Có 1 Issue:* __Message Edit Embed Gặp Bug Emoji__
 
 ![Img2](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034072563823/Miosha-Credits.png)
 ## • Contributor List:
 - Main Contributor
-    + Kitsunezi
+    + Orin *(Kitsunezi)*
 - Co-Contributor
     + IC
     + Mari Lemon

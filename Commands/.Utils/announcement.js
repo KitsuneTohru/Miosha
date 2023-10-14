@@ -59,7 +59,7 @@ module.exports = {
             .setDescription(desc)
             .setImage(img_url)
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         const id = channel.id
         await interaction.reply({
             content: `Đã Gửi Thông Báo Đến Kênh <#${id}>`,

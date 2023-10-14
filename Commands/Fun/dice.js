@@ -1,8 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
-const cd = new Set();
-const cdend = new Set();
-const cdtime = 15000;
+const cdSchema = require('../../Database/cooldown')
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('dice')
@@ -14,7 +13,7 @@ module.exports = {
                 .setMinValue(1)
                 .setMaxValue(10)),
     async execute(interaction) {
-        const user = interaction.user.id
+        const cdtime = 15000
         const quantity = interaction.options.getNumber('quantity')
         var runquantity = 0
         //runquantity (Biến Chính Để Chạy Function)
@@ -98,7 +97,7 @@ module.exports = {
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<a:LYG_FubukiWhat:1084085930266218556> Đang Tung Xúc Xắc Cho ${interaction.user}... *(Xin Chờ Một Lát...)*`)
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         const final_arr = Roll(runquantity)
         totalscore = final_arr[final_arr.length - 1]
         const totaldesc = `<a:LYG_FubukiWhat:1084085930266218556> Tổng Số Nút Đã Roll Của ${interaction.user} Là: **${totalscore} Nút**`
@@ -113,7 +112,7 @@ module.exports = {
                 .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                 .setDescription(executedesc)
                 .setTimestamp()
-                .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         }
         descembed.push(totaldesc)
         executedesc = descembed.join('')
@@ -123,45 +122,61 @@ module.exports = {
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(executedesc)
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
 
-        const cduser = interaction.user.id
-        var CDBool = false
-        function BypassCD(cduser) {
+        const auser = interaction.user.id
+        function BypassCD(auser) {
             const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '729671009631862834', '888738277044133899', '912514337602666526', '961838901792735243']
             for (var i in CDPassList) {
-                if (cduser === CDPassList[i]) {
-                    CDBool = true
+                if (auser === CDPassList[i]) {
+                    return true
                 }
             }
+            return false
         }
-        BypassCD(cduser)
-        const cdembed = new EmbedBuilder()
-            .setColor('Red')
-            .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(cdend[cduser] / 1000)}> (<t:${Math.round(cdend[cduser] / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
-            .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-        if (cd.has(interaction.user.id) && !CDBool) {
-            await interaction.reply({
-                embeds: [cdembed]
-            })
-        } else {
-            console.log('========================================\nRng Encounter:', final_arr, '\n========================================')
-            await interaction.reply({
-                embeds: [WaitEmbed]
-            })
-            await wait(2500)
-            for (var embed = 1; embed <= final_arr.length - 2; embed++) {
-                await interaction.editReply({
-                    embeds: [DiceEmbeds[embed]]
+        const Bypass_ = BypassCD(auser)
+        cdSchema.findOne({ UserID: interaction.user.id }, async (err, data) => {
+            if (err) throw err
+            if (!data) {
+                cdSchema.create({
+                    UserID: interaction.user.id,
+                    CDDice: Date.now() + cdtime,
                 })
-                await wait(1000)
+            } if (data) {
+                const cduser = data.UserID
+                const CDTime = data.CDDice
+                console.log('[Command: Dice]', cduser, CDTime, Date.now())
+                if (CDTime > Date.now() && !Bypass_) {
+                    const cdembed = new EmbedBuilder()
+                        .setColor('Red')
+                        .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
+                        .setTimestamp()
+                        .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    await interaction.reply({
+                        embeds: [cdembed]
+                    })
+                }
+                else {
+                    data.CDDice = Date.now() + cdtime
+                    data.save()
+                    console.log('========================================\nRng Encounter:', final_arr, '\n========================================')
+                    await interaction.reply({
+                        embeds: [WaitEmbed]
+                    })
+                    await wait(2500)
+                    for (var embed = 1; embed <= final_arr.length - 2; embed++) {
+                        await interaction.editReply({
+                            embeds: [DiceEmbeds[embed]]
+                        })
+                        await wait(1000)
+                    }
+                    await interaction.editReply({
+                        embeds: [FinalEmbed]
+                    })
+                }
             }
-            await interaction.editReply({
-                embeds: [FinalEmbed]
-            })
-        }
+        })
     }
 }

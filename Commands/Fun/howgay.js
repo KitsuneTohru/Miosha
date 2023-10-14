@@ -8,10 +8,9 @@
 ========================================================*/
 
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const wait = require('node:timers/promises').setTimeout;
-const cd = new Set();
-const cdend = new Set();
-const cdtime = 300000;
+const wait = require('node:timers/promises').setTimeout; 
+const cdSchema = require('../../Database/cooldown')
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('howgay')
@@ -26,10 +25,12 @@ module.exports = {
                 .setRequired(false)),
 
     async execute(interaction) {
+        //CDTime
+        const cdtime = 300000
         //Lấy User Và AvgSet
         const user = interaction.options.getUser('target')
         var avgbool = interaction.options.getBoolean('avgset')
-        if (avgbool === null){
+        if (avgbool === null) {
             avgbool = false
         }
         //Easter
@@ -44,7 +45,7 @@ module.exports = {
             .setDescription(`${easter_result}`)
             .setTimestamp()
             .setImage(easter_url)
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         //Chờ Embed...
         const CalcEmbed = new EmbedBuilder()
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
@@ -52,7 +53,7 @@ module.exports = {
             .setColor('#FFFFFF')
             .setDescription(`<a:LYG_LoadSlot:1087377575107645569> **|** Hệ Thống Đang Kiểm Tra Độ Gay Của ${user}... Xin Chờ Một Lát...\n**LƯU Ý:** Đừng Lấy Chuyện Này Làm Chuyện Nghiêm Túc Nhá! Quạo Rồi Không Ai Chịu Trách Nhiệm Đâu!`)
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         //Lock User + Hàm Lấy So Sánh
         const lock_user = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '888738277044133899', '764825231335620619']
         var lock_output = false
@@ -72,7 +73,7 @@ module.exports = {
             lock_desc = `<:go_MokouFire:1092052285732954132> **|** Để Tưởng Nhớ Người Bạn Đã Khuất Của Chủ Bot, Bạn **KHÔNG THỂ** Check Câu Lệnh ${spcl_chr} Lên ${user} Được! Hãy Thử Với Người Khác Đi Nhá!\n> **Kitsunezi's Note:** *"Vĩnh Biệt, Người Bạn Tốt Của Tôi, Ông Là Người Đã Mở Đường Cho Tôi Đến Với Sự Nghiệp Này. An Nghỉ Nhé, Shen, Bạn Tôi..."*`
             lock_img = `https://media.discordapp.net/attachments/1098462997472608389/1115987915269472306/Youmu.gif`
         }
-        
+
 
         const SpecialEmbed = new EmbedBuilder()
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
@@ -81,7 +82,7 @@ module.exports = {
             .setDescription(lock_desc)
             .setTimestamp()
             .setImage(lock_img)
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         //avgbool == False
         if (avgbool == false) {
             var rng = Math.random() * 101.1
@@ -214,7 +215,7 @@ module.exports = {
                 .setDescription(`${result}`)
                 .setTimestamp()
                 .setImage(img_url)
-                .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         }
         //Embed(True)
         if (avgbool === true) {
@@ -243,85 +244,95 @@ module.exports = {
                     .setDescription(avgdesc[count])
                     .setTimestamp()
                     .setImage(imgv2)
-                    .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
             }
         }
-        const cduser = interaction.user.id
-        var CDBool = false
-        function BypassCD(cduser) {
+        const auser = interaction.user.id
+        function BypassCD(auser) {
             const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058', '729671009631862834', '961838901792735243']
             for (var i in CDPassList) {
-                if (cduser === CDPassList[i]) {
-                    CDBool = true
+                if (auser === CDPassList[i]) {
+                    return true
                 }
             }
+            return false
         }
-        BypassCD(cduser)
-        const cdembed = new EmbedBuilder()
-            .setColor('Red')
-            .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(cdend[cduser] / 1000)}> (<t:${Math.round(cdend[cduser] / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
-            .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-        if (cd.has(interaction.user.id) && !CDBool) {
-            await interaction.reply({
-                embeds: [cdembed]
-            })
-        } else {
-            cdend[cduser] = Date.now()
-            cdend[cduser] = cdend[cduser] + cdtime
-            //Reply(Phụ Thuộc Vào Điều Kiện)
-            await interaction.reply({
-                embeds: [CalcEmbed]
-            })
-            await wait(3000)
-            if (avgbool === false) {
-                if (lock_output) {
-                    await interaction.editReply({
-                        embeds: [SpecialEmbed]
+        const Bypass_ = BypassCD(auser)
+        cdSchema.findOne({ UserID: interaction.user.id }, async (err, data) => {
+            if (err) throw err
+            if (!data) {
+                cdSchema.create({
+                    UserID: interaction.user.id,
+                    CDHowgay: Date.now() + cdtime,
+                })
+            } if (data) {
+                const cduser = data.UserID
+                const CDTime = data.CDHowgay
+                console.log('[Command: Howgay]', cduser, CDTime, Date.now())
+                if (CDTime > Date.now() && !Bypass_) {
+                    const cdembed = new EmbedBuilder()
+                        .setColor('Red')
+                        .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
+                        .setTimestamp()
+                        .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    await interaction.reply({
+                        embeds: [cdembed]
                     })
                 }
                 else {
-                    await interaction.editReply({
-                        embeds: [GayEmbed_1]
+                    data.CDHowgay = Date.now() + cdtime
+                    data.save()
+                    //Reply(Phụ Thuộc Vào Điều Kiện)
+                    await interaction.reply({
+                        embeds: [CalcEmbed]
                     })
-                }
-                await wait(500)
-                if (rng > 100 && rngv2 >= 95 && !lock_output) {
-                    await interaction.followUp({
-                        embeds: [H100PlusEmbed]
-                    })
-                }
-            }
-            else {
-                if (lock_output) {
-                    await interaction.editReply({
-                        embeds: [SpecialEmbed]
-                    })
-                }
-                else {
-                    for (var embed = 0; embed <= 3; embed++) {
-                        if (!lock_output) {
-                            await wait(500)
+                    await wait(3000)
+                    if (avgbool === false) {
+                        if (lock_output) {
                             await interaction.editReply({
-                                embeds: [AvgGayEmbed[embed]]
+                                embeds: [SpecialEmbed]
                             })
                         }
-                        else break
+                        else {
+                            await interaction.editReply({
+                                embeds: [GayEmbed_1]
+                            })
+                        }
+                        await wait(500)
+                        if (rng > 100 && rngv2 >= 95 && !lock_output) {
+                            await interaction.followUp({
+                                embeds: [H100PlusEmbed]
+                            })
+                        }
+                    }
+                    else {
+                        if (lock_output) {
+                            await interaction.editReply({
+                                embeds: [SpecialEmbed]
+                            })
+                        }
+                        else {
+                            for (var embed = 0; embed <= 3; embed++) {
+                                if (!lock_output) {
+                                    await wait(500)
+                                    await interaction.editReply({
+                                        embeds: [AvgGayEmbed[embed]]
+                                    })
+                                }
+                                else break
+                            }
+                        }
+                        await wait(500)
+                        if (rng > 100 && rngv2 >= 95 && !lock_output) {
+                            await interaction.editReply({
+                                embeds: [H100PlusEmbed]
+                            })
+                        }
                     }
                 }
-                await wait(500)
-                if (rng > 100 && rngv2 >= 95 && !lock_output) {
-                    await interaction.editReply({
-                        embeds: [H100PlusEmbed]
-                    })
-                }
             }
-            cd.add(interaction.user.id)
-            setTimeout(() => {
-                cd.delete(interaction.user.id)
-            }, cdtime)
-        }
-    },
-};
+        })
+    }
+}

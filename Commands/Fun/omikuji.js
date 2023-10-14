@@ -1,13 +1,13 @@
 const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
-const cd = new Set();
-const cdend = new Set();
-const cdtime = 86400000;
+const cdSchema = require('../../Database/cooldown') 
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('omikuji')
         .setDescription('Dùng Để Rút Quẻ'),
     async execute(interaction) {
+        const cdtime = 86400000
         //BUTTON TYPE 5 ENTRY
         const type5_1 = new ActionRowBuilder()
             .addComponents(
@@ -123,7 +123,7 @@ module.exports = {
             .setDescription('> *Kitsunezi - "A New Beginning, A New Journey"*\n\n> Trước Khi Tui Nhận Thức Được Bản Thân Là Nàng Cáo Tuyết Ở Một Ngôi Đền Thần, Tui Cũng Sống Yên Bình Như Bao Người Khác, Chỉ Khổ Nỗi Một Chỗ Tui Là Người Hướng Nội, Không Thích Quan Tâm Đến Cuộc Sống Cho Lắm Và Vẫn Là Như Vậy Ngày Qua Ngày...\n\n> Vào Một Ngày Nọ, Khi Tui Dạo Chơi Ở Một Núi Tuyết Nào Đó (Cũng Lâu Lắm Rồi, Cũng Không Nhớ Nữa), Tui Gặp Được Một Nàng Hồ Ly, Nhìn Cũng Như Hình Dạng Của Tui Hiện Tại Vậy Á, Cô Ấy Muốn Nói Là Cần Đệ Tử Chân Chính Kế Thừa Sự Nghiệp, Với Cái Tật Simp Không Dùng Não, Tui Đã Đồng Ý Ngay Và Luôn Không Do Dự Điều Kiện, Và Thế Là Nàng Hồ Ly Ấy Đồng Ý, Chấp Thuận Luôn Thôi, Ngay Cả Chính Bản Thân Mình Cũng Không Hề Nhận Ra Rằng: Ngọn Núi Ấy Có Một Giai Thoại Rằng "Lên Núi Tuyết Này, Gặp Nàng Hồ Ly, May Rủi Hay Không, Số Phận Tự Quyết", Nhưng Cũng Phải Tùy Thuộc Vào Cô Ấy Chứ, Nhỉ? Cũng May Cho Tui Là Cô Ấy Muốn Tìm Đệ Tử, Và Thế Là... Tui Mất Đi Ý Thức...\n\n> Khi Tui Tỉnh Dậy Lại Thì Bỗng Thấy Trong Tay Là Gậy Trừ Tà Của Miko, Bùa Hộ Mệnh Của Hồ Ly, Nhìn Lại Bộ Đồ Tui Mặc Sao Lại Giống Miko Đền Thần Thế Này? Tui Ra Hồ Nước Gần Đó Nhìn Bản Thân Mình...\n\n> - Trời, Đấy Là Bản Thân Mình Bây Giờ Đây Ư?\n\n> Tui Không Hoảng Loạn (Thực Sự Trong Lòng Tui Cũng Bất Ngờ Ấy Chứ, Mà Lại Là Chính Hình Dạng Của Nàng Hồ Ly Mình Gặp Hôm Đó), Mà Bình Tĩnh Quan Sát Khắp Nơi Xem Nhưng Không Thấy Ngọn Núi Và Nàng Hồ Ly Hôm Ấy Đâu, Thế Là Tui Đã Sống Dưới Sự Kế Thừa Của Nàng Hồ Ly Hôm Ấy Và Mãi Là Như Vậy Cho Đến Khi Có Người Kế Thừa Ý Chí Của Tui Sau Này... ')
             .setTimestamp(Date.now())
             .setImage(img_url)
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         const LYGEmbed = new EmbedBuilder()
             .setColor('Yellow')
             .setTitle(`<a:LYG_Planet:1084085941821513789> **LYG's Secret**`)
@@ -131,78 +131,87 @@ module.exports = {
             .setDescription('> *Bí Mật Của Server LYG Được Tiết Lộ Bởi `kitsunezi2905`*\n\n> Vào Thời 2020, Trước Khi Thành Lập LYG, Cũng Trước Khi Biết Đến Mọi Người Trong Server, Thì Chủ Server, Tức Là <@751225225047179324>, Đã Cùng Với <@747664833423343677> Thành Lập Nên `Ice Team` (Qua 2021 Đổi Thành `Kono Ice`...\n\n> Nhưng Rồi Bi Kịch Đã Xảy Đến... Vụ Việc Drama Lớn Giữa Server Với Server Lớn Hơn Dẫn Đến Phải Giải Tán `Kono Ice` Vào Cuối Năm 2021...\n> Thế Là, `Lazy Gang` Chính Thức Được Thành Lập, Và <@747664833423343677> Đã Từ Chức, Để Lại Cho <@751225225047179324> Giữ Chức Vụ Cùng Với <@888738277044133899> Làm Owner Cho Đến Bây Giờ...\n\n> Kết Quả Cuối Cùng Là: Server Không Còn Náo Nhiệt Như Xưa Nữa, Chỉ Muốn Hồi Sinh Server Lại Thôi Mà Cũng Khó...\n> -Kitsunezi-')
             .setTimestamp(Date.now())
             .setImage(img_url)
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-        const cduser = interaction.user.id
-        const cdembed = new EmbedBuilder()
-            .setColor('Red')
-            .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(cdend[cduser] / 1000)}> (<t:${Math.round(cdend[cduser] / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
-            .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-        if (cd.has(interaction.user.id)) {
-            await interaction.reply({
-                embeds: [cdembed]
-            })
-        } else {
-            cdend[cduser] = Date.now()
-            cdend[cduser] = cdend[cduser] + cdtime
-            //EMBED GỐC ENTRY
-            const embed = new EmbedBuilder()
-                .setColor('Aqua')
-                .setTitle(`**<:LYG_Omikuji:1084322622491344937> Đền Thần - Rút Quẻ Hàng Ngày**`)
-                .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-                .setDescription(result)
-                .setTimestamp(Date.now())
-                .setImage(img_url)
-                .setFooter({ text: 'Miosha | ©kitsunezi2905 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-            await interaction.reply({
-                embeds: [embed],
-            });
-            if (rng > 99.9 && rng <= 99.95) {
-                await interaction.editReply({
-                    embed: [embed],
-                    components: [type5_1]
+            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+        cdSchema.findOne({ UserID: interaction.user.id }, async (err, data) => {
+            if (err) throw err
+            if (!data) {
+                cdSchema.create({
+                    UserID: interaction.user.id,
+                    CDOmikuji: Date.now() + cdtime,
                 })
-            }
-            else if (rng > 99.95 && rng <= 100) {
-                await interaction.editReply({
-                    embed: [embed],
-                    components: [type5_2]
-                })
-            }
-            //Trigger Nút    
-            const filter = a => a.user.id === user;
-            const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 })
-            collector.on('collect', async a => {
-                if (a.customId === 'entrytype5_1') {
-                    await interaction.editReply({
-                        embed: [embed],
-                        components: []
-                    })
-                    await wait(500)
-                    await interaction.followUp({
-                        embeds: [KitsuneziEmbed],
-                        ephemeral: true,
+            } if (data) {
+                const cduser = data.UserID
+                const CDTime = data.CDOmikuji
+                console.log('[Command: Omikuji]', cduser, CDTime, Date.now())
+                if (CDTime > Date.now()) {
+                    const cdembed = new EmbedBuilder()
+                        .setColor('Red')
+                        .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
+                        .setTimestamp()
+                        .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    await interaction.reply({
+                        embeds: [cdembed]
                     })
                 }
-                if (a.customId === 'entrytype5_2') {
-                    await interaction.editReply({
-                        embed: [embed],
-                        components: []
+                else {
+                    data.CDOmikuji = Date.now() + cdtime
+                    data.save()
+                    //EMBED GỐC ENTRY
+                    const embed = new EmbedBuilder()
+                        .setColor('Aqua')
+                        .setTitle(`**<:LYG_Omikuji:1084322622491344937> Đền Thần - Rút Quẻ Hàng Ngày**`)
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setDescription(result)
+                        .setTimestamp(Date.now())
+                        .setImage(img_url)
+                        .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    await interaction.reply({
+                        embeds: [embed],
                     })
-                    await wait(500)
-                    await interaction.followUp({
-                        embeds: [LYGEmbed],
-                        ephemeral: true,
+                    if (rng > 99.9 && rng <= 99.95) {
+                        await interaction.editReply({
+                            embed: [embed],
+                            components: [type5_1]
+                        })
+                    }
+                    else if (rng > 99.95 && rng <= 100) {
+                        await interaction.editReply({
+                            embed: [embed],
+                            components: [type5_2]
+                        })
+                    }
+                    //Trigger Nút    
+                    const filter = a => a.user.id === user;
+                    const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 })
+                    collector.on('collect', async a => {
+                        if (a.customId === 'entrytype5_1') {
+                            await interaction.editReply({
+                                embed: [embed],
+                                components: []
+                            })
+                            await wait(500)
+                            await interaction.followUp({
+                                embeds: [KitsuneziEmbed],
+                                ephemeral: true,
+                            })
+                        }
+                        if (a.customId === 'entrytype5_2') {
+                            await interaction.editReply({
+                                embed: [embed],
+                                components: []
+                            })
+                            await wait(500)
+                            await interaction.followUp({
+                                embeds: [LYGEmbed],
+                                ephemeral: true,
+                            })
+                        }
                     })
+                    console.log('========================================\nTổng Item Rng: ', rngitemlist.length, '\nID Item Rng: ', item_rng, '\nTên Item Rng:', item, '\nSố Encounter: ', rng, '\n========================================')
                 }
-            })
-            console.log('========================================\nTổng Item Rng: ', rngitemlist.length, '\nID Item Rng: ', item_rng, '\nTên Item Rng:', item, '\nSố Encounter: ', rng, '\n========================================')
-            cd.add(interaction.user.id)
-            setTimeout(() => {
-                cd.delete(interaction.user.id)
-            }, cdtime)
-        }
-    },
-};
+            }
+        })
+    }
+}

@@ -22,7 +22,7 @@
     + Chỉnh Sửa: /roll
 - Special Update
     + Cooldown Bằng Database
-- *Hiện Đang Có 1 Issue:* __Message Edit Embed Gặp Bug Emoji__
+- ~~*Hiện Đang Có 1 Issue:* __Message Edit Embed Gặp Bug Emoji__~~
 
 ![Img2](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034072563823/Miosha-Credits.png)
 ## • Contributor List:

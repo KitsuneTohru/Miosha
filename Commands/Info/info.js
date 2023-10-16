@@ -49,7 +49,7 @@ module.exports = {
             .setColor('#00FFFF')
             .setTitle(`Thông Tin Về Bot: Miosha#5189`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** **[LYG]** v.0.9.5/**[Game Over]** v.0.6.5\n> <:LYG_OkayuBOOM:1138231827140706304> SPECIAL: Cooldown Bằng Database Đã Quay Trở Lại!\n> Sửa Lệnh: **/roll**\n> Issue Mới Đang Gặp: Emoji Khi Edit Embed, Nếu Có Ai Đó Giúp Được Thì Giúp Tui Nhé!\n<a:LYG_Butterfly:1084085919210012722> **Tiến Độ:** ▰▰▰▰▰▰▱▱▱▱ 60%\n<a:LYG_Clock:1084322030331105370> **Last Update:** <t:${time}> (<t:${time}:R>)`)
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** **[LYG]** v.0.9.5/**[Game Over]** v.0.6.5\n> <:LYG_OkayuBOOM:1138231827140706304> SPECIAL: Cooldown Bằng Database Đã Quay Trở Lại!\n> Sửa Lệnh: **/roll**\n<a:LYG_Butterfly:1084085919210012722> **Tiến Độ:** ▰▰▰▰▰▰▱▱▱▱ 60%\n<a:LYG_Clock:1084322030331105370> **Last Update:** <t:${time}> (<t:${time}:R>)`)
             .setImage('https://cdn.discordapp.com/attachments/948615835369472064/1096301056188760084/Miosha_-_Info.png')
             .setTimestamp(date)
             .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })

@@ -7,12 +7,9 @@ const token = process.env.TOKEN;
 
 
 const client = new Client({
-    intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildMembers
-    ]
+    intents: Object.keys(GatewayIntentBits).map((a) => {
+        return GatewayIntentBits[a]
+    })
 });
 client.on("ready", () => {
     const Guilds = client.guilds.cache.map(guild => guild.id);

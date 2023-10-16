@@ -53,7 +53,7 @@ module.exports = {
         }
         //Chạy Lệnh + Lấy Random
         var resultdesc = []
-        const desc1 = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr} ${spinstr} ${spinstr} ${spinstr} ${blankstr}` + ' |\n' + `| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |\n| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |`
+        const desc1 = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr}${spinstr}${spinstr}${spinstr}${blankstr}` + ' |\n' + `| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |\n| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |`
         var rng = Math.random()
         if (rng <= 0.20) {
             multi = 1
@@ -135,9 +135,9 @@ module.exports = {
                     resultamount = Number(stramount) * multi * -1
                 }
         }
-        resultdesc[0] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr} ${result[0]} ${spinstr} ${spinstr} ${blankstr}` + ' |\n' + `| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |\n| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |`
-        resultdesc[1] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr} ${result[0]} ${spinstr} ${result[2]} ${blankstr}` + ' |\n' + `| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |\n| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |`
-        resultdesc[2] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr} ${result[0]} ${result[1]} ${result[2]} ${blankstr}` + ' |\n' + `| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |\n| ${blankstr} ${blankstr} ${blankstr} ${blankstr} ${blankstr} |`
+        resultdesc[0] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr}${result[0]}${spinstr}${spinstr}${blankstr}` + ' |\n' + `| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |\n| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |`
+        resultdesc[1] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr}${result[0]}${spinstr}${result[2]}${blankstr}` + ' |\n' + `| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |\n| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |`
+        resultdesc[2] = `> ${interaction.user} Đã Cược Vô Slot Lần Này: **${stramount}** <:LYG_Cowoncy:1097147478018629632>\n\n` + '`————SLOTS————`\n' + '| ' + `${blankstr}${result[0]}${result[1]}${result[2]}${blankstr}` + ' |\n' + `| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |\n| ${blankstr}${blankstr}${blankstr}${blankstr}${blankstr} |`
         if (multi !== -1) {
             resultdesc[3] = resultdesc[2] + `\n> Bạn Đã Thắng **${resultamount}** <:LYG_Cowoncy:1097147478018629632>!!!\n**Note:** Đây Chỉ Là Giả Sử Thôi Nhé, Kết Quả Thật Tùy May Mắn Nhá!`
             color = '#00FF05'

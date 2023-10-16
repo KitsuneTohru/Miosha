@@ -14,7 +14,7 @@ for (const folder of commandFolers){
     for (const file of commandFiles) {
         const command = require(`./Commands/${folder}/${file}`)
         commands.push(command.data.toJSON())
-        if(folder.startsWith('.')){ //Về Sau Nhiều Set Function Nhưng Lười Quá...
+        if(folder.startsWith('.')){ 
             LYG_Related++
         }
     }

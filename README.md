@@ -3,10 +3,10 @@
 ![Img0](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034504577074/Miosha-Overall.png)
 ## • Phiên Bản
 - Phiên Bản Chính
-    + Server LYG: 0.9.5
+    + Server LYG: 0.10.0
 - Phiên Bản Phụ
-    + Game Over: 0.6.5
-> Tiến Độ ▰▰▰▰▰▰▱▱▱▱ 60%
+    + Game Over: 0.7.0
+> Tiến Độ ▰▰▰▰▰▰▰▱▱▱ 70%
 
 > 100% Code Do Tự Tay Orin *(Kitsunezi)* Viết, Có Tham Khảo Nguồn Từ Các Con Bot Khác Và Trên Mạng, Hoàn Toàn **KHÔNG SỬ DỤNG TEMPLATE**
 ## • Mục Đích Sử Dụng:
@@ -19,10 +19,9 @@
 ## • Changelog: 
 
 - Mới/Đã Chỉnh Sửa
-    + Chỉnh Sửa: /roll
+    + Add 2 Lệnh: /rank Và /resetrank
 - Special Update
-    + Cooldown Bằng Database
-- ~~*Hiện Đang Có 1 Issue:* __Message Edit Embed Gặp Bug Emoji__~~
+    + Ranking System Đã Ra Mắt
 
 ![Img2](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034072563823/Miosha-Credits.png)
 ## • Contributor List:

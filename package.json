@@ -1,6 +1,6 @@
 {
   "name": "miosha",
-  "version": "0.9.5",
+  "version": "0.10.0",
   "description": "LYG Official Bot, Ofc, Just A Newbie Coder Like Me As An CEO For Doing It",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,7 @@
   "author": "Kitsunezi",
   "license": "ISC",
   "dependencies": {
+    "@napi-rs/canvas": "^0.1.44",
     "discord.js": "^14.13.0",
     "dotenv": "^16.0.3",
     "mongoose": "^6.0.2",

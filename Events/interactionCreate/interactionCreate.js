@@ -1,13 +1,9 @@
-const { Events } = require('discord.js');
-
-module.exports = {
-    name: Events.InteractionCreate,
-    async execute(interaction) {
-        //console.log(interaction)
+module.exports = async (client, interaction) => {
+    //console.log(interaction)
         if (!interaction.isChatInputCommand()) return;
         const command = interaction.client.commands.get(interaction.commandName);
-    
-        if(!command) {
+
+        if (!command) {
             console.error(`[ERROR] Không Có Command Khớp Với ${interaction.commandName}`);
             return;
         }
@@ -17,8 +13,7 @@ module.exports = {
             console.error(error);
             console.error(`[ERROR] Có Lỗi Khi Thực Hiện ${interaction.commandName}`);
         }
-        if(!interaction.isModalSubmit()) return;
-        if(!interaction.isButton()) return;
-        if(!interaction.isStringSelectMenu()) return;
-    },
-};
+        if (!interaction.isModalSubmit()) return;
+        if (!interaction.isButton()) return;
+        if (!interaction.isStringSelectMenu()) return;
+    }

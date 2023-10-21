@@ -3,6 +3,8 @@ const { model, Schema } = require('mongoose')
 let cdSchema = new Schema({
     UserID: String, //User ID
 //==================================
+    //===Utils
+    CDRank: String,
     //===Emo
     CDHappy: String, //Happy
     //===Fun

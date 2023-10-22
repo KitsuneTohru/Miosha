@@ -20,6 +20,18 @@ const LvlSchema = new Schema({
     total: {
         type: Number,
         default: 0
+    },
+    role: {
+        type: Boolean,
+        default: false
+    },
+    background: {
+        type: Boolean,
+        default: false
+    },
+    titleicon: {
+        type: Boolean,
+        default: false
     }
 })
 

@@ -1,1 +1,1 @@
-module.exports = (level) => 500+(5*(Math.pow(level+1,2)+Math.pow(level,2))) || 500
+module.exports = (level) => Math.floor(500 + 5 * (2 * (level + 1) + Math.pow(level, 1.58))) || 500

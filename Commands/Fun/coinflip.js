@@ -117,7 +117,7 @@ module.exports = {
             if (!data) {
                 cdSchema.create({
                     UserID: interaction.user.id,
-                    CDCoinflip: Date.now() + cdtime,
+                    CDCoinflip: Date.now(),
                 })
             } if (data) {
                 const cduser = data.UserID

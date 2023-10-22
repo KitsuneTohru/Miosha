@@ -12,7 +12,7 @@ module.exports = {
             if (!data) {
                 cdSchema.create({
                     UserID: interaction.user.id,
-                    CDTest: Date.now() + cdtime,
+                    CDTest: Date.now(),
                 })
             }
             if (data) {

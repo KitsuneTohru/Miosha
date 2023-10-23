@@ -5,6 +5,7 @@ let cdSchema = new Schema({
 //==================================
     //===Utils
     CDRank: String,
+    CDTop: String,
     //===Emo
     CDHappy: String, //Happy
     //===Fun

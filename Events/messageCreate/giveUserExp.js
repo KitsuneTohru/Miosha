@@ -43,7 +43,7 @@ module.exports = async (client, message) => {
                     .setTitle(`**Server Ranking - Level Up**`)
                     .setDescription(`**<:LYG_MioAwoo:942060912351772774> Chúc Mừng ${message.member} Đã Lên 1 Level!!!**\n> <:LYG_MioWink:1086172116916912198> Cấp Bậc Hiện Tại Của Bạn: **${level.level - 1} >>> ${level.level}**\n\n<a:OrinSway:1160295722009251870> *Nên Nhớ Rằng:* Level Càng Cao Thì Sẽ Có Nhiều Quyền Lợi Nhé!`)
                     .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-                channel1.send({ content: message.member, embeds: [LvlUpEmbed] })
+                channel1.send({ content: `<@${message.member.id}> Thông Báo Level Up`, embeds: [LvlUpEmbed] })
             }
             if (level.total >= 30000 && level.total < 50000 && level.role === false) {
                 level.role = true
@@ -52,7 +52,7 @@ module.exports = async (client, message) => {
                     .setTitle(`**Server Ranking - Role Request**`)
                     .setDescription(`**<:LYG_MioAwoo:942060912351772774> Chúc Mừng ${message.member} Đã Vượt Qua Mốc 30K EXP!!!**\n> <:LYG_MioWink:1086172116916912198> Bạn Đã **Có Đủ** Điều Kiện Để Nhận Role Riêng Rồi Nhé!\n\n<:FeelsRan:1152866964637745215> • **Tên Role:** *(Tên Tự Chọn)*\n<:FeelsYukari:1152873847113134140> • **Màu Role:** *(Màu Tự Chọn Theo Mã Hex)*\n\n<:YuyukoWoke:1152872728194469888> **Lưu Ý:** Bạn Đã Có Role Riêng Trước Đó Rồi Thì **MIỄN XIN ROLE** Nhá! Chỉ Có Quyền Thay Tên Và Màu Role Thôi!`)
                     .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-                channel2.send({ content: message.member, embeds: [RoleRequestEmbed] })
+                channel2.send({ content: `<@${message.member.id}> Thông Báo Nhận Role`, embeds: [RoleRequestEmbed] })
             } else if (level.total >= 50000 && level.total <= 80000 && level.background === false) {
                 level.background = true
                 const BackgroundRequestEmbed = new EmbedBuilder()
@@ -60,7 +60,7 @@ module.exports = async (client, message) => {
                     .setTitle(`**Server Ranking - Background Request**`)
                     .setDescription(`**<:LYG_MioAwoo:942060912351772774> Chúc Mừng ${message.member} Đã Vượt Qua Mốc 50K EXP!!!**\n> <:LYG_MioWink:1086172116916912198> Bạn Đã **Có Đủ** Điều Kiện Để Mở Background Riêng Rồi Nhé!\n\n<:FeelsYoumu:1152874972876898364> Loại Ảnh Dùng Cho Background Bạn Có Quyền Chọn Nhé! **Kích Cỡ Ảnh** (934px ⨯ 282px)\n\n<:YuyukoWoke:1152872728194469888> **Lưu Ý:** Bạn Đã Có Background Trước Đó Rồi Thì **MIỄN XIN BACKGROUND** Nhá! Chỉ Có Quyền Thay Ảnh Background Thôi!`)
                     .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-                channel3.send({ content: message.member, embeds: [BackgroundRequestEmbed] })
+                channel3.send({ content: `<@${message.member.id}> Thông Báo Nhận Background`, embeds: [BackgroundRequestEmbed] })
             } else if (level.total >= 80000 && level.titleicon === false) {
                 level.titleicon = true
                 const TitleIconRequestEmbed = new EmbedBuilder()
@@ -68,7 +68,7 @@ module.exports = async (client, message) => {
                     .setTitle(`**Server Ranking - Title Icon**`)
                     .setDescription(`**<:LYG_MioAwoo:942060912351772774> Chúc Mừng ${message.member} Đã Vượt Qua Mốc 80K EXP!!!**\n> <:LYG_MioWink:1086172116916912198> Bạn Đã **Có Đủ** Điều Kiện Để Mở Title Và Icon Riêng Rồi Nhé!\n\n<:FeelsOrin:1152867805692170281> **Icon:** Ảnh 1:1 Bất Kì\n<:FeelsYuyuko:1152872215583408138> **Title:** Dòng Title Bất Kì Nhưng **Không Quá 50 Kí Tự VÀ BẰNG TIẾNG ANH** Nhá!\n\n<:YuyukoWoke:1152872728194469888> **Lưu Ý:** Bạn Đã Có Title Và Icon Trước Đó Rồi Thì **MIỄN XIN TITLE VÀ ICON** Nhá! Chỉ Có Quyền Thay Title Và Icon Thôi!`)
                     .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-                channel4.send({ content: message.member, embeds: [TitleIconRequestEmbed] })
+                channel4.send({ content: `<@${message.member.id}> Thông Báo Set Title/Icon`, embeds: [TitleIconRequestEmbed] })
             }
             await level.save().catch((e) => {
                 console.log(`Lỗi Khi Update Level: ${e}`)

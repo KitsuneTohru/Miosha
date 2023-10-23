@@ -15,9 +15,9 @@ module.exports = async (client) => {
         console.log('Database Của Tớ Đang Chạy Nhá, Yên Tâm!')
     }
     var i = 0
-    const namearr = ['v0.10.0: /help',
-        '▰▰▰▰▰▰▰▱▱▱ 70%',
-        'Created: /rank Và /resetrank',
+    const namearr = ['v0.10.5: /help',
+        '▰▰▰▰▰▰▰▰▱▱ 75%',
+        'Created: /top',
         'Changelog: /info',
         'Most Usage: /howgay',
         'Special -- Ranking System']
@@ -31,7 +31,7 @@ module.exports = async (client) => {
         })
         await wait(20000)
         i++
-        if (i === 6)
+        if (i === 5)
             i = 0
     }
 }

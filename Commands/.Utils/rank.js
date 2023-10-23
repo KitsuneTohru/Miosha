@@ -189,7 +189,7 @@ module.exports = {
             do {
                 context.font = `bold ${fontSize -= 16}px Ubuntu`
             }
-            while (context.measureText(text).width > canvas.width - 214)
+            while (context.measureText(text).width > canvas.width - 100)
             return context.font
         }
 
@@ -260,7 +260,7 @@ module.exports = {
             if (!data) {
                 cdSchema.create({
                     UserID: interaction.user.id,
-                    CDRank: Date.now() + cdtime,
+                    CDRank: Date.now(),
                 })
             } if (data) {
                 const cduser = data.UserID

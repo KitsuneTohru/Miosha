@@ -27,11 +27,13 @@
 - Co-Contributor
     + ~~IC _(Đã Rời Dự Án)_~~
     + Mari Lemon *(Admin LYG)*
-## • Sponsor List
-    + Yamai *(Owner LYG)*
-    + Watson *(Staff LYG)*
-    + ...
-## • Special Thanks
+
+## • Sponsor List:
+- Yamai *(Owner LYG)*
+- Watson *(Staff LYG)*
+- ...
+
+## • Special Thanks:
 - Idea
     + Layyes (Friend)
     + Kong (Friend)

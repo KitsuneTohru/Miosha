@@ -16,7 +16,7 @@ module.exports = async (client, message) => {
     const channel4 = client.channels.cache.get('1165485684354723910')
     if (message.guild.id !== '900742301373042809' || message.author.bot || cd.has(message.author.id)) return
     if ((message.content.length) <= 1) return
-    const WhiteList = ['900755787142545438', '911536436522659890', '900756132002426880', '901068976455565343', '1020209620473626696', '1084370333622083624', '901075313491066890', '900752091654553620']
+    const WhiteList = ['900755787142545438', '911536436522659890', '900756132002426880', '901068976455565343', '1020209620473626696', '1084370333622083624', '901075313491066890', '900752091654553620', '995345645554638849']
     var key = false
     for (i in WhiteList) {
         if (message.channel.id === WhiteList[i])
@@ -94,7 +94,7 @@ module.exports = async (client, message) => {
             cd.add(message.author.id)
             setTimeout(() => {
                 cd.delete(message.author.id)
-            }, 30 * 1000)
+            }, Math.floor(Math.random()*(30-10+1))+10 * 1000)
         }
     } catch (error) {
         console.log(`Lỗi Khi Ném Exp: ${error}`)

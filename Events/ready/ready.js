@@ -15,12 +15,12 @@ module.exports = async (client) => {
         console.log('Database Của Tớ Đang Chạy Nhá, Yên Tâm!')
     }
     var i = 0
-    const namearr = ['v0.10.5: /help',
+    const namearr = ['v0.11.0: /help',
         '▰▰▰▰▰▰▰▰▱▱ 75%',
-        'Created: /top',
+        'Server: Game Over Sẽ Không Còn Được Hỗ Trợ Từ Phiên Bản Này',
         'Changelog: /info',
         'Most Usage: /howgay',
-        'Special -- Ranking System']
+        'Special -- Tối Ưu Hóa Lại Cho Toàn Bộ Con Bot Ở Một Số Mảng']
     while (i !== -1) {
         await client.user.setPresence({
             activities: [{

@@ -19,7 +19,7 @@ module.exports = {
                 const user = data.UserID
                 const CDTime = data.CDTest
                 console.log('[Command: Test]', user, CDTime, Date.now())
-                const userarr = ['751225225047179324', '809259609700302935', '927221951439700058', '786816081032773662', '729671009631862834', '1084992470074531960']
+                const userarr = ['751225225047179324', '809259609700302935', '927221951439700058', '786816081032773662', '892054339072438303', '1084992470074531960']
                 const FinalEmbed = new EmbedBuilder()
                     .setColor('White')
                     .setTitle(`Test`)

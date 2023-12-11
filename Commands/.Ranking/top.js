@@ -2,6 +2,8 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const Level = require('../../Database/level')
 const cdSchema = require('../../Database/cooldown')
 const lvlcalc = require('../../Utils/lvlcalc')
+const RankKey = require('../../Database/rankkeydb')
+const rankingarr = require('../../Assets/Ranking/rankingastarr')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,6 +15,7 @@ module.exports = {
                 .setMinValue(1)
                 .setRequired(false)),
     async execute(interaction) {
+        await interaction.deferReply()
         var page = interaction.options.getNumber('page')
         const cdtime = 30000
         if (page < 1 || page === null) {
@@ -24,64 +27,47 @@ module.exports = {
             if (a.total > b.total) return -1
             return 0
         })
-
-        const toplist = []
+        const emolist = rankingarr[5]
+        const keylist = rankingarr[0]
         var emoji = []
-        const PreUserList = ['751225225047179324', '747664833423343677', '212214500999299072', '888738277044133899', '729671009631862834', '912514337602666526', '853182970838646794', '786816081032773662', '927221951439700058']
         for (var i = 0; i < allLevels.length; i++) {
-            const userid = allLevels[i].UserID
-            switch (userid) {
-                case PreUserList[0]:
+            const a = allLevels[i].UserID
+            let KeyList = await RankKey.findOne({ UserID: a }).select('-_id Key')
+            var key = 'none'
+            if (!KeyList) { 
+                emoji[i] = emolist[0] 
+                continue
+            }
+            key = KeyList.Key
+            switch(key){
+                case 'admin':
                     {
-                        emoji[i] = '<:OrinSmile:1146170313445494875>'
+                        key = 'yuyuko'
                         break
                     }
-                case PreUserList[1]:
+                case 'mod':
                     {
-                        emoji[i] = '<:OkuuFlare:1165494255733715007>'
+                        key = 'youmu'
                         break
                     }
-                case PreUserList[2]:
+                case 'staff':
                     {
-                        emoji[i] = '<:FlandreHappy:1109772150979694652>'
-                        break
-                    }
-                case PreUserList[3]:
-                    {
-                        emoji[i] = '<:Satori:1165494474508607568>'
-                        break
-                    }
-                case PreUserList[4]:
-                    {
-                        emoji[i] = '<:MarisaHappy:1152871855514984460>'
-                        break
-                    }
-                case PreUserList[5]:
-                    {
-                        emoji[i] = '<:RemiliaSmile:1152869440577347655>'
-                        break
-                    }
-                case PreUserList[6]:
-                    {
-                        emoji[i] = '<:seiran:1165494670575538237>'
-                        break
-                    }
-                case PreUserList[7]:
-                    {
-                        emoji[i] = '<:YukariSmile:1152874226458558464>'
-                        break
-                    }
-                case PreUserList[8]:
-                    {
-                        emoji[i] = '<:RanSleep:1152867071332466689>'
+                        key = 'chen'
                         break
                     }
                 default:
                     {
-                        emoji[i] = '<:LYG_blank:1097172753985056859>'
+                        key = key
                     }
             }
+            for(var j = 0; j < keylist.length; j++){
+                if(key === keylist[j]){
+                    emoji[i] = emolist[j]
+                    break
+                }
+            }
         }
+        const toplist = []
         for (var i = 0; i < allLevels.length; i++) {
             let ReqExp = lvlcalc(allLevels[i].level)
             const Progressnum = allLevels[i].exp / ReqExp * 100
@@ -112,7 +98,7 @@ module.exports = {
 
         const auser = interaction.user.id
         function BypassCD(auser) {
-            const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '729671009631862834', '888738277044133899', '912514337602666526', '961838901792735243']
+            const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '892054339072438303', '888738277044133899', '912514337602666526', '961838901792735243']
             for (var i in CDPassList) {
                 if (auser === CDPassList[i]) {
                     return true
@@ -140,14 +126,14 @@ module.exports = {
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [cdembed]
                     })
                 }
                 else {
                     data.CDTop = Date.now() + cdtime
                     data.save()
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [TopEmbed]
                     })
                 }

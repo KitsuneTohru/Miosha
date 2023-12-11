@@ -3,6 +3,8 @@ const Canvas = require('@napi-rs/canvas')
 const Level = require('../../Database/level')
 const cdSchema = require('../../Database/cooldown')
 const lvlcalc = require('../../Utils/lvlcalc')
+const RankKey = require('../../Database/rankkeydb')
+const rankingarr = require('../../Assets/Ranking/rankingastarr')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,96 +19,59 @@ module.exports = {
         await interaction.deferReply()
         const cdtime = 10000
         var user = interaction.options.getUser('user')
-        if(user === null){
+        if (user === null) {
             user = interaction.user
         }
 
-        const PreUserList = ['751225225047179324', '747664833423343677', '212214500999299072', '888738277044133899', '729671009631862834', '912514337602666526', '853182970838646794', '786816081032773662', '927221951439700058']
-        var color, img_url, special_txt, icon_url
-        function getContext(user) {
-            switch (user.id) {
-                case PreUserList[0]:
+        const keylist = rankingarr[0]
+        const colorlist = rankingarr[1]
+        const imglist = rankingarr[2]
+        const spectxtlist = rankingarr[3]
+        const iconlist = rankingarr[4]
+
+
+        var key
+        let RankKey_ = await RankKey.findOne({ UserID: user.id }).select('-_id Key')
+        if (!RankKey_) {
+            key = 'none'
+        } else {
+            switch (RankKey_.Key) {
+                case 'admin':
                     {
-                        color = '#FF6366'
-                        img_url = './Assets/RankCards/RankCard_1.png'
-                        special_txt = 'Rin (Orin) • Touhou Addict'
-                        icon_url = 'https://cdn.discordapp.com/emojis/1146170313445494875.png'
+                        key = 'yuyuko'
                         break
                     }
-                case PreUserList[1]:
+                case 'mod':
                     {
-                        color = '#00D309'
-                        img_url = './Assets/RankCards/RankCard_2.png'
-                        special_txt = 'Utsuho (Ginn) • Touch Grass God'
-                        icon_url = 'https://cdn.discordapp.com/emojis/1165494255733715007.png'
+                        key = 'youmu'
                         break
                     }
-                case PreUserList[2]:
+                case 'staff':
                     {
-                        color = '#D7FF00'
-                        img_url = './Assets/RankCards/RankCard_3.png'
-                        special_txt = 'Flandre (IC) • Basement HikiNEET'
-                        icon_url = 'https://cdn.discordapp.com/emojis/1109772150979694652.png'
-                        break
-                    }
-                case PreUserList[3]:
-                    {
-                        color = '#D057FF'
-                        img_url = './Assets/RankCards/RankCard_4.png'
-                        special_txt = 'Satori (Yamai) • Introvert "IELTS 8.0"'
-                        icon_url = 'https://cdn.discordapp.com/emojis/1165494474508607568.png'
-                        break
-                    }
-                case PreUserList[4]:
-                    {
-                        color = '#FFF500'
-                        img_url = './Assets/RankCards/RankCard_5.png'
-                        special_txt = 'Marisa (Lemon) • Love Colored Master Spark'
-                        icon_url = 'https://cdn.discordapp.com/emojis/1152871855514984460.png'
-                        break
-                    }
-                case PreUserList[5]:
-                    {
-                        color = '#9EA1E4'
-                        img_url = './Assets/RankCards/RankCard_6.png'
-                        special_txt = 'Remilia (Watson) • Scarlet Police Here'
-                        icon_url = 'https://cdn.discordapp.com/emojis/1152869440577347655.png'
-                        break
-                    }
-                case PreUserList[6]:
-                    {
-                        color = '#78B6FF'
-                        img_url = './Assets/RankCards/RankCard_7.png'
-                        special_txt = 'Seiran (Hans) • Karuta Addict'
-                        icon_url = 'https://cdn.discordapp.com/emojis/1165494670575538237.png'
-                        break
-                    }
-                case PreUserList[7]:
-                    {
-                        color = '#FFF16B'
-                        img_url = './Assets/RankCards/RankCard_8.png'
-                        special_txt = 'Yukari (Yukari) • The Old Lazy Hag'
-                        icon_url = 'https://cdn.discordapp.com/emojis/1152874226458558464.png'
-                        break
-                    }
-                case PreUserList[8]:
-                    {
-                        color = '#F2D337'
-                        img_url = './Assets/RankCards/RankCard_9.png'
-                        special_txt = 'Ran (Ran) • The Testing Fox'
-                        icon_url = 'https://cdn.discordapp.com/emojis/1152867071332466689.png'
+                        key = 'chen'
                         break
                     }
                 default:
                     {
-                        color = '#FFFFFF'
-                        img_url = './Assets/RankCards/RankCard_0.png'
-                        special_txt = 'Basic Member Of Lazy Gang'
-                        icon_url = interaction.guild.iconURL({ extension: 'jpg' })
+                        key = RankKey_.Key
                     }
             }
         }
-        getContext(user)
+        var color, img_url, special_txt, icon_url
+        for (var i = 0; i < keylist.length; i++) {
+            if (key === keylist[i]) {
+                color = colorlist[i]
+                img_url = imglist[i]
+                special_txt = spectxtlist[i]
+                icon_url = iconlist[i]
+                break
+            }
+            color = colorlist[0]
+            img_url = imglist[0]
+            special_txt = spectxtlist[0]
+            icon_url = iconlist[0]
+        }
+
         const fetchedLevel = await Level.findOne({
             UserID: user.id,
             GuildID: interaction.guild.id
@@ -206,7 +171,7 @@ module.exports = {
             while (context.measureText(text).width > canvas.width - 214)
             return context.font
         }
-        
+
         context.fillStyle = color
         context.font = SpecialText(canvas, special_txt)
         context.fillText(special_txt, 245, 90)
@@ -220,7 +185,7 @@ module.exports = {
 
         context.fillStyle = '#212121'
         context.beginPath()
-        context.roundRect(240, 170, 633, 58, [0,90,90,0])
+        context.roundRect(240, 170, 633, 58, [0, 90, 90, 0])
         context.fill()
         context.strokeStyle = '#000000'
         context.stroke()
@@ -229,7 +194,7 @@ module.exports = {
         context.beginPath()
         const NewWidth = fetchedLevel.exp / ReqExp
         NewWidth.toFixed(2)
-        context.roundRect(240, 170, NewWidth * 633, 58, [0,90,90,0])
+        context.roundRect(240, 170, NewWidth * 633, 58, [0, 90, 90, 0])
         context.fill()
         context.strokeStyle = '#FFFFFF'
         context.stroke()
@@ -246,7 +211,7 @@ module.exports = {
 
         const auser = interaction.user.id
         function BypassCD(auser) {
-            const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '729671009631862834', '888738277044133899', '912514337602666526', '961838901792735243']
+            const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '892054339072438303', '888738277044133899', '912514337602666526', '961838901792735243']
             for (var i in CDPassList) {
                 if (auser === CDPassList[i]) {
                     return true

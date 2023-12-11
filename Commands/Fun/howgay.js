@@ -8,8 +8,11 @@
 ========================================================*/
 
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const wait = require('node:timers/promises').setTimeout; 
+const wait = require('node:timers/promises').setTimeout;
 const cdSchema = require('../../Database/cooldown')
+const HGList = require('../../Assets/Howgay/hglist')
+const HGAssets = require('../../Assets/Howgay/hgassets')
+const HGColors = require('../../Assets/Howgay/hgcolors')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -33,15 +36,21 @@ module.exports = {
         if (avgbool === null) {
             avgbool = false
         }
+        //Set Mảng
+        const HGAsset = HGAssets
+        const HGColor = HGColors
+        const EntryList = HGList
+        const NumEntry = [10, 25, 50, 75, 90, 100, 101]
+        const SpecialEntry = [40.3, 40.4, 72.7]
         //Easter
         const rngv2 = Math.floor(Math.random() * 100)
-        const easter_url = 'https://cdn.discordapp.com/attachments/1084992874212495393/1087363317309394984/Page_07.jpg'
-        const easter_result = '<:LYG_XD:1087375888276000788> **|** Không Sao Không Sao, Có Chủ Nhân Ở Đây Biến Đổi Cậu Rồi, Cậu Sẽ Là Thuộc Hạ Của Tôi Thôi\nSrc: Manga From: **Shio Ayatsuki**'
+        const easter_url = HGAsset[0][2]
+        const easter_result = '<:LYG_XD:1087375888276000788> **|** Không Sao Không Sao, Có Chủ Nhân Ở Đây Biến Đổi Cậu Rồi, Cậu Sẽ Là Thuộc Hạ Của Tôi Thôi\nSrc: Manga From: **Shio Ayatsuki** ||Thực Chất Là Bộ "210" Đấy Á =))||'
         const spcl_chr = ('`/howgay`')
         const H100PlusEmbed = new EmbedBuilder()
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setTitle('🏳️‍🌈 **- Bí Mật Của Command XD...**')
-            .setColor('LuminousVividPink')
+            .setColor(HGColor[1][1])
             .setDescription(`${easter_result}`)
             .setTimestamp()
             .setImage(easter_url)
@@ -55,7 +64,7 @@ module.exports = {
             .setTimestamp()
             .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
         //Lock User + Hàm Lấy So Sánh
-        const lock_user = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '888738277044133899', '764825231335620619']
+        const lock_user = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '888738277044133899', '764825231335620619', '790882475173609472', '594540792090198016']
         var lock_output = false
         function Compare(user, lock_user) {
             for (var count in lock_user) {
@@ -68,10 +77,10 @@ module.exports = {
         //Lock Embed
         var lock_desc, lock_img
         lock_desc = `<:LYG_KeqingDoi:1086190826536849499> **|** Oi! Bạn **KHÔNG THỂ** Check Câu Lệnh ${spcl_chr} Lên ${user} Được! Hãy Thử Với Người Khác Đi!`
-        lock_img = 'https://cdn.discordapp.com/attachments/1084992874212495393/1087382405943402558/genshin-impact-yae-miko.gif'
+        lock_img = HGAsset[0][0]
         if (user.id === '764825231335620619') {
             lock_desc = `<:go_MokouFire:1092052285732954132> **|** Để Tưởng Nhớ Người Bạn Đã Khuất Của Chủ Bot, Bạn **KHÔNG THỂ** Check Câu Lệnh ${spcl_chr} Lên ${user} Được! Hãy Thử Với Người Khác Đi Nhá!\n> **Kitsunezi's Note:** *"Vĩnh Biệt, Người Bạn Tốt Của Tôi, Ông Là Người Đã Mở Đường Cho Tôi Đến Với Sự Nghiệp Này. An Nghỉ Nhé, Shen, Bạn Tôi..."*`
-            lock_img = `https://media.discordapp.net/attachments/1098462997472608389/1115987915269472306/Youmu.gif`
+            lock_img = HGAsset[0][1]
         }
 
 
@@ -88,55 +97,34 @@ module.exports = {
             var rng = Math.random() * 101.1
             rng = (Math.floor(rng * 10) / 10).toFixed(1)
             var img_url, color, result
-            if (rng <= 10) {
-                color = "#000000"
-                result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n<a:LYG_GigaChad:1086172112080867359> **|** *Nhận Xét:* GIGA CHAD Đây Rồi, Bạn Xứng Đáng Có 10 Người Vợ, Respect++`
-                img_url = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'
+            for (var i = 0; i < NumEntry.length; i++) {
+                if (rng <= NumEntry[i]) {
+                    img_url = HGAsset[1][0]
+                    color = HGColor[0][i]
+                    result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n` + EntryList[i][Math.floor(Math.random() * EntryList[i].length)]
+                    break
+                }
             }
-            else if (rng <= 25) {
-                color = "#00FFE8"
-                result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n<:LYG_OkayuYay:1084085932254298122> **|** *Nhận Xét:* Bạn Cũng Khỏe Phết Đấy, Không Biết Có Thể Giữ Yên Như Thế Không Nữa`
-                img_url = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'
+
+            if (rng <= 0.5) {
+                img_url = HGAsset[1][1]
+                if (interaction.guild.id === '900742301373042809') {
+                    result += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1171750121109733438>\n> Ghi Chú: Nếu Bạn Có Role <@&1162944612508377088> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
+                }
             }
-            else if (rng <= 40.2 || rng <= 50) {
-                color = "#44FF00"
-                result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n<:LYG_MioWink:1086172116916912198> **|** *Nhận Xét:* Oya? Có Chắc Chắn Rằng Bạn Có Ổn Không Đấy? Sao Có Cảm Giác Bất An Thế Này?`
-                img_url = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'
+            if (rng > 100) {
+                img_url = HGAsset[1][2]
+                if (interaction.guild.id === '900742301373042809') {
+                    result += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1162944612508377088>\n> Ghi Chú: Nếu Bạn Có Role <@&1171750121109733438> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
+                }
             }
-            else if (rng == 40.3) {
-                color = "#727272"
-                result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n<:LYG_Error:1087366990160740452> **|** *Nhận Xét:* 403 - Forbidden: Bro, What Have You Done? Sao Lại Bị Cấm Thế Này?`
-                img_url = 'https://www.kindpng.com/picc/m/164-1647256_403-error-png-download-403-forbidden-png-transparent.png'
-            }
-            else if (rng == 40.4) {
-                color = "#727272"
-                result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n<a:LYG_404:1086172141998833684> **|** *Nhận Xét:* 404 - Command Not Found: Lmao, Chúng Tui Đùa Đấy, Command Sao Mà Not Found Được`
-                img_url = 'https://upload.wikimedia.org/wikipedia/commons/8/8a/404_File_not_found.png'
-            }
-            else if (rng <= 72.6 || rng <= 75) {
-                color = "#DFD704"
-                result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n<:LYG_LaylaHmm:1086172125955633192> **|** *Nhận Xét:* Ai Chà, Coi Bộ Pha Này Phải Ghi Chú Giám Sát Rồi, Bạn Có Dấu Hiệu Bị Gay Không Đấy?`
-                img_url = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'
-            }
-            else if (rng == 72.7) {
-                color = "#727272"
-                result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n<a:LYG_WYSI:1087359689035104307> **|** *Nhận Xét:* WYSI, POG, Nhưng God Shigetora Sẽ Slap Bạn Vì Bạn Đã Có Dấu Hiệu Bị Gay Nặng`
-                img_url = 'https://cdn.discordapp.com/attachments/1084992874212495393/1087382370430242887/727-wysi.gif'
-            }
-            else if (rng <= 90) {
-                color = "#D26400"
-                result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n<:LYG_AyameEh:1086172364414386206> **|** *Nhận Xét:* Oh Nyo, Quả Này Gay Quá Rồi, Gọi Cha Sứ Đến Mau`
-                img_url = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'
-            }
-            else if (rng < 100) {
-                color = "#6D00D2"
-                result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n<:LYG_PepeHoly:1086172373306323016> **|** *Nhận Xét:* CODE RED CODE RED!!! Nguy Hiểm Rồi, Không Ổn Rồi Bà Con Ơi, Thằng Cha Đó Gay Quá Rồi!!!`
-                img_url = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'
-            }
-            else {
-                color = "#FF00A8"
-                result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n<a:LYG_AquaBlessing:1086173173113966702>**|** *Nhận Xét:* Yo, Listen Up, Here's A Story About A Little Guy That Lives In A **GAY** World\nAnd All Day And All Night And Everything He Sees Is Just **Gay**\nLike Him Inside And Outside\n**GAY** His House With A **GAY** Little Window\nAnd A **GAY** Corvette\nAnd Everything Is **GAY** For Him\nAnd Himself And Everybody Around\n'Cause He Ain't Got Nobody To Listen...\n-Effiel 65 ft. iDubbbz-`
-                img_url = 'https://cdn.discordapp.com/attachments/1084992874212495393/1087382367158669362/idubbbz-youtuber.gif'
+
+            for (var i = 0; i < SpecialEntry.length; i++) {
+                if (rng === SpecialEntry[i]) {
+                    img_url = HGAsset[1][3 + i]
+                    result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n` + EntryList[7][i]
+                    break
+                }
             }
             console.log('========================================\nRng Encounter:', rng, '\nRngv2 Encounter:', rngv2, '\n========================================')
         }
@@ -152,59 +140,39 @@ module.exports = {
                 a[i] = resultv2
                 console.log('========================================\nTính Toán Theo Rngv3 (Lần', i + 1, ') =', rngv3, '\n========================================')
             }
+
             avgpt = avgpt / 3
             avgpt = (Math.floor(avgpt * 10) / 10).toFixed(1)
-            if (avgpt <= 10) {
-                colorv2 = "#000000"
-                resultv3 = `Chỉ Số Gay Của ${user} **(Đã Tính Toán)** Là: **${avgpt}%**\n<a:LYG_GigaChad:1086172112080867359> **|** *Nhận Xét:* GIGA CHAD Đây Rồi, Bạn Xứng Đáng Có 10 Người Vợ, Respect++`
-                img_urlv2 = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'
+
+            for (var i = 0; i < NumEntry.length; i++) {
+                if (avgpt <= NumEntry[i]) {
+                    img_urlv2 = HGAsset[1][0]
+                    colorv2 = HGColor[0][i]
+                    resultv3 = `Chỉ Số Gay Của ${user} Là: **${avgpt}%**\n` + EntryList[i][Math.floor(Math.random() * EntryList[i].length)]
+                    break
+                }
             }
-            else if (avgpt <= 25) {
-                colorv2 = "#00FFE8"
-                resultv3 = `Chỉ Số Gay Của ${user} **(Đã Tính Toán)** Là: **${avgpt}%**\n<:LYG_OkayuYay:1084085932254298122> **|** *Nhận Xét:* Bạn Cũng Khỏe Phết Đấy, Không Biết Có Thể Giữ Yên Như Thế Không Nữa`
-                img_urlv2 = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'
+
+            if (avgpt <= 0.5) {
+                img_urlv2 = HGAsset[1][1]
+                if (interaction.guild.id === '900742301373042809') {
+                    resultv3 += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1171750121109733438>\n> Ghi Chú: Nếu Bạn Có Role <@&1162944612508377088> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
+                }
             }
-            else if (avgpt <= 40.2 || avgpt <= 50) {
-                colorv2 = "#44FF00"
-                resultv3 = `Chỉ Số Gay Của ${user} **(Đã Tính Toán)** Là: **${avgpt}%**\n<:LYG_MioWink:1086172116916912198> **|** *Nhận Xét:* Oya? Có Chắc Chắn Rằng Bạn Có Ổn Không Đấy? Sao Có Cảm Giác Bất An Thế Này?`
-                img_urlv2 = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'
+            if (avgpt > 100) {
+                img_urlv2 = HGAsset[1][2]
+                if (interaction.guild.id === '900742301373042809') {
+                    resultv3 += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1162944612508377088>\n> Ghi Chú: Nếu Bạn Có Role <@&1171750121109733438> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
+                }
             }
-            else if (avgpt == 40.3) {
-                colorv2 = "#727272"
-                resultv3 = `Chỉ Số Gay Của ${user} **(Đã Tính Toán)** Là: **${avgpt}%**\n<:LYG_Error:1087366990160740452> **|** *Nhận Xét:* 403 - Forbidden: Bro, What Have You Done? Sao Lại Bị Cấm Thế Này?`
-                img_urlv2 = 'https://www.kindpng.com/picc/m/164-1647256_403-error-png-download-403-forbidden-png-transparent.png'
+
+            for (var i = 0; i < SpecialEntry.length; i++) {
+                if (avgpt === SpecialEntry[i]) {
+                    img_urlv2 = HGAsset[1][3 + i]
+                    resultv3 = `Chỉ Số Gay Của ${user} Là: **${avgpt}%**\n` + EntryList[7][i]
+                    break
+                }
             }
-            else if (avgpt == 40.4) {
-                colorv2 = "#727272"
-                resultv3 = `Chỉ Số Gay Của ${user} **(Đã Tính Toán)** Là: **${avgpt}%**\n<a:LYG_404:1086172141998833684> **|** *Nhận Xét:* 404 - Command Not Found: Lmao, Chúng Tui Đùa Đấy, Command Sao Mà Not Found Được`
-                img_urlv2 = 'https://upload.wikimedia.org/wikipedia/commons/8/8a/404_File_not_found.png'
-            }
-            else if (avgpt <= 72.6 || avgpt <= 75) {
-                colorv2 = "#DFD704"
-                resultv3 = `Chỉ Số Gay Của ${user} **(Đã Tính Toán)** Là: **${avgpt}%**\n<:LYG_LaylaHmm:1086172125955633192> **|** *Nhận Xét:* Ai Chà, Coi Bộ Pha Này Phải Ghi Chú Giám Sát Rồi, Bạn Có Dấu Hiệu Bị Gay Không Đấy?`
-                img_urlv2 = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'
-            }
-            else if (avgpt == 72.7) {
-                colorv2 = "#727272"
-                resultv3 = `Chỉ Số Gay Của ${user} **(Đã Tính Toán)** Là: **${avgpt}%**\n<a:LYG_WYSI:1087359689035104307> **|** *Nhận Xét:* WYSI, POG, Nhưng God Shigetora Sẽ Slap Bạn Vì Bạn Đã Có Dấu Hiệu Bị Gay Nặng`
-                img_urlv2 = 'https://cdn.discordapp.com/attachments/1084992874212495393/1087382370430242887/727-wysi.gif'
-            }
-            else if (avgpt <= 90) {
-                colorv2 = "#D26400"
-                resultv3 = `Chỉ Số Gay Của ${user} **(Đã Tính Toán)** Là: **${avgpt}%**\n<:LYG_AyameEh:1086172364414386206> **|** *Nhận Xét:* Oh Nyo, Quả Này Gay Quá Rồi, Gọi Cha Sứ Đến Mau`
-                img_urlv2 = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'
-            }
-            else if (avgpt < 100) {
-                colorv2 = "#6D00D2"
-                resultv3 = `Chỉ Số Gay Của ${user} **(Đã Tính Toán)** Là: **${avgpt}%**\n<:LYG_PepeHoly:1086172373306323016> **|** *Nhận Xét:* CODE RED CODE RED!!! Nguy Hiểm Rồi, Không Ổn Rồi Bà Con Ơi, Thằng Cha Đó Gay Quá Rồi!!!`
-                img_urlv2 = 'https://media0.giphy.com/headers/jmckeehen/s2wy7iphPP98.gif'
-            }
-            else {
-                colorv2 = "#FF00A8"
-                resultv3 = `Chỉ Số Gay Của ${user} **(Đã Tính Toán)** Là: **${avgpt}%**\n<a:LYG_AquaBlessing:1086173173113966702>**|** *Nhận Xét:* Yo, Listen Up, Here's A Story About A Little Guy That Lives In A **GAY** World\nAnd All Day And All Night And Everything He Sees Is Just **Gay**\nLike Him Inside And Outside\n**GAY** His House With A **GAY** Little Window\nAnd A **GAY** Corvette\nAnd Everything Is **GAY** For Him\nAnd Himself And Everybody Around\n'Cause He Ain't Got Nobody To Listen...\n-Effiel 65 ft. iDubbbz-`
-                img_urlv2 = 'https://cdn.discordapp.com/attachments/1084992874212495393/1087382367158669362/idubbbz-youtuber.gif'
-            }
-            console.log('========================================\nRng Encounter:', avgpt, '\nRngv2 Encounter:', rngv2, '\n========================================')
         }
         //Embed(False)
         if (avgbool === false) {
@@ -249,7 +217,7 @@ module.exports = {
         }
         const auser = interaction.user.id
         function BypassCD(auser) {
-            const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058', '729671009631862834', '961838901792735243']
+            const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058', '892054339072438303', '961838901792735243']
             for (var i in CDPassList) {
                 if (auser === CDPassList[i]) {
                     return true

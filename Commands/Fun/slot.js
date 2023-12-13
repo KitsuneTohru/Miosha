@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js'); 
 const wait = require('node:timers/promises').setTimeout
 const cdSchema = require('../../Database/cooldown')
+const FooterEmbeds = require('../../Utils/embed')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,6 +12,7 @@ module.exports = {
                 .setDescription('Số Lượng Giả Sử Bạn Ném Vô (Max: 250000), Keyword: "all"')
                 .setRequired(true)),
     async execute(interaction) {
+        const FooterEmbeds_ = FooterEmbeds
         //Setup (Cursed Vãi Vì Nhiều Biến Phải Lưu Trữ :])
         const cdtime = 15000
         const auser = interaction.user.id
@@ -154,35 +156,35 @@ module.exports = {
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | Oi! Hãy Định Giá Lúc Bạn Giả Sử Coi Nào! (**${stramount}**)`)
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         const ReadyEmbed = new EmbedBuilder()
             .setColor('Purple')
             .setTitle(`<a:LYG_Slots:1096856649051938916> **Game - Slots**`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(desc1)
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         const Embed1 = new EmbedBuilder()
             .setColor('Purple')
             .setTitle(`<a:LYG_Slots:1096856649051938916> **Game - Slots**`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(resultdesc[0])
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         const Embed2 = new EmbedBuilder()
             .setColor('Purple')
             .setTitle(`<a:LYG_Slots:1096856649051938916> **Game - Slots**`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(resultdesc[1])
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         const Embed3 = new EmbedBuilder()
             .setColor(color)
             .setTitle(`<a:LYG_Slots:1096856649051938916> **Game - Slots**`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(resultdesc[3])
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         const userarr = ['751225225047179324', '809259609700302935', '927221951439700058', '786816081032773662', '892054339072438303', '1084992470074531960']
         function checkCD(auser) {
             var i
@@ -211,7 +213,7 @@ module.exports = {
                         .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
-                        .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
                     await interaction.reply({
                         embeds: [cdembed]
                     })

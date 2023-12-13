@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const RankKey = require('../../Database/rankkeydb')
+const FooterEmbeds = require('../../Utils/embed')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -14,6 +15,8 @@ module.exports = {
                 .setDescription('Keyword Cho Thông Tin Ranking')
                 .setRequired(false)),
     async execute(interaction) {
+        const FooterEmbeds_ = FooterEmbeds
+
         var user = interaction.options.getUser('user')
         user = user.id
         var key = interaction.options.getString('keyword')
@@ -50,7 +53,7 @@ module.exports = {
                             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                             .setDescription(`> Vì Người Dùng **${user}** (<@${user}>) Chưa Có Vị Trí Trong Database, Và Key Là **${key}** Nữa Nên Skip Luôn!`)
                             .setTimestamp()
-                            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
                         await interaction.reply({
                             embeds: [SkipKey]
                         })
@@ -66,7 +69,7 @@ module.exports = {
                             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                             .setDescription(`> ID Người Dùng: **${user}** (<@${user}>)\n> Keyword: **${key}**`)
                             .setTimestamp()
-                            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
                         await interaction.reply({
                             embeds: [NewKey]
                         })
@@ -83,7 +86,7 @@ module.exports = {
                             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                             .setDescription(`> Đã Xóa Keyword Cho ID Người Dùng: **${user}** (<@${user}>)\n`)
                             .setTimestamp()
-                            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
                         await interaction.reply({
                             embeds: [DelKey]
                         })
@@ -94,7 +97,7 @@ module.exports = {
                             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                             .setDescription(`> ID Người Dùng: **${user}** (<@${user}>)\n> Keyword: **${prekey}** >> **${key}**`)
                             .setTimestamp()
-                            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
                         await interaction.reply({
                             embeds: [EdtKey]
                         })

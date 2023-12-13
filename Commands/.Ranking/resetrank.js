@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, PermissionFlagsBits, ButtonStyle } = require('discord.js')
 const Level = require('../../Database/level')
 const wait = require('node:timers/promises').setTimeout
+const FooterEmbeds = require('../../Utils/embed')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -8,6 +9,8 @@ module.exports = {
         .setDescription('Reset Rank Trong Toàn Bộ Server')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
+        const FooterEmbeds_ = FooterEmbeds
+
         const ButtonChoice = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
@@ -27,26 +30,26 @@ module.exports = {
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<a:LYG_Warning:900776122726367342> **CẢNH BÁO TRƯỚC KHI RESET RANK:**\n ${interaction.user} • Đây Là Hành Động Reset Rank **TOÀN BỘ SERVER**, Bạn Có Chắc Rằng Bạn Muốn Reset Nó Chứ ?\n\n<:OrinTired:1147089528906072155> **Đồng Ý** || <:FeelsOrin:1152867805692170281> **Giữ Lại**`)
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         const ResetEmbed = new EmbedBuilder()
             .setColor('Red')
             .setTitle(`**Server Ranking - Reset**`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`**Reset Thành Công Toàn Bộ Exp Trong Server Rồi Nhé!**`)
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         const KeepEmbed = new EmbedBuilder()
             .setColor('Blue')
             .setTitle(`**Server Ranking - Reset**`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription('**Đã Hủy Bỏ Reset Exp Trong Server Nên Tiếp Tục Farm Đi Nhé!**')
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         const WaitingEmbed = new EmbedBuilder()
             .setColor('Yellow')
             .setTitle(`**Server Ranking - Reset**`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription('<a:OrinSway2:1160295832394932326> **Đang Reset Exp Của Toàn Bộ Server...**')
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         await interaction.reply({
             embeds: [ResetEmbedChoice],
             components: [ButtonChoice]

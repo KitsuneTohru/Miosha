@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, PermissionsBitField } = require('discord.js')
+const FooterEmbeds = require('../../Utils/embed')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,6 +17,8 @@ module.exports = {
                 .setDescription('Lí Do Mà Bạn Muốn Kick (Không Bắt Buộc)')
                 .setRequired(false)),
     async execute(interaction) {
+        const FooterEmbeds_ = FooterEmbeds
+
         const target = interaction.options.getUser('user')
         const reason = interaction.options.getString('reason') || 'Không Có Lí Do Nào Cả, Thẳng Tay Thi Hành Án'
 
@@ -27,7 +30,7 @@ module.exports = {
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Bạn Không Thể Kick ${target} Được Vì Tớ Không Đủ Thẩm Quyền!!!`)
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
 
         const KickEmbed = new EmbedBuilder()
             .setColor('Orange')
@@ -35,7 +38,7 @@ module.exports = {
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_RushiaKnife:977202151480766565> | Đã Kick Người Dùng ${target}\n> **Lí Do Kick:** ${reason}`)
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         
         if (member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
             return interaction.reply({

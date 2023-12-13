@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const RankKey = require('../../Database/rankkeydb')
+const FooterEmbeds = require('../../Utils/embed')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,6 +12,8 @@ module.exports = {
                 .setMinValue(1)
                 .setRequired(false)),
     async execute(interaction) {
+        const FooterEmbeds_ = FooterEmbeds
+
         var page = interaction.options.getNumber('page')
         if (page < 1 || page === null) {
             page = 1
@@ -62,7 +65,7 @@ module.exports = {
                 .setColor('Blurple')
                 .setDescription(`${desc}\n\n<a:LYG_TighnariNotes:1090126010571300874> • Dùng **/getrankkey ${page + 1}** Để Xem Page ${page + 1} Nhé!`)
                 .setTimestamp()
-                .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
             await interaction.reply({
                 embeds: [KeyEmbed]
             })

@@ -6,11 +6,14 @@ const Type2Entries = require('../../Assets/Omikuji/type2')
 const Type3Entries = require('../../Assets/Omikuji/type3')
 const Type4Entries = require('../../Assets/Omikuji/type4')
 const Type5Entries = require('../../Assets/Omikuji/type5')
+const FooterEmbeds = require('../../Utils/embed')
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('omikuji')
         .setDescription('Dùng Để Rút Quẻ'),
     async execute(interaction) {
+        const FooterEmbeds_ = FooterEmbeds
         const cdtime = 86400000 
         //BUTTON TYPE 5 ENTRY
         const type5_1 = new ActionRowBuilder()
@@ -89,7 +92,7 @@ module.exports = {
             .setDescription(Type5Entries[2][0])
             .setTimestamp(Date.now())
             .setImage(img_url)
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         const LYGEmbed = new EmbedBuilder()
             .setColor('Yellow')
             .setTitle(`<a:LYG_Planet:1084085941821513789> **LYG's Secret**`)
@@ -97,7 +100,7 @@ module.exports = {
             .setDescription(Type5Entries[2][1])
             .setTimestamp(Date.now())
             .setImage(img_url)
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         cdSchema.findOne({ UserID: interaction.user.id }, async (err, data) => {
             if (err) throw err
             if (!data) {
@@ -116,7 +119,7 @@ module.exports = {
                         .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
-                        .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
                     await interaction.reply({
                         embeds: [cdembed]
                     })
@@ -132,7 +135,7 @@ module.exports = {
                         .setDescription(result)
                         .setTimestamp(Date.now())
                         .setImage(img_url)
-                        .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
                     await interaction.reply({
                         embeds: [embed],
                     })

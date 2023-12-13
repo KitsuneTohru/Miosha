@@ -1,10 +1,12 @@
 const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('discord.js');
+const FooterEmbeds = require('../../Utils/embed')
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('info')
         .setDescription('Hiển Thị Info Của Bot'),
     async execute(interaction) {
+        const FooterEmbeds_ = FooterEmbeds
         const user = interaction.user.id
         const time = 1702300500
         const date = new Date().setTime(Number(time) * 1000)
@@ -43,7 +45,7 @@ module.exports = {
             .setDescription('**```\nCẢM ƠN RẤT NHIỀU VÌ SỰ ĐÓNG GÓP CỦA NHỮNG NGƯỜI DƯỚI ĐÂY!!!```**\n> <a:LYG_Fubuki_Chill:903085553145249822> **• Contributor**\n- <@751225225047179324>\n- <@809259609700302935>\n- <@892054339072438303>\n\n> <:LYG_FubukiMoney:1096296266822062080> **• Sponsor**\n- <@888738277044133899>\n- <@912514337602666526>\n- <a:LYG_LoadSlot:1087377575107645569>\n\n> <a:LYG_OkayuLove:1087692048280334347> **• Special Thanks**\n- <@961838901792735243>\n- <a:LYG_LoadSlot:1087377575107645569>')
             .setImage('https://cdn.discordapp.com/attachments/948615835369472064/1096299975530524703/Miosha_-_Credits.png')
             .setTimestamp(date)
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
 
         const changelog_embed = new EmbedBuilder()
             .setColor('#00FFFF')
@@ -52,7 +54,7 @@ module.exports = {
             .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** v0.11.0\n> <:Koishi_cry:1183758344922603592> **Server __Game Over__ Đã Không Còn Hỗ Trợ Nữa...**\n> <:JustOrin:1156221079988215879> Tối Ưu Hóa Khá Nhiều Mặt Về Con Bot...\n1. Ranking\n2. Thuật Toán Của Một Số Command\n3. Thêm Một Số Lệnh Cho Bot\n<a:LYG_Butterfly:1084085919210012722> **Tiến Độ:** ▰▰▰▰▰▰▰▰▱▱ 80%\n<a:LYG_Clock:1084322030331105370> **Last Update:** <t:${time}> (<t:${time}:R>)`)
             .setImage('https://cdn.discordapp.com/attachments/948615835369472064/1096301056188760084/Miosha_-_Info.png')
             .setTimestamp(date)
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         await interaction.reply({
             embeds: [changelog_embed],
             components: [CreditButton]

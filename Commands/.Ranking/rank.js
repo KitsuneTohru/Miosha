@@ -5,6 +5,7 @@ const cdSchema = require('../../Database/cooldown')
 const lvlcalc = require('../../Utils/lvlcalc')
 const RankKey = require('../../Database/rankkeydb')
 const rankingarr = require('../../Assets/Ranking/rankingastarr')
+const FooterEmbeds = require('../../Utils/embed')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,6 +17,7 @@ module.exports = {
                 .setRequired(false)
         ),
     async execute(interaction) {
+        const FooterEmbeds_ = FooterEmbeds
         await interaction.deferReply()
         const cdtime = 10000
         var user = interaction.options.getUser('user')
@@ -238,7 +240,7 @@ module.exports = {
                         .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
-                        .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
                     await interaction.editReply({
                         embeds: [cdembed]
                     })

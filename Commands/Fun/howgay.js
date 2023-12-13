@@ -13,6 +13,7 @@ const cdSchema = require('../../Database/cooldown')
 const HGList = require('../../Assets/Howgay/hglist')
 const HGAssets = require('../../Assets/Howgay/hgassets')
 const HGColors = require('../../Assets/Howgay/hgcolors')
+const FooterEmbeds = require('../../Utils/embed')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -28,6 +29,7 @@ module.exports = {
                 .setRequired(false)),
 
     async execute(interaction) {
+        const FooterEmbeds_ = FooterEmbeds
         //CDTime
         const cdtime = 300000
         //Lấy User Và AvgSet
@@ -54,7 +56,7 @@ module.exports = {
             .setDescription(`${easter_result}`)
             .setTimestamp()
             .setImage(easter_url)
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         //Chờ Embed...
         const CalcEmbed = new EmbedBuilder()
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
@@ -62,7 +64,7 @@ module.exports = {
             .setColor('#FFFFFF')
             .setDescription(`<a:LYG_LoadSlot:1087377575107645569> **|** Hệ Thống Đang Kiểm Tra Độ Gay Của ${user}... Xin Chờ Một Lát...\n**LƯU Ý:** Đừng Lấy Chuyện Này Làm Chuyện Nghiêm Túc Nhá! Quạo Rồi Không Ai Chịu Trách Nhiệm Đâu!`)
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         //Lock User + Hàm Lấy So Sánh
         const lock_user = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '888738277044133899', '764825231335620619', '790882475173609472', '594540792090198016']
         var lock_output = false
@@ -91,41 +93,47 @@ module.exports = {
             .setDescription(lock_desc)
             .setTimestamp()
             .setImage(lock_img)
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         //avgbool == False
         if (avgbool == false) {
             var rng = Math.random() * 101.1
             rng = (Math.floor(rng * 10) / 10).toFixed(1)
+            //rng = 100.1 //CHỈ GỠ KHI TEST (CẤM LẠM DỤNG NHÁ XD)
+
             var img_url, color, result
             for (var i = 0; i < NumEntry.length; i++) {
                 if (rng <= NumEntry[i]) {
-                    img_url = HGAsset[1][0]
+                    img_url = HGAsset[0][2]
                     color = HGColor[0][i]
                     result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n` + EntryList[i][Math.floor(Math.random() * EntryList[i].length)]
+                    if (rng < 1) {
+                        img_url = HGAsset[1][Math.floor(Math.random() * HGAsset[1].length)]
+                        if (interaction.guild.id === '900742301373042809') {
+                            result += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1171750121109733438>\n> Ghi Chú: Nếu Bạn Có Role <@&1162944612508377088> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
+                        }
+                        break
+                    }
+                    if (rng > 100) {
+                        img_url = HGAsset[2][Math.floor(Math.random() * HGAsset[2].length)]
+                        if (interaction.guild.id === '900742301373042809') {
+                            result += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1162944612508377088>\n> Ghi Chú: Nếu Bạn Có Role <@&1171750121109733438> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
+                        }
+                        break
+                    }
+                    for (var j = 0; j < SpecialEntry.length; j++) {
+                        if (rng === SpecialEntry[j]) {
+                            color = HGColor[1][0]
+                            img_url = HGAsset[3][j]
+                            result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n` + EntryList[7][j]
+                            break
+                        }
+                    }
                     break
                 }
             }
 
-            if (rng <= 0.5) {
-                img_url = HGAsset[1][1]
-                if (interaction.guild.id === '900742301373042809') {
-                    result += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1171750121109733438>\n> Ghi Chú: Nếu Bạn Có Role <@&1162944612508377088> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
-                }
-            }
-            if (rng > 100) {
-                img_url = HGAsset[1][2]
-                if (interaction.guild.id === '900742301373042809') {
-                    result += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1162944612508377088>\n> Ghi Chú: Nếu Bạn Có Role <@&1171750121109733438> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
-                }
-            }
 
-            for (var i = 0; i < SpecialEntry.length; i++) {
-                if (rng === SpecialEntry[i]) {
-                    img_url = HGAsset[1][3 + i]
-                    result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n` + EntryList[7][i]
-                    break
-                }
-            }
+
             console.log('========================================\nRng Encounter:', rng, '\nRngv2 Encounter:', rngv2, '\n========================================')
         }
         //avgbool == True
@@ -143,33 +151,35 @@ module.exports = {
 
             avgpt = avgpt / 3
             avgpt = (Math.floor(avgpt * 10) / 10).toFixed(1)
+            //avgpt = 100.1 //CHỈ GỠ KHI TEST (CẤM LẠM DỤNG NHÁ XD)
 
             for (var i = 0; i < NumEntry.length; i++) {
                 if (avgpt <= NumEntry[i]) {
-                    img_urlv2 = HGAsset[1][0]
+                    img_urlv2 = HGAsset[0][2]
                     colorv2 = HGColor[0][i]
                     resultv3 = `Chỉ Số Gay Của ${user} Là: **${avgpt}%**\n` + EntryList[i][Math.floor(Math.random() * EntryList[i].length)]
-                    break
-                }
-            }
-
-            if (avgpt <= 0.5) {
-                img_urlv2 = HGAsset[1][1]
-                if (interaction.guild.id === '900742301373042809') {
-                    resultv3 += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1171750121109733438>\n> Ghi Chú: Nếu Bạn Có Role <@&1162944612508377088> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
-                }
-            }
-            if (avgpt > 100) {
-                img_urlv2 = HGAsset[1][2]
-                if (interaction.guild.id === '900742301373042809') {
-                    resultv3 += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1162944612508377088>\n> Ghi Chú: Nếu Bạn Có Role <@&1171750121109733438> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
-                }
-            }
-
-            for (var i = 0; i < SpecialEntry.length; i++) {
-                if (avgpt === SpecialEntry[i]) {
-                    img_urlv2 = HGAsset[1][3 + i]
-                    resultv3 = `Chỉ Số Gay Của ${user} Là: **${avgpt}%**\n` + EntryList[7][i]
+                    for (var j = 0; j < SpecialEntry.length; j++) {
+                        if (avgpt === SpecialEntry[j]) {
+                            colorv2 = HGColor[1][0]
+                            img_urlv2 = HGAsset[3][j]
+                            resultv3 = `Chỉ Số Gay Của ${user} Là: **${avgpt}%**\n` + EntryList[7][j]
+                            break
+                        }
+                    }
+                    if (avgpt < 1) {
+                        img_urlv2 = HGAsset[1][Math.floor(Math.random() * HGAsset[1].length)]
+                        if (interaction.guild.id === '900742301373042809') {
+                            resultv3 += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1171750121109733438>\n> Ghi Chú: Nếu Bạn Có Role <@&1162944612508377088> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
+                        }
+                        break
+                    }
+                    if (avgpt > 100) {
+                        img_urlv2 = HGAsset[2][Math.floor(Math.random() * HGAsset[2].length)]
+                        if (interaction.guild.id === '900742301373042809') {
+                            resultv3 += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1162944612508377088>\n> Ghi Chú: Nếu Bạn Có Role <@&1171750121109733438> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
+                        }
+                        break
+                    }
                     break
                 }
             }
@@ -183,7 +193,7 @@ module.exports = {
                 .setDescription(`${result}`)
                 .setTimestamp()
                 .setImage(img_url)
-                .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         }
         //Embed(True)
         if (avgbool === true) {
@@ -212,7 +222,7 @@ module.exports = {
                     .setDescription(avgdesc[count])
                     .setTimestamp()
                     .setImage(imgv2)
-                    .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
             }
         }
         const auser = interaction.user.id
@@ -244,7 +254,7 @@ module.exports = {
                         .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
-                        .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
                     await interaction.reply({
                         embeds: [cdembed]
                     })

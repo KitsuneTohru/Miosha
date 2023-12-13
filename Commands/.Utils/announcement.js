@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ChannelType } = require('discord.js')
+const FooterEmbeds = require('../../Utils/embed')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -28,6 +29,8 @@ module.exports = {
                 .setDescription('Link Ảnh Cần Dùng')
                 .setRequired(false)),
     async execute(interaction) {
+        const FooterEmbeds_ = FooterEmbeds
+
         const channel = interaction.options.getChannel('channel')
         const title = interaction.options.getString('title')
         const desc = interaction.options.getString('message')
@@ -59,7 +62,7 @@ module.exports = {
             .setDescription(desc)
             .setImage(img_url)
             .setTimestamp()
-            .setFooter({ text: 'Miosha | ©kaenbyou_rin0727 (2023 - 2023)', iconURL: 'https://cdn.discordapp.com/attachments/1016930426520084560/1093948954690986094/20230408_002020_0000.png' })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
         const id = channel.id
         await interaction.reply({
             content: `Đã Gửi Thông Báo Đến Kênh <#${id}>`,

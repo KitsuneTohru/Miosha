@@ -7,13 +7,18 @@
 /*3. Có Một Số User Sẽ Được Bypass Nó (Tùy Thuộc)
 ========================================================*/
 
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const wait = require('node:timers/promises').setTimeout;
 const cdSchema = require('../../Database/cooldown')
 const HGList = require('../../Assets/Howgay/hglist')
 const HGAssets = require('../../Assets/Howgay/hgassets')
 const HGColors = require('../../Assets/Howgay/hgcolors')
 const FooterEmbeds = require('../../Utils/embed')
+const BanList = require('../../Database/banlist')
+const BypassList = require('../../Utils/cdbypass')
+const AchievementList = require('../../Database/achievement')
+const AchievementAssets = require('../../Assets/Achievements/achievements')
+const FunWhiteList = require('../../Utils/funwhitelist')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -45,8 +50,9 @@ module.exports = {
         const NumEntry = [10, 25, 50, 75, 90, 100, 101]
         const SpecialEntry = [40.3, 40.4, 72.7]
         //Easter
-        const rngv2 = Math.floor(Math.random() * 100)
-        const easter_url = HGAsset[0][2]
+        var rngv2 = Math.floor(Math.random() * 100)
+        //rngv2 = 95 //Test Thì Gỡ, Còn Không Thì Đừng Lạm Dụng XD
+        const easter_url = HGAsset[0][3]
         const easter_result = '<:LYG_XD:1087375888276000788> **|** Không Sao Không Sao, Có Chủ Nhân Ở Đây Biến Đổi Cậu Rồi, Cậu Sẽ Là Thuộc Hạ Của Tôi Thôi\nSrc: Manga From: **Shio Ayatsuki** ||Thực Chất Là Bộ "210" Đấy Á =))||'
         const spcl_chr = ('`/howgay`')
         const H100PlusEmbed = new EmbedBuilder()
@@ -56,7 +62,7 @@ module.exports = {
             .setDescription(`${easter_result}`)
             .setTimestamp()
             .setImage(easter_url)
-            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
         //Chờ Embed...
         const CalcEmbed = new EmbedBuilder()
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
@@ -64,9 +70,9 @@ module.exports = {
             .setColor('#FFFFFF')
             .setDescription(`<a:LYG_LoadSlot:1087377575107645569> **|** Hệ Thống Đang Kiểm Tra Độ Gay Của ${user}... Xin Chờ Một Lát...\n**LƯU Ý:** Đừng Lấy Chuyện Này Làm Chuyện Nghiêm Túc Nhá! Quạo Rồi Không Ai Chịu Trách Nhiệm Đâu!`)
             .setTimestamp()
-            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
         //Lock User + Hàm Lấy So Sánh
-        const lock_user = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '888738277044133899', '764825231335620619', '790882475173609472', '594540792090198016']
+        const lock_user = FunWhiteList
         var lock_output = false
         function Compare(user, lock_user) {
             for (var count in lock_user) {
@@ -75,6 +81,7 @@ module.exports = {
                 }
             }
         }
+
         Compare(user, lock_user)
         //Lock Embed
         var lock_desc, lock_img
@@ -85,7 +92,6 @@ module.exports = {
             lock_img = HGAsset[0][1]
         }
 
-
         const SpecialEmbed = new EmbedBuilder()
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
@@ -93,12 +99,72 @@ module.exports = {
             .setDescription(lock_desc)
             .setTimestamp()
             .setImage(lock_img)
-            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
+
+        //Ban Function
+        let banbool = await BanList.findOne({ UserID: interaction.user.id })
+        if (!banbool) {
+            if (user.id === '1061527111829041242') {
+                BanList.create({
+                    UserID: interaction.user.id,
+                    Key: true,
+                    Time: Date.now() + (86400000 * 9999999)
+                })
+            }
+            else if (user.id === '764825231335620619') {
+                BanList.create({
+                    UserID: interaction.user.id,
+                    Key: true,
+                    Time: Date.now() + (86400000 * 9999999)
+                })
+            }
+            else if (lock_output) {
+                BanList.create({
+                    UserID: interaction.user.id,
+                    Key: true,
+                    Time: Date.now() + 86400000 * 14
+                })
+            }
+        }
+        if (banbool) {
+            if (banbool.Time > Date.now()) {
+                //Ban Embed
+                var timetxt = `<t:${Math.floor(banbool.Time / 1000)}> (<t:${Math.floor(banbool.Time / 1000)}:R>)`
+                if ((banbool.Time - Date.now()) > 86400000 * 365 * 100) {
+                    timetxt = '**(VÔ THỜI HẠN)**'
+                }
+                const BanEmbed = new EmbedBuilder()
+                    .setColor('DarkOrange')
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
+                    .setTitle('<:OrinMenace:1169857691456372766> **Banned From Using Command**')
+                    .setDescription(`<a:LYG_FububiShake:1129764112004558950> • Bạn Đã Bị BAN, Bạn Hoàn Toàn KHÔNG CÓ QUYỀN ĐƯỢC SỬ DỤNG LỆNH NÀY!!!\n<a:LYG_Clock:1084322030331105370> **Thời Gian Bị Ban:** ${timetxt} `)
+                    .setTimestamp()
+                await interaction.reply({
+                    embeds: [BanEmbed]
+                })
+            } else {
+                //Unban Embed
+                const UnbanEmbed = new EmbedBuilder()
+                    .setColor('DarkGreen')
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
+                    .setTitle('<:YayyShinki:1184437427050381342> **Unbanned From Using Command**')
+                    .setDescription(`<a:LYG_FububiShake:1129764112004558950> • Đã Gỡ Ban Sử Dụng Command Này Cho Bạn, Vì Vậy Hãy Cẩn Thận Khi Động Phải Nhầm Người Nhá!`)
+                    .setTimestamp()
+                await interaction.reply({
+                    embeds: [UnbanEmbed]
+                })
+                banbool.deleteOne({ UserID: interaction.user.id })
+            }
+            return
+        }
+
         //avgbool == False
         if (avgbool == false) {
             var rng = Math.random() * 101.1
             rng = (Math.floor(rng * 10) / 10).toFixed(1)
-            //rng = 100.1 //CHỈ GỠ KHI TEST (CẤM LẠM DỤNG NHÁ XD)
+            //rng = 0.1 //CHỈ GỠ KHI TEST (CẤM LẠM DỤNG NHÁ XD)
 
             var img_url, color, result
             for (var i = 0; i < NumEntry.length; i++) {
@@ -131,9 +197,6 @@ module.exports = {
                     break
                 }
             }
-
-
-
             console.log('========================================\nRng Encounter:', rng, '\nRngv2 Encounter:', rngv2, '\n========================================')
         }
         //avgbool == True
@@ -151,7 +214,7 @@ module.exports = {
 
             avgpt = avgpt / 3
             avgpt = (Math.floor(avgpt * 10) / 10).toFixed(1)
-            //avgpt = 100.1 //CHỈ GỠ KHI TEST (CẤM LẠM DỤNG NHÁ XD)
+            //avgpt = 0.1 //CHỈ GỠ KHI TEST (CẤM LẠM DỤNG NHÁ XD)
 
             for (var i = 0; i < NumEntry.length; i++) {
                 if (avgpt <= NumEntry[i]) {
@@ -193,7 +256,7 @@ module.exports = {
                 .setDescription(`${result}`)
                 .setTimestamp()
                 .setImage(img_url)
-                .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
         }
         //Embed(True)
         if (avgbool === true) {
@@ -222,12 +285,12 @@ module.exports = {
                     .setDescription(avgdesc[count])
                     .setTimestamp()
                     .setImage(imgv2)
-                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
             }
         }
         const auser = interaction.user.id
+        const CDPassList = BypassList
         function BypassCD(auser) {
-            const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058', '892054339072438303', '961838901792735243']
             for (var i in CDPassList) {
                 if (auser === CDPassList[i]) {
                     return true
@@ -254,7 +317,7 @@ module.exports = {
                         .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
-                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                     await interaction.reply({
                         embeds: [cdembed]
                     })
@@ -311,6 +374,73 @@ module.exports = {
                     }
                 }
             }
+            var achievementdesc, achievementlink
+            var a1key = "No", a2key = "No", a3key = "No"
+            if (rng > 100 || avgpt > 100) {
+                achievementdesc = `> Chúc Mừng Người Dùng ${user} Đã Mở Khóa Thành Tựu Mới!!!\n${AchievementAssets[1][0]}`
+                achievementlink = AchievementAssets[0][0]
+                a1key = "Yes"
+            }
+            if (rng < 1 || avgpt < 1) {
+                achievementdesc = `> Chúc Mừng Người Dùng ${user} Đã Mở Khóa Thành Tựu Mới!!!\n${AchievementAssets[1][1]}`
+                achievementlink = AchievementAssets[0][1]
+                a2key = "Yes"
+            }
+            if (rng === 72.7 || avgpt === 72.7) {
+                achievementdesc = `> Chúc Mừng Người Dùng ${user} Đã Mở Khóa Thành Tựu Mới!!!\n${AchievementAssets[1][2]}`
+                achievementlink = AchievementAssets[0][2]
+                a3key = "Yes"
+            }
+
+            const HGAchivements = new EmbedBuilder()
+                .setColor(AchievementAssets[2][1])
+                .setTitle(`<:YuyukoWoah:1152872168439423050> **Achievement Unlocked!!!**`)
+                .setAuthor({ name: `${user.username}`, iconURL: `${user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                .setDescription(`${achievementdesc}`)
+                .setTimestamp()
+                .setImage(achievementlink)
+                .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
+
+            AchievementList.findOne({ UserID: user.id }, async (err, data1) => {
+                if (err) throw err
+                if (!data1) {
+                    AchievementList.create({
+                        UserID: user.id,
+                        A1: a1key,
+                        A2: a2key,
+                        A3: a3key
+                    })
+                } if (data1) {
+                    const A1 = data1.A1
+                    const A2 = data1.A2
+                    const A3 = data1.A3
+                    if (A1 === 'No') {
+                        if (rng > 100 || avgpt > 100) {
+                            data1.A1 = 'Yes'
+                            await interaction.followUp({
+                                embeds: [HGAchivements],
+                            })
+                        }
+                    }
+                    if (A2 === 'No') {
+                        if (rng < 1 || avgpt < 1) {
+                            data1.A2 = 'Yes'
+                            await interaction.followUp({
+                                embeds: [HGAchivements],
+                            })
+                        }
+                    }
+                    if (A3 === 'No') {
+                        if (rng === 72.7 || avgpt === 72.7) {
+                            data1.A3 = 'Yes'
+                            await interaction.followUp({
+                                embeds: [HGAchivements],
+                            })
+                        }
+                    }
+                    data1.save()
+                } 
+            })
         })
     }
 }

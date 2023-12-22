@@ -29,7 +29,7 @@ module.exports = {
                     .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription('Đã Test Lệnh Này Dành Cho Chủ Bot... Và Một Số Người Quan Trọng')
                     .setTimestamp()
-                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                 function BypassCD(user) {
                     var i
                     for (i in userarr) {
@@ -57,7 +57,7 @@ module.exports = {
                         .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${user}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
-                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                     await interaction.reply({
                         embeds: [cdembed],
                         ephemeral: true
@@ -72,8 +72,15 @@ module.exports = {
                         })
                     }
                     else {
+                        const NoPermEmbed = new EmbedBuilder()
+                            .setColor('DarkButNotBlack')
+                            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
+                            .setTitle('<:OrinBruh:1160295126996881448> **No Permission**')
+                            .setDescription('No! Bạn Không Có Quyền Sử Dụng Command Này!')
+                            .setTimestamp()
                         await interaction.reply({
-                            content: 'No! Bạn Không Có Quyền Sử Dụng Command Này!',
+                            embeds: [NoPermEmbed],
                         })
                     }
                 }

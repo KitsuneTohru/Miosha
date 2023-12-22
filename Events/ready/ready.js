@@ -14,13 +14,14 @@ module.exports = async (client) => {
     if (mongoose.connect) {
         console.log('Database Của Tớ Đang Chạy Nhá, Yên Tâm!')
     }
+
     var i = 0
-    const namearr = ['v0.11.0: /help',
-        '▰▰▰▰▰▰▰▰▱▱ 75%',
-        'Server: Game Over Sẽ Không Còn Được Hỗ Trợ Từ Phiên Bản Này',
+    const namearr = ['v0.12.0: /help',
+        '▰▰▰▰▰▰▰▰▰▱ 85%',
+        'Thêm Một Số Lệnh Quản Lí Trong Server',
         'Changelog: /info',
         'Most Usage: /howgay',
-        'Special -- Tối Ưu Hóa Lại Cho Toàn Bộ Con Bot Ở Một Số Mảng']
+        'Special -- [TESTING] Có Thêm Một Số Tinh Năng Mới Đang Thử Nghiệm']
     while (i !== -1) {
         await client.user.setPresence({
             activities: [{

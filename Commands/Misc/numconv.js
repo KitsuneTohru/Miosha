@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, Butt
 const wait = require('node:timers/promises').setTimeout;
 const cdSchema = require('../../Database/cooldown')
 const FooterEmbeds = require('../../Utils/embed')
+const BypassList = require('../../Utils/cdbypass')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -355,7 +356,7 @@ module.exports = {
             }
             return FinalEmbed
         }
-        const userarr = ['751225225047179324', '809259609700302935', '927221951439700058', '786816081032773662', '892054339072438303', '1084992470074531960']
+        const userarr = BypassList
         function checkCD(auser) {
             var i
             for (i in userarr) {

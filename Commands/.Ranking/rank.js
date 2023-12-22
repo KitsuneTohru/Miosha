@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, AttachmentBuilder } = require('discord.js')
+const { SlashCommandBuilder, AttachmentBuilder, EmbedBuilder } = require('discord.js')
 const Canvas = require('@napi-rs/canvas')
 const Level = require('../../Database/level')
 const cdSchema = require('../../Database/cooldown')
@@ -6,6 +6,7 @@ const lvlcalc = require('../../Utils/lvlcalc')
 const RankKey = require('../../Database/rankkeydb')
 const rankingarr = require('../../Assets/Ranking/rankingastarr')
 const FooterEmbeds = require('../../Utils/embed')
+const BypassList = require('../../Utils/cdbypass')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -116,16 +117,20 @@ module.exports = {
         }
         let ReqExp = lvlcalc(fetchedLevel.level)
         const rankingcolor = Ranking_Level(currentRank)
-
+        
+        //RankCard Size
         const canvas = Canvas.createCanvas(934, 282)
         const context = canvas.getContext('2d')
 
+        //RankCard Background
         const background = await Canvas.loadImage(img_url)
         context.drawImage(background, 0, 0, canvas.width, canvas.height)
 
+        //Detail 1 - Frame 1
         context.strokeStyle = color
         context.strokeRect(0, 0, canvas.width, canvas.height)
 
+        //Detail 2 - Fill Frame 1 
         context.globalAlpha = 0.5
         context.fillStyle = '#4F4F4F'
         context.fillRect(223, 8, 695, 262)
@@ -133,6 +138,7 @@ module.exports = {
         context.fillRect(18, 8, 205, 262)
         context.strokeRect(223, 8, 695, 262)
 
+        //Detail 3 - Avatar
         context.globalAlpha = 0.85
         context.fillStyle = '#B7B7B7'
         context.fillRect(25, 215, 192, 48)
@@ -140,9 +146,11 @@ module.exports = {
         const avatar = await Canvas.loadImage(user.displayAvatarURL({ extension: 'jpg' }))
         context.drawImage(avatar, 25, 15, 192, 192)
 
+        //Detail 4 - Icon
         const iconimg = await Canvas.loadImage(icon_url)
         context.drawImage(iconimg, 825, 15, 80, 80)
 
+        //Detail 5 - Ranking Level
         context.globalAlpha = 1.0
         context.fillStyle = rankingcolor
         context.textAlign = 'left'
@@ -160,6 +168,7 @@ module.exports = {
             return context.font
         }
 
+        //Detail 6 - Username + Title
         context.fillStyle = color
         context.font = NameText(canvas, user.username)
         context.fillText(user.username, 245, 55)
@@ -178,6 +187,7 @@ module.exports = {
         context.font = SpecialText(canvas, special_txt)
         context.fillText(special_txt, 245, 90)
 
+        //Detail 7: Ranking Progress + Exp
         context.fillStyle = '#FFFFFF'
         context.font = 'bold 25px Ubuntu'
         const lvltxt = `Level • ${fetchedLevel.level}`
@@ -209,11 +219,12 @@ module.exports = {
         const Progresstxt = `[${Progress}] ${fetchedLevel.exp}/${ReqExp}`
         context.fillText(Progresstxt, 555, 210)
 
-        const attachment = new AttachmentBuilder(await canvas.encode('png'), { name: `${user.username}-rank.png` })
+        const attachment = new AttachmentBuilder(canvas.toBuffer("image/png"), {name: `${user.id}-rank.png`})
+        
 
         const auser = interaction.user.id
+        const CDPassList = BypassList
         function BypassCD(auser) {
-            const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '892054339072438303', '888738277044133899', '912514337602666526', '961838901792735243']
             for (var i in CDPassList) {
                 if (auser === CDPassList[i]) {
                     return true
@@ -248,8 +259,16 @@ module.exports = {
                 else {
                     data.CDRank = Date.now() + cdtime
                     data.save()
+                     const RankEmbed = new EmbedBuilder()
+                        .setColor(color)
+                        .setTitle(`<:LYG_MioAwoo:942060912351772774> **LYG - Rank Card**`)
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setDescription(`<:LYG_MioWink:1086172116916912198> **Rank Của Người Dùng: ${user}**`)
+                        .setTimestamp()
+                        .setImage(`attachment://${user.id}-rank.png`)
+                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
                     await interaction.editReply({
-                        content: `<:LYG_MioWink:1086172116916912198> **Rank Của Người Dùng: ${user.username}**`,
+                        embeds: [RankEmbed],
                         files: [attachment]
                     })
                 }

@@ -1,7 +1,7 @@
 {
   "name": "miosha",
-  "version": "0.11.0",
-  "description": "LYG Official Bot, Ofc, Just A Newbie Coder Like Me As An CEO For Doing It",
+  "version": "0.12.0",
+  "description": "Miosha - LYG Official Bot, Ofc, Just A Newbie Coder Like Me As An CEO For Doing It",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

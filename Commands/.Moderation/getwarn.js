@@ -1,30 +1,23 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const FooterEmbeds = require('../../Utils/embed')
+const WarnList = require('../../Database/warnlist')
 const RolePass = require('../../Utils/rolebypass')
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('ban')
-        .setDescription('Dùng Để Ban Một Ai Đó Trong Server')
+        .setName('getwarn')
+        .setDescription('Lấy Danh Sách Cảnh Cáo Của Người Dùng Nào Đó')
         .addUserOption(option =>
-            option
-                .setName('user')
-                .setDescription('Người Dùng Bạn Muốn Ban')
-                .setRequired(true))
-        .addStringOption(option =>
-            option
-                .setName('reason')
-                .setDescription('Lí Do Mà Bạn Muốn Ban (Không Bắt Buộc)')
-                .setRequired(false)),
+            option.setName('user')
+                .setDescription('Người Dùng Bạn Muốn Lấy Danh Sách Cảnh Cáo')
+                .setRequired(true)),
+
     async execute(interaction) {
         const FooterEmbeds_ = FooterEmbeds
 
         const target = interaction.options.getUser('user')
-        const reason = interaction.options.getString('reason') || 'Không Có Lí Do Nào Cả, Thẳng Tay Thi Hành Án'
-
         const member = await interaction.guild.members.fetch(target.id)
         const usemem = await interaction.guild.members.fetch(interaction.user.id)
-        const logchannel = await interaction.guild.channels.fetch('1165537322943643678')
 
         const NoPerm = new EmbedBuilder()
             .setColor('DarkAqua')
@@ -36,17 +29,17 @@ module.exports = {
 
         const ErrEmbed = new EmbedBuilder()
             .setColor('Green')
-            .setTitle(`Miosha#5189 - Ban`)
+            .setTitle(`**No Warn Data`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Bạn Không Thể Ban ${target} Được Vì Tớ Không Đủ Thẩm Quyền!!!`)
+            .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Người Dùng Là ${target} Thì Làm Gì Cảnh Cáo Được Ngay Từ Đầu?`)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
 
-        const BanEmbed = new EmbedBuilder()
-            .setColor('Red')
-            .setTitle(`Miosha#5189 - Ban`)
+        const NoData = new EmbedBuilder()
+            .setColor('Green')
+            .setTitle(`**No Warn Data**`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setDescription(`<:LYG_RushiaKnife:977202151480766565> | Đã Ban Người Dùng ${target}\n> **Lí Do Ban:** ${reason}`)
+            .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Người Dùng Là ${target} Hiện Không Có Lần Cảnh Cáo Nào`)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
 
@@ -74,20 +67,34 @@ module.exports = {
                     embeds: [ErrEmbed]
                 })
             } else {
-                await member.ban()
-                await interaction.reply({
-                    embeds: [BanEmbed]
-                })
-                const LogEmbed = new EmbedBuilder()
-                    .setColor('Red')
-                    .setTitle(`Miosha#5189 - Logger`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-                    .setDescription(`<:LYG_RushiaKnife:977202151480766565> **__Hành Động: Ban__**\n\n> **Người Dùng:** ${target}\n> **Lí Do Ban:** ${reason}\n> **Người Thực Hiện:** ${interaction.user}`)
-                    .setTimestamp()
-                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                logchannel.send({
-                    embeds: [LogEmbed]
-                })
+                let WarnCounter = await WarnList.findOne({ UserID: target.id })
+                if (!WarnCounter) {
+                    return interaction.reply({
+                        embeds: [NoData]
+                    })
+                } else {
+                    const WarnCounter_ = WarnCounter.WarnReasons
+                    var result = `<:OrinPolice:1152868958148501534> Số Lần Cảnh Cáo Của Người Dùng: ${target}\n\n`
+                    for (var i = 0; i < WarnCounter_.length; i++) {
+                        result += `> ${i + 1}. ${WarnCounter_[i]}\n`
+                    }
+                    if (WarnCounter_.length === 0) {
+                        return interaction.reply({
+                            embeds: [NoData]
+                        })
+                    }
+                    const WarnListEmbed = new EmbedBuilder()
+                        .setColor('Green')
+                        .setTitle(`**Thông Tin Quản Lí**`)
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setDescription(result)
+                        .setTimestamp()
+                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
+                    return interaction.reply({
+                        embeds: [WarnListEmbed]
+                    })
+
+                }
             }
         }
     }

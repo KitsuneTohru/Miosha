@@ -26,21 +26,24 @@ module.exports = {
             key = key.trim()
             key = key.toLowerCase()
         }
-        const userarr = ['751225225047179324', '809259609700302935', '927221951439700058', '786816081032773662', '892054339072438303', '1084992470074531960']
-        const cuser = interaction.user.id
-        function PermUsing(cuser) {
-            var i
-            for (i in userarr) {
-                if (cuser === userarr[i]) {
-                    return true
-                }
-            }
-            return false
+
+        const usemem = await interaction.guild.members.fetch(interaction.user.id)
+        var usingkey = false
+        if (usemem.roles.cache.has('900747529384247336')) {
+            usingkey = true
         }
-        const Perm_ = PermUsing(cuser)
-        if (!Perm_) {
+        
+        const NoPerm = new EmbedBuilder()
+            .setColor('DarkAqua')
+            .setTitle(`<:OrinBruh:1160295126996881448> Không Đủ Thẩm Quyền`)
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Bạn Không Có Đủ Thẩm Quyền, Làm Thế Nào Bạn Có Thể Dùng Lệnh Hả???`)
+            .setTimestamp()
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
+
+        if (!usingkey) {
             await interaction.reply({
-                content: 'No! Bạn Không Có Quyền Sử Dụng Command Này!',
+                embeds: [NoPerm],
             })
         } else {
             RankKey.findOne({ UserID: user }, async (err, data) => {
@@ -53,7 +56,7 @@ module.exports = {
                             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                             .setDescription(`> Vì Người Dùng **${user}** (<@${user}>) Chưa Có Vị Trí Trong Database, Và Key Là **${key}** Nữa Nên Skip Luôn!`)
                             .setTimestamp()
-                            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                         await interaction.reply({
                             embeds: [SkipKey]
                         })
@@ -69,7 +72,7 @@ module.exports = {
                             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                             .setDescription(`> ID Người Dùng: **${user}** (<@${user}>)\n> Keyword: **${key}**`)
                             .setTimestamp()
-                            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                         await interaction.reply({
                             embeds: [NewKey]
                         })
@@ -86,7 +89,7 @@ module.exports = {
                             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                             .setDescription(`> Đã Xóa Keyword Cho ID Người Dùng: **${user}** (<@${user}>)\n`)
                             .setTimestamp()
-                            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                         await interaction.reply({
                             embeds: [DelKey]
                         })
@@ -97,7 +100,7 @@ module.exports = {
                             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                             .setDescription(`> ID Người Dùng: **${user}** (<@${user}>)\n> Keyword: **${prekey}** >> **${key}**`)
                             .setTimestamp()
-                            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                         await interaction.reply({
                             embeds: [EdtKey]
                         })

@@ -5,6 +5,7 @@ const lvlcalc = require('../../Utils/lvlcalc')
 const RankKey = require('../../Database/rankkeydb')
 const rankingarr = require('../../Assets/Ranking/rankingastarr')
 const FooterEmbeds = require('../../Utils/embed')
+const BypassList = require('../../Utils/cdbypass')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -100,8 +101,8 @@ module.exports = {
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
 
         const auser = interaction.user.id
+        const CDPassList = BypassList
         function BypassCD(auser) {
-            const CDPassList = ['751225225047179324', '786816081032773662', '927221951439700058', '809259609700302935', '892054339072438303', '888738277044133899', '912514337602666526', '961838901792735243']
             for (var i in CDPassList) {
                 if (auser === CDPassList[i]) {
                     return true

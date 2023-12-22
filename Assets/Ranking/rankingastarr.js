@@ -1,6 +1,6 @@
 const rankingarr = [
-    ['none', 'orin', 'okuu', 'flandre', 'satori', 'marisa', 'remilia', 'seiran', 'yukari', 'ran', 'yuyuko', 'youmu', 'chen', 'koishi', 'patchouli'], 
-    ['#FFFFFF', '#FF6366', '#00D309', '#D7FF00', '#D057FF', '#FFF500', '#9EA1E4', '#78B6FF', '#FFF16B', '#F2D337', '#FF94FA', '#EDFFFE', '#965959', '#75FFC6', '#D490FF',], 
+    ['none', 'orin', 'okuu', 'flandre', 'satori', 'marisa', 'remilia', 'seiran', 'yukari', 'ran', 'yuyuko', 'youmu', 'chen', 'koishi', 'patchouli', 'shinki',], 
+    ['#FFFFFF', '#FF6366', '#00D309', '#D7FF00', '#D057FF', '#FFF500', '#9EA1E4', '#78B6FF', '#FFF16B', '#F2D337', '#FF94FA', '#EDFFFE', '#965959', '#75FFC6', '#D490FF', '#fff8f8'], 
     [
         './Assets/RankCards/RankCard_0.png',
         './Assets/RankCards/RankCard_1.png',
@@ -17,6 +17,7 @@ const rankingarr = [
         './Assets/RankCards/RankCard_12.png',
         './Assets/RankCards/RankCard_13.png',
         './Assets/RankCards/RankCard_14.png',
+        './Assets/RankCards/RankCard_15.png'
     ], 
     [
         'Basic Member Of Lazy Gang',
@@ -34,6 +35,7 @@ const rankingarr = [
         'Lazy Gang - PCB: Staff',
         'Former PCB Team Member',
         'Patchouli - The Knowledge Of LYG',
+        'Shinki - The Makai God'
     ], 
     [
         'https://cdn.discordapp.com/emojis/1097172753985056859.png',
@@ -51,6 +53,7 @@ const rankingarr = [
         'https://cdn.discordapp.com/emojis/1167062115442495510.png',
         'https://cdn.discordapp.com/emojis/1167053592818094142.png',
         'https://cdn.discordapp.com/emojis/1182981567983931423.png',
+        'https://cdn.discordapp.com/emojis/1184437410982002688.png'
     ], 
     [
         '<:LYG_blank:1097172753985056859>',
@@ -68,6 +71,7 @@ const rankingarr = [
         '<:ChenNya:1167062115442495510>',
         '<:KoishiHappy:1167053592818094142>',
         '<:PatchyWhat:1182981567983931423>',
+        '<:Smug_Shinki:1184437410982002688>',
     ], 
 ]
 /*rankingarr

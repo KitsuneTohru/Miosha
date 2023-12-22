@@ -8,12 +8,14 @@ const HGAssets = [
    [
       'https://cdn.discordapp.com/attachments/948615835369472064/1183742321762779217/Gigachad.gif',
       'https://cdn.discordapp.com/attachments/1183257186521067645/1184142415058186260/brent-rambo-thumbsup.gif',
-      'https://cdn.discordapp.com/attachments/1183257186521067645/1184144088522567801/okay-meme.gif'
+      'https://cdn.discordapp.com/attachments/1183257186521067645/1184144088522567801/okay-meme.gif',
+      'https://cdn.discordapp.com/attachments/927422068604166144/1185188484118487081/shock-shocker.gif'
    ],
    [
       'https://cdn.discordapp.com/attachments/1084992874212495393/1087382367158669362/idubbbz-youtuber.gif',
       'https://media.discordapp.net/attachments/1183257186521067645/1184142415486009414/im-straight-bro-i-swear.gif',
-      'https://cdn.discordapp.com/attachments/1183257186521067645/1184142416014479370/rock-one-eyebrow-raised-rock-staring.gif'
+      'https://cdn.discordapp.com/attachments/1183257186521067645/1184142416014479370/rock-one-eyebrow-raised-rock-staring.gif',
+      'https://cdn.discordapp.com/attachments/927422068604166144/1185188483539685387/josh-hutcherson.gif'
    ],
    [
       'https://www.kindpng.com/picc/m/164-1647256_403-error-png-download-403-forbidden-png-transparent.png',

@@ -1,26 +1,31 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const FooterEmbeds = require('../../Utils/embed')
+const RolePass = require('../../Utils/rolebypass')
+const WarnList = require('../../Database/warnlist')
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('unban')
-        .setDescription('Dùng Để Gỡ Ban Một Ai Đó Trong Server')
-        .addStringOption(option =>
-            option
-                .setName('user_id')
-                .setDescription('ID Người Dùng Bạn Muốn Gỡ Ban')
+        .setName('warn')
+        .setDescription('Cảnh Cáo Người Dùng Nào Đó')
+        .addUserOption(option =>
+            option.setName('user')
+                .setDescription('Người Dùng Bạn Muốn Cảnh Cáo')
                 .setRequired(true))
         .addStringOption(option =>
-            option
-                .setName('reason')
-                .setDescription('Lí Do Mà Bạn Muốn Gỡ Ban (Không Bắt Buộc)')
+            option.setName('reason')
+                .setDescription('Lí Do Cảnh Cáo')
                 .setRequired(false)),
+
     async execute(interaction) {
         const FooterEmbeds_ = FooterEmbeds
 
-        const target = interaction.options.getString('user_id')
-        const reason = interaction.options.getString('reason') || 'Không Có Lí Do Nào Cả'
+        const target = interaction.options.getUser('user')
+        var reason = interaction.options.getString('reason')
+        if (reason === null) {
+            reason = '<:CirnoWhat:1150565251562078249> Không Có Lí Do Nào Cả...'
+        }
 
+        const member = await interaction.guild.members.fetch(target.id)
         const usemem = await interaction.guild.members.fetch(interaction.user.id)
         const logchannel = await interaction.guild.channels.fetch('1165537322943643678')
 
@@ -33,18 +38,18 @@ module.exports = {
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
 
         const ErrEmbed = new EmbedBuilder()
-            .setColor('Red')
-            .setTitle(`Miosha#5189 - Unban`)
+            .setColor('Green')
+            .setTitle(`Miosha#5189 - Warn`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | ID Người Dùng ${target} Không Tồn Tại, Thì Làm Sao Tớ Gỡ Ban Được?`)
+            .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Bạn Không Thể Cảnh Cáo ${target} Được Vì Tớ Không Đủ Thẩm Quyền!!!`)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
 
-        const UnbanEmbed = new EmbedBuilder()
-            .setColor('Green')
-            .setTitle(`Miosha#5189 - Unban`)
+        const WarnEmbed = new EmbedBuilder()
+            .setColor('Yellow')
+            .setTitle(`Miosha#5189 - Warn`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setDescription(`<:LYG_Yae_Sip:954973168123134002> | Đã Gỡ Ban Người Dùng <@${target}>\n> **Lí Do Gỡ Ban:** ${reason}`)
+            .setDescription(`<:LYG_RushiaKnife:977202151480766565> | Đã Cảnh Cáo Người Dùng ${target}\n> **Lí Do Cảnh Cáo:** ${reason}`)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
 
@@ -53,30 +58,50 @@ module.exports = {
             usingkey = true
         }
 
+        var key = false
+        const PassList = RolePass
+        for (var i = 0; i < PassList.length; i++) {
+            if (member.roles.cache.has(PassList[i])) {
+                key = true
+                break
+            }
+        }
+
         if (!usingkey) {
             return interaction.reply({
                 embeds: [NoPerm]
             })
         } else {
-            try {
-                await interaction.guild.members.unban(target)
-
+            if (key) {
+                return interaction.reply({
+                    embeds: [ErrEmbed]
+                })
+            } else {
                 await interaction.reply({
-                    embeds: [UnbanEmbed]
+                    embeds: [WarnEmbed]
                 })
                 const LogEmbed = new EmbedBuilder()
-                    .setColor('Green')
+                    .setColor('Yellow')
                     .setTitle(`Miosha#5189 - Logger`)
                     .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-                    .setDescription(`<:LYG_Yae_Sip:954973168123134002> **__Hành Động: Gỡ Ban__**\n\n> **ID Người Dùng:** ${target}\n> **Lí Do Gỡ Ban:** ${reason}\n> **Người Thực Hiện:** ${interaction.user}`)
+                    .setDescription(`<:LYG_RushiaKnife:977202151480766565> **__Hành Động: Warn__**\n\n> **Người Dùng:** ${target}\n> **Lí Do Cảnh Cáo:** ${reason}\n> **Người Thực Hiện:** ${interaction.user}`)
                     .setTimestamp()
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                 logchannel.send({
                     embeds: [LogEmbed]
                 })
-            } catch (err) {
-                await interaction.reply({
-                    embeds: [ErrEmbed]
+                WarnList.findOne({ UserID: target.id }, async (err, data) => {
+                    if (err) throw err
+                    if (!data) {
+                        WarnList.create({
+                            UserID: target.id,
+                            WarnReasons: [reason]
+                        })
+                    }
+                    if (data) {
+                       data.WarnReasons.push(reason)
+                       data.save()
+                    }
                 })
             }
         }

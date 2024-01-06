@@ -14,11 +14,10 @@
 
 ![Img1](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034269683782/Miosha-Info.png)
 ## • Changelog: 
-
-- Mới/Đã Chỉnh Sửa
-    + Add Lệnh: /top
-- Special Update
-    + Hiện Không Có!
+- Tung Bản Release Chính Thức Của Miosha
+- Một Số Lệnh Đang Được Phát Triển Và Tối Ưu Hóa Lại
+- Thêm Một Số Lệnh, Sửa Đổi Tên Lệnh
+- Sẽ Thêm Lệnh **/checkachievements** *(Sớm Thôi)*
 
 ![Img2](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034072563823/Miosha-Credits.png)
 ## • Contributor List:

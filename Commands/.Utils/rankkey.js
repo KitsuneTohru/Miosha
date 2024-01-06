@@ -15,6 +15,7 @@ module.exports = {
                 .setDescription('Keyword Cho Thông Tin Ranking')
                 .setRequired(false)),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
 
         var user = interaction.options.getUser('user')
@@ -42,7 +43,7 @@ module.exports = {
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
 
         if (!usingkey) {
-            await interaction.reply({
+            await interaction.editReply({
                 embeds: [NoPerm],
             })
         } else {
@@ -57,7 +58,7 @@ module.exports = {
                             .setDescription(`> Vì Người Dùng **${user}** (<@${user}>) Chưa Có Vị Trí Trong Database, Và Key Là **${key}** Nữa Nên Skip Luôn!`)
                             .setTimestamp()
                             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                        await interaction.reply({
+                        await interaction.editReply({
                             embeds: [SkipKey]
                         })
                     } else {
@@ -73,7 +74,7 @@ module.exports = {
                             .setDescription(`> ID Người Dùng: **${user}** (<@${user}>)\n> Keyword: **${key}**`)
                             .setTimestamp()
                             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                        await interaction.reply({
+                        await interaction.editReply({
                             embeds: [NewKey]
                         })
                     }
@@ -90,7 +91,7 @@ module.exports = {
                             .setDescription(`> Đã Xóa Keyword Cho ID Người Dùng: **${user}** (<@${user}>)\n`)
                             .setTimestamp()
                             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                        await interaction.reply({
+                        await interaction.editReply({
                             embeds: [DelKey]
                         })
                     } else {
@@ -101,7 +102,7 @@ module.exports = {
                             .setDescription(`> ID Người Dùng: **${user}** (<@${user}>)\n> Keyword: **${prekey}** >> **${key}**`)
                             .setTimestamp()
                             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                        await interaction.reply({
+                        await interaction.editReply({
                             embeds: [EdtKey]
                         })
                         data.save()

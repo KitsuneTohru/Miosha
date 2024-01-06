@@ -1,6 +1,6 @@
 {
   "name": "miosha",
-  "version": "0.12.0",
+  "version": "1.0.0",
   "description": "Miosha - LYG Official Bot, Ofc, Just A Newbie Coder Like Me As An CEO For Doing It",
   "main": "index.js",
   "scripts": {
@@ -11,9 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "@napi-rs/canvas": "^0.1.44",
-    "discord.js": "^14.13.0",
+    "discord.js": "^14.14.1",
     "dotenv": "^16.0.3",
     "mongoose": "^6.0.2",
+    "node-cron": "^3.0.3",
+    "node.js": "^0.0.1-security",
     "quick.db": "^9.1.7",
     "sequelize": "^6.33.0",
     "sqlite3": "^5.1.6"

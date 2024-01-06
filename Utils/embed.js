@@ -8,7 +8,7 @@ const CurYear = CurrentDate.slice(11,15)
 
 const FooterEmbeds = [
     [
-        `©${CYear}-${CurYear} • Miosha • kaenbyou_rin0727`
+        `©${CYear}-${CurYear} • Miosha • nekorin727`
     ],
     [
         'https://cdn.discordapp.com/avatars/1061527111829041242/d5b8a03b661e408eccfc4762b2839a5c.png?size=1024',

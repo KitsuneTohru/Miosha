@@ -8,6 +8,8 @@ module.exports = {
         .setName('help')
         .setDescription('Hiển Thị Sự Trợ Giúp Của Bot Trong Server...'),
     async execute(interaction) {
+        //Setup
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
         //Setup User
         const user = interaction.user.id
@@ -148,12 +150,12 @@ module.exports = {
                     )
             )
         //Embed Trang Chủ
-        const time = 1703259900
+        const time = 1704540600
         const HeadEmbed = new EmbedBuilder()
             .setColor('White')
             .setTitle(`<a:LYG_Sparkle:1084084997398470747> LYG Bot: Trang Chủ <a:LYG_Sparkle:1084084997398470747>`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** v0.12.0\n<a:LYG_Clock:1084322030331105370> **Last Update:** <t:${time}> (<t:${time}:R>)\n\n**Lựa Chọn Các Phần Bên Dưới Để Xem Thông Tin Nhá!**\n> <:LYG_LaylaHmm:1086172125955633192> **Commands**\n> <a:LYG_OkayuLove:1087692048280334347> **Changelogs**\n> <a:LYG_FubukiWhat:1084085930266218556> **FaQs**\n\n❌**Link Mời Bot (KHÔNG KHẢ DỤNG)**\n🔗[[Support Server Link - Lazy Gang]](https://discord.gg/NA7AqG49xN)\n`)
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** v1.0.0\n<a:LYG_Clock:1084322030331105370> **Last Update:** <t:${time}> (<t:${time}:R>)\n\n**Lựa Chọn Các Phần Bên Dưới Để Xem Thông Tin Nhá!**\n> <:LYG_LaylaHmm:1086172125955633192> **Commands**\n> <a:LYG_OkayuLove:1087692048280334347> **Changelogs**\n> <a:LYG_FubukiWhat:1084085930266218556> **FaQs**\n\n❌**Link Mời Bot (KHÔNG KHẢ DỤNG)**\n🔗[[Support Server Link - Lazy Gang]](https://discord.gg/bQBQYU5vhb)\n`)
             .setImage('https://media.discordapp.net/attachments/993475207828361266/1061636491702435860/png_20221122_230528_0000.png')
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -249,7 +251,7 @@ module.exports = {
             .setColor('#00FFFF')
             .setTitle(`<a:LYG_Sparkle:1084084997398470747> LYG Bot: Changelogs <a:LYG_Sparkle:1084084997398470747>`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** v0.12.0\n> <:OrinTired:1147089528906072155> **Đang Thêm Một Số Tính Năng, Một Số Đang Được Thử Nghiệm**\n<:OrinSmile:1146170313445494875> Đã Thêm Một Số Lệnh (Giúp Ích Cho Việc Quản Lí Server)\n<a:LYG_Butterfly:1084085919210012722> **Tiến Độ:** ▰▰▰▰▰▰▰▰▰▱ 85%\n<a:LYG_Clock:1084322030331105370> **Last Update:** <t:${time}> (<t:${time}:R>)`)
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** v1.0.0\n> <:OkayuYay:1020272183060217876> **PHIÊN BẢN CHÍNH THỨC ĐẦU TIÊN CỦA MIOSHA!**\n> Vẫn Có Một Số Lệnh Trong Giai Đoạn Phát Triển Tối Ưu Thêm Nhé!!!\n<a:LYG_Clock:1084322030331105370> **Last Update:** <t:${time}> (<t:${time}:R>)`)
             .setImage('https://cdn.discordapp.com/attachments/948615835369472064/1096301056188760084/Miosha_-_Info.png')
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -263,13 +265,14 @@ module.exports = {
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
 
-        await interaction.reply({
+        await interaction.editReply({
             embeds: [HeadEmbed],
             components: [desc_row1]
         })
         //Execute Lệnh
         const filter = a => a.user.id === user;
-        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 300000 })
+        const message = await interaction.fetchReply()
+        const collector = interaction.channel.createMessageComponentCollector({ message, filter, time: 300000 })
         collector.on('collect', async a => {
             //Lấy Giá Trị Menu
             var c = false

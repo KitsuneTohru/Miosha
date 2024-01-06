@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
+
 const cdSchema = require('../../Database/cooldown')
 const Type1Entries = require('../../Assets/Omikuji/type1')
 const Type2Entries = require('../../Assets/Omikuji/type2')
@@ -7,14 +8,27 @@ const Type3Entries = require('../../Assets/Omikuji/type3')
 const Type4Entries = require('../../Assets/Omikuji/type4')
 const Type5Entries = require('../../Assets/Omikuji/type5')
 const FooterEmbeds = require('../../Utils/embed')
+const AchievementList = require('../../Database/achievement')
+const AchievementAssets = require('../../Assets/Achievements/achievements')
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('omikuji')
         .setDescription('Dùng Để Rút Quẻ'),
     async execute(interaction) {
+        await interaction.deferReply()
+
+        function DailyCD() {
+            var CD = new Date(Date.now())
+            CD.setDate(CD.getDate() + 1)
+            CD.setHours(5, 0, 0, 0)
+        
+            const Daily_CD = CD.getTime()
+            return Daily_CD
+        }
+        const Daily_CD = DailyCD()
+
         const FooterEmbeds_ = FooterEmbeds
-        const cdtime = 86400000 
         //BUTTON TYPE 5 ENTRY
         const type5_1 = new ActionRowBuilder()
             .addComponents(
@@ -37,10 +51,11 @@ module.exports = {
         //THUẬT TOÁN RANDOM LẤY ENTRY
         var rng = Math.random() * 100.01
         rng = (Math.floor(rng * 100) / 100).toFixed(2)
+        //rng = 100 //Test Rng
         var rng1 = -1, rng2 = -1, rng3 = -1, rng4 = -1
         //IMAGE URL: TYPE 3,4,5 SẼ CHỐT LẤY
         if (rng > 96)
-            var img_url = 'https://media.discordapp.net/attachments/993475207828361266/1061636491702435860/png_20221122_230528_0000.png'
+            var img_url
         //ENTRY RUN
         let result;
         //ENTRY SET
@@ -92,7 +107,7 @@ module.exports = {
             .setDescription(Type5Entries[2][0])
             .setTimestamp(Date.now())
             .setImage(img_url)
-            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
         const LYGEmbed = new EmbedBuilder()
             .setColor('Yellow')
             .setTitle(`<a:LYG_Planet:1084085941821513789> **LYG's Secret**`)
@@ -100,7 +115,7 @@ module.exports = {
             .setDescription(Type5Entries[2][1])
             .setTimestamp(Date.now())
             .setImage(img_url)
-            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
         cdSchema.findOne({ UserID: interaction.user.id }, async (err, data) => {
             if (err) throw err
             if (!data) {
@@ -112,20 +127,20 @@ module.exports = {
                 const cduser = data.UserID
                 const CDTime = data.CDOmikuji
                 console.log('[Command: Omikuji]', cduser, CDTime, Date.now())
-                if (CDTime > Date.now()) {
+                if (CDTime > Date.now()) { //Line Này Dùng /* Nếu Test Bỏ Qua CD
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')
                         .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
                         .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
-                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
-                    await interaction.reply({
+                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
+                    await interaction.editReply({
                         embeds: [cdembed]
                     })
-                }
-                else {
-                    data.CDOmikuji = Date.now() + cdtime
+                } //Line Này Dùng */ Nếu Bỏ Qua CD
+                else { //Line Này Dùng // Nếu Bỏ Qua CD
+                    data.CDOmikuji = Daily_CD
                     data.save()
                     //EMBED GỐC ENTRY
                     const embed = new EmbedBuilder()
@@ -135,8 +150,8 @@ module.exports = {
                         .setDescription(result)
                         .setTimestamp(Date.now())
                         .setImage(img_url)
-                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
-                    await interaction.reply({
+                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
+                    await interaction.editReply({
                         embeds: [embed],
                     })
                     if (rng > 99.9 && rng <= 99.95) {
@@ -152,34 +167,126 @@ module.exports = {
                         })
                     }
                     //Trigger Nút    
-                    const filter = a => a.user.id === user;
-                    const collector = interaction.channel.createMessageComponentCollector({ filter, time: 300000 })
+                    const filter = a => a.user.id === user
+                    const message = await interaction.fetchReply()
+                    const collector = interaction.channel.createMessageComponentCollector({ message, filter, time: 15 * 60 * 1000 })
                     collector.on('collect', async a => {
                         var key = true
+                        const t5user = await interaction.guild.members.fetch(interaction.user.id)
                         if (a.customId === 'entrytype5_1') {
                             if (key) {
                                 await wait(500)
-                                await interaction.followUp({
-                                    embeds: [KitsuneziEmbed],
-                                    ephemeral: true,
-                                })
-                                key = false
+                                try {
+                                    t5user.send({
+                                        embeds: [KitsuneziEmbed]
+                                    })
+                                    interaction.editReply({
+                                        embeds: [embed],
+                                        components: []
+                                    })
+                                    interaction.followUp({
+                                        content: 'Đã Gửi Embed, Nhớ Check DMs Của Bạn Nhé!!!'
+                                    })
+                                } catch (err) {
+                                    interaction.followUp({
+                                        content: 'Oi! Bạn Hãy Mở DMs Của Bạn Để Có Thể Coi Nhé!'
+                                    })
+                                }
                             }
                         }
                         if (a.customId === 'entrytype5_2') {
                             if (key) {
                                 await wait(500)
-                                await interaction.followUp({
-                                    embeds: [LYGEmbed],
-                                    ephemeral: true,
-                                })
-                                key = false
+                                try {
+                                    t5user.send({
+                                        embeds: [LYGEmbed]
+                                    })
+                                    interaction.editReply({
+                                        embeds: [embed],
+                                        components: []
+                                    })
+                                    interaction.followUp({
+                                        content: 'Đã Gửi Embed, Nhớ Check DMs Của Bạn Nhé!!!'
+                                    })
+                                } catch (err) {
+                                    interaction.followUp({
+                                        content: 'Oi! Bạn Hãy Mở DMs Của Bạn Để Có Thể Coi Nhé!'
+                                    })
+                                }
                             }
                         }
                     })
                     console.log('========================================\nSố Encounter: ', rng, rng1, rng2, rng3, rng4, '\n========================================')
                 }
-            }
+                //Achievements On Omikuji
+                var a4key = "No", a5key = "No"
+                var achievementdesc, achievementlink, achievementcolor = '#000000'
+                if (rng > 99.9 && rng <= 99.95) {
+                    achievementdesc = `> Chúc Mừng Người Dùng ${interaction.user} Đã Mở Khóa Thành Tựu Mới!!!\n${AchievementAssets[1][3]}`
+                    achievementlink = AchievementAssets[0][3]
+                    achievementcolor = AchievementAssets[2][0]
+                    a4key = "Yes"
+                }
+                if (rng > 99.95 && rng <= 100) {
+                    achievementdesc = `> Chúc Mừng Người Dùng ${interaction.user} Đã Mở Khóa Thành Tựu Mới!!!\n${AchievementAssets[1][4]}`
+                    achievementlink = AchievementAssets[0][4]
+                    achievementcolor = AchievementAssets[2][0]
+                    a5key = "Yes"
+                } 
+
+                const OmikujiAchivements = new EmbedBuilder()
+                    .setColor(achievementcolor)
+                    .setTitle(`<:YuyukoWoah:1152872168439423050> **Achievement Unlocked!!!**`)
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setDescription(`${achievementdesc}`)
+                    .setTimestamp()
+                    .setImage(achievementlink)
+                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
+
+                AchievementList.findOne({ UserID: interaction.user.id }, async (err, data1) => {
+                    if (err) throw err
+                    if (!data1) {
+                        AchievementList.create({
+                            UserID: interaction.user.id,
+                            A4: a4key,
+                            A5: a5key,
+                        })
+                        if (a4key === "Yes" || a5key === "Yes") {
+                            await interaction.followUp({
+                                embeds: [OmikujiAchivements]
+                            })
+                        }
+                    } if (data1) {
+                            const A4 = data1.A4
+                            const A5 = data1.A5
+
+                            if (!A4) {
+                                data1.A4 = a4key
+                            }
+                            if (!A5) {
+                                data1.A5 = a5key
+                            }
+
+                            if (A4 === "No") {
+                                if (rng > 99.9 && rng <= 99.95) {
+                                    data1.A4 = "Yes"
+                                    await interaction.followUp({
+                                        embeds: [OmikujiAchivements]
+                                    })
+                                }
+                            }
+                            if (A5 === "No") {
+                                if (rng > 99.95 && rng <= 100) {
+                                    data1.A5 = "Yes"
+                                    await interaction.followUp({
+                                        embeds: [OmikujiAchivements]
+                                    })
+                                }
+                            }
+                            data1.save()
+                        }
+                })
+            } //Line Này Dùng // Nếu Bỏ Qua CD
         })
     }
 }

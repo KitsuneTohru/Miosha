@@ -17,6 +17,7 @@ module.exports = {
                 .setDescription('Lí Do Mà Bạn Muốn Kick (Không Bắt Buộc)')
                 .setRequired(false)),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
 
         const target = interaction.options.getUser('user')
@@ -65,17 +66,17 @@ module.exports = {
         }
 
         if (!usingkey) {
-            return interaction.reply({
+            return interaction.editReply({
                 embeds: [NoPerm]
             })
         } else {
             if (key) {
-                return interaction.reply({
+                return interaction.editReply({
                     embeds: [ErrEmbed]
                 })
             } else {
                 await member.kick()
-                await interaction.reply({
+                await interaction.editReply({
                     embeds: [KickEmbed]
                 })
                 const LogEmbed = new EmbedBuilder()

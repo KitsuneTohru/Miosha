@@ -3,6 +3,7 @@ const wait = require('node:timers/promises').setTimeout
 const mongoose = require('mongoose')
 const mongodbURL = process.env.MONGO_URL;
 
+
 module.exports = async (client) => {
     if (!mongodbURL) return;
     await mongoose.connect(mongodbURL || '', {
@@ -16,9 +17,9 @@ module.exports = async (client) => {
     }
 
     var i = 0
-    const namearr = ['v0.12.0: /help',
-        '▰▰▰▰▰▰▰▰▰▱ 85%',
-        'Thêm Một Số Lệnh Quản Lí Trong Server',
+    const namearr = ['v1.0.0: /help',
+        'Welcome To Lazy Gang!',
+        'Hoàn Thiện Coi Như Đầy Đủ Về Những Thứ Cơ Bản Của Bot!',
         'Changelog: /info',
         'Most Usage: /howgay',
         'Special -- [TESTING] Có Thêm Một Số Tinh Năng Mới Đang Thử Nghiệm']

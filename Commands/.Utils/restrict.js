@@ -19,6 +19,7 @@ module.exports = {
                 .setDescription('Lí Do Bạn Muốn Ban Người Dùng Đó Sử Dụng Lệnh')
                 .setRequired(false)),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
 
         const target = interaction.options.getUser('user')
@@ -119,7 +120,7 @@ module.exports = {
             usingkey = true
         }
         if (!usingkey) {
-            interaction.reply({
+            interaction.editReply({
                 embeds: [NoPerm]
             })
         } else {
@@ -132,23 +133,23 @@ module.exports = {
                             Key: true,
                             Time: resulttime + Date.now()
                         })
-                        await interaction.reply({
+                        await interaction.editReply({
                             embeds: [RestrictEmbed]
                         })
                     } else {
-                        await interaction.reply({
+                        await interaction.editReply({
                             embeds: [RestrictEmbed]
                         })
                     }
                 } if (data) {
                     if (resulttime > 0) {
                         data.Time = resulttime
-                        await interaction.reply({
+                        await interaction.editReply({
                             embeds: [RestrictEmbed]
                         })
                         data.save
                     } else {
-                        await interaction.reply({
+                        await interaction.editReply({
                             embeds: [RestrictEmbed]
                         })
                     }

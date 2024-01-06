@@ -32,7 +32,7 @@ const LvlSchema = new Schema({
     titleicon: {
         type: Boolean,
         default: false
-    }
+    }, 
 })
 
 module.exports = model('Level', LvlSchema)

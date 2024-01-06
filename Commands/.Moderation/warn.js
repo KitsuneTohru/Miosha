@@ -17,6 +17,7 @@ module.exports = {
                 .setRequired(false)),
 
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
 
         const target = interaction.options.getUser('user')
@@ -68,16 +69,16 @@ module.exports = {
         }
 
         if (!usingkey) {
-            return interaction.reply({
+            return interaction.editReply({
                 embeds: [NoPerm]
             })
         } else {
             if (key) {
-                return interaction.reply({
+                return interaction.editReply({
                     embeds: [ErrEmbed]
                 })
             } else {
-                await interaction.reply({
+                await interaction.editReply({
                     embeds: [WarnEmbed]
                 })
                 const LogEmbed = new EmbedBuilder()

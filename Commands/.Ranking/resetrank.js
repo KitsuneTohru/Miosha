@@ -9,6 +9,7 @@ module.exports = {
         .setDescription('Reset Rank Trong Toàn Bộ Server')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
 
         const ButtonChoice = new ActionRowBuilder()
@@ -50,7 +51,7 @@ module.exports = {
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription('<a:OrinSway2:1160295832394932326> **Đang Reset Exp Của Toàn Bộ Server...**')
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
-        await interaction.reply({
+        await interaction.editReply({
             embeds: [ResetEmbedChoice],
             components: [ButtonChoice]
         })

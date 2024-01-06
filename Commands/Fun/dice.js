@@ -15,6 +15,7 @@ module.exports = {
                 .setMinValue(1)
                 .setMaxValue(10)),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
 
         const cdtime = 15000
@@ -159,7 +160,7 @@ module.exports = {
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [cdembed]
                     })
                 }
@@ -167,7 +168,7 @@ module.exports = {
                     data.CDDice = Date.now() + cdtime
                     data.save()
                     console.log('========================================\nRng Encounter:', final_arr, '\n========================================')
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [WaitEmbed]
                     })
                     await wait(2500)

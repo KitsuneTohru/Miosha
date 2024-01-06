@@ -7,8 +7,9 @@ module.exports = {
         .setDescription('Hiển Thị Info Của Bot'),
     async execute(interaction) {
         const FooterEmbeds_ = FooterEmbeds
+        await interaction.deferReply()
         const user = interaction.user.id
-        const time = 1703259900
+        const time = 1704540600
         const date = new Date().setTime(Number(time) * 1000)
         const CreditButton = new ActionRowBuilder()
             .addComponents(
@@ -51,16 +52,17 @@ module.exports = {
             .setColor('#00FFFF')
             .setTitle(`Thông Tin Về Bot: Miosha#5189`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** v0.12.0\n> <:OrinTired:1147089528906072155> **Đang Thêm Một Số Tính Năng, Một Số Đang Được Thử Nghiệm**\n<:OrinSmile:1146170313445494875> Đã Thêm Một Số Lệnh (Giúp Ích Cho Việc Quản Lí Server)\n<a:LYG_Butterfly:1084085919210012722> **Tiến Độ:** ▰▰▰▰▰▰▰▰▰▱ 85%\n<a:LYG_Clock:1084322030331105370> **Last Update:** <t:${time}> (<t:${time}:R>)`)
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** v1.0.0\n> <:OkayuYay:1020272183060217876> **PHIÊN BẢN CHÍNH THỨC ĐẦU TIÊN CỦA MIOSHA!**\n> Vẫn Có Một Số Lệnh Trong Giai Đoạn Phát Triển Tối Ưu Thêm Nhé!!!\n<a:LYG_Clock:1084322030331105370> **Last Update:** <t:${time}> (<t:${time}:R>)`)
             .setImage('https://cdn.discordapp.com/attachments/948615835369472064/1096301056188760084/Miosha_-_Info.png')
             .setTimestamp(date)
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
-        await interaction.reply({
+        await interaction.editReply({
             embeds: [changelog_embed],
             components: [CreditButton]
         });
         const filter = a => a.user.id === user;
-        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 120000 })
+        const message = await interaction.fetchReply()
+        const collector = interaction.channel.createMessageComponentCollector({ message, filter, time: 120000 })
         collector.on('collect', async a => {
             if (a.customId === 'credit1') {
                 await interaction.editReply({

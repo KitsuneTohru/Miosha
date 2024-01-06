@@ -16,6 +16,7 @@ module.exports = {
                 .setDescription('Lí Do Mà Bạn Muốn Gỡ Ban (Không Bắt Buộc)')
                 .setRequired(false)),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
 
         const target = interaction.options.getString('user_id')
@@ -54,14 +55,14 @@ module.exports = {
         }
 
         if (!usingkey) {
-            return interaction.reply({
+            return interaction.editReply({
                 embeds: [NoPerm]
             })
         } else {
             try {
                 await interaction.guild.members.unban(target)
 
-                await interaction.reply({
+                await interaction.editReply({
                     embeds: [UnbanEmbed]
                 })
                 const LogEmbed = new EmbedBuilder()
@@ -75,7 +76,7 @@ module.exports = {
                     embeds: [LogEmbed]
                 })
             } catch (err) {
-                await interaction.reply({
+                await interaction.editReply({
                     embeds: [ErrEmbed]
                 })
             }

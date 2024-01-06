@@ -42,6 +42,7 @@ module.exports = {
                 emoji[i] = emolist[0] 
                 continue
             }
+            emoji[i] = emolist[0]
             key = KeyList.Key
             switch(key){
                 case 'admin':

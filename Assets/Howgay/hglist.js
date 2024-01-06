@@ -31,7 +31,7 @@ const HGList = [
     ],
     [
         "<a:LYG_AquaBlessing:1086173173113966702>**|** *Nhận Xét:* Yo, Listen Up, Here's A Story About A Little Guy That Lives In A **GAY** World\nAnd All Day And All Night And Everything He Sees Is Just **GAY**\nLike Him Inside And Outside\n**GAY** His House With A **GAY** Little Window\nAnd A **GAY** Corvette\nAnd Everything Is **GAY** For Him\nAnd Himself And Everybody Around\n'Cause He Ain't Got Nobody To Listen...\n-Effiel 65 ft. iDubbbz-",
-        "<a:LYG_AquaBlessing:1086173173113966702>**|** *Nhận Xét:* Pha Này Ngay Cả Chúa Trời Cũng Không Cứu Nổi Bạn, Bạn Mang Trong Mình Dòng Máu Có Thể Là Của Milf, Cũng Có Thể Là Loli, Cũng Có Thể Là Mid Girl Nhưng Là Kemonoimi Girl Cũng Nên...",
+        "<a:LYG_AquaBlessing:1086173173113966702>**|** *Nhận Xét:* Pha Này Ngay Cả Chúa Trời Cũng Không Cứu Nổi Bạn, Bạn Mang Trong Mình Dòng Máu Có Thể Là Của Milf, Cũng Có Thể Là Loli, Cũng Có Thể Là Mid Girl Nhưng Là Kemonomimi Girl Cũng Nên...",
         "<a:LYG_AquaBlessing:1086173173113966702>**|** *Nhận Xét:* Dụng Cụ Theo Tớ Điều Tra Được Phòng Bạn Có:\n1. Đồ Hầu Gái\n2. Tất Bó Dài\n3. Bờm Tai Mèo\n4. Đuôi Mèo (Phụ Kiện)\n5. Dụng Cụ Trang Điểm\n6. Tóc Giả Để Cosplay\nThế Thì, Bạn Giải Thích Cho Mình Xem Bạn Bảo Bạn KHÔNG GAY Cơ Mà???"
     ],
     [

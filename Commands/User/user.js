@@ -12,6 +12,7 @@ module.exports = {
                 .setDescription('Thông Tin Của Người Dùng Cần Show (Lần Này Thì Bắt Buộc Nhá)')
                 .setRequired(true)),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
         const cdtime = 10000
         const tuser = interaction.options.getUser('name')
@@ -46,7 +47,7 @@ module.exports = {
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [cdembed]
                     })
                 }
@@ -62,7 +63,7 @@ module.exports = {
                             .setThumbnail(user.displayAvatarURL({ dynamic: true, size: 512 }))
                             .setTimestamp()
                             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
-                        await interaction.reply({
+                        await interaction.editReply({
                             embeds: [UserEmbed]
                         });
                     }

@@ -18,6 +18,7 @@ module.exports = {
                 .setRequired(false)
                 .setMinValue(0)),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
         const cdtime = 10000
         var up = 0
@@ -67,7 +68,7 @@ module.exports = {
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [cdembed]
                     })
                 }
@@ -80,7 +81,7 @@ module.exports = {
                         .setDescription(`> ${interaction.user} Đã Roll Được **${rng}** Điểm`)
                         .setColor('DarkButNotBlack')
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [embed]
                     })
                 }

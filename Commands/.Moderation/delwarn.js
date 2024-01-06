@@ -18,6 +18,7 @@ module.exports = {
                 .setMinValue(1)),
 
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
 
         const target = interaction.options.getUser('user')
@@ -58,12 +59,12 @@ module.exports = {
         }
 
         if (!usingkey) {
-            return interaction.reply({
+            return interaction.editReply({
                 embeds: [NoPerm]
             })
         } else {
             if (key) {
-                return interaction.reply({
+                return interaction.editReply({
                     embeds: [ErrEmbed]
                 })
             } else {
@@ -77,7 +78,7 @@ module.exports = {
                             .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Người Dùng Là ${target} Hiện Không Có Lần Cảnh Cáo Nào`)
                             .setTimestamp()
                             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                        return interaction.reply({
+                        return interaction.editReply({
                             embeds: [NoData]
                         })
                     }
@@ -91,7 +92,7 @@ module.exports = {
                                 .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Bạn Nhập Số Nằm Ngoài Số Lượng Warn Của Người Dùng ${target} Rồi!`)
                                 .setTimestamp()
                                 .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                            return interaction.reply({
+                            return interaction.editReply({
                                 embeds: [OverData]
                             })
                         } else {
@@ -102,7 +103,7 @@ module.exports = {
                                 .setDescription(`<:JustOrin:1156221079988215879> Đã Xóa Cảnh Cáo Cho Người Dùng: ${target}\nNội Dung Lí Do Cảnh Cáo Khi Xóa: ${WarnCounter_[pos - 1]}`)
                                 .setTimestamp()
                                 .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                            await interaction.reply({
+                            await interaction.editReply({
                                 embeds: [Deleted]
                             })
                             const LogEmbed = new EmbedBuilder()

@@ -2,8 +2,8 @@
 
 ![Img0](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034504577074/Miosha-Overall.png)
 ## • Phiên Bản
-- **Phiên Bản:** v.0.12.0
-> **Tiến Độ:** ▰▰▰▰▰▰▰▰▰▱ 85%
+- **Phiên Bản:** v1.0.0
+> **Đã Hoàn Thành Tiến Độ!!! Phiên Bản Chính Thức Đầu Tiên Của Miosha!**
 
 > 100% Code Do Tự Tay Orin *(Kitsunezi)* Viết, Có Tham Khảo Nguồn Từ Các Con Bot Khác Và Trên Mạng, Hoàn Toàn **KHÔNG SỬ DỤNG TEMPLATE**
 ## • Mục Đích Sử Dụng:

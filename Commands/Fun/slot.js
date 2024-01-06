@@ -14,6 +14,7 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction) {
         const FooterEmbeds_ = FooterEmbeds
+        await interaction.deferReply()
         //Setup (Cursed Vãi Vì Nhiều Biến Phải Lưu Trữ :])
         const cdtime = 15000
         const auser = interaction.user.id
@@ -216,7 +217,7 @@ module.exports = {
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [cdembed]
                     })
                 }
@@ -224,7 +225,7 @@ module.exports = {
                     data.CDSlot = Date.now() + cdtime
                     data.save()
                     if (!serr) {
-                        await interaction.reply({
+                        await interaction.editReply({
                             embeds: [ReadyEmbed]
                         })
                         await wait(1000)
@@ -241,7 +242,7 @@ module.exports = {
                         })
                     }
                     else {
-                        await interaction.reply({
+                        await interaction.editReply({
                             embeds: [ErrorEmbed]
                         })
                     }

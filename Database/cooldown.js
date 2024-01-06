@@ -14,6 +14,7 @@ let cdSchema = new Schema({
     CDHowgay: String, //Howgay
     CDOmikuji: String, //Omikuji
     CDSlot: String, //Slot
+    CDShiprate: String, //Shiprate
     //===Info
     CDPing: String, //Ping
     //===Misc

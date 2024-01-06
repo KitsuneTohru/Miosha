@@ -11,6 +11,7 @@ module.exports = {
             option.setName('user')
                 .setDescription('Avatar Của Người Dùng Cần Show')),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
         const cdtime = 5000
         const user = interaction.options.getUser('user');
@@ -44,7 +45,7 @@ module.exports = {
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [cdembed]
                     })
                 }
@@ -59,7 +60,7 @@ module.exports = {
                             .setColor('Blue')
                             .setImage(`${user.displayAvatarURL({ dynamic: true, size: 512 })}`)
                             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
-                        await interaction.reply({
+                        await interaction.editReply({
                             embeds: [user_embed]
                         });
                     }
@@ -71,7 +72,7 @@ module.exports = {
                             .setColor('Red')
                             .setImage(`${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}`)
                             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
-                        await interaction.reply({
+                        await interaction.editReply({
                             embeds: [your_embed]
                         })
                     }
@@ -88,7 +89,7 @@ module.exports = {
     .setTimestamp()
     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
 if (cd.has(interaction.user.id) && !CDBool) {
-    await interaction.reply({
+    await interaction.editReply({
         embeds: [cdembed]
     })
 } else {

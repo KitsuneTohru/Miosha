@@ -18,6 +18,7 @@ module.exports = {
                     { name: 'Stand', value: 'Stand' }
                 )),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
         //Setup Game
         const cdtime = 15000
@@ -135,7 +136,7 @@ module.exports = {
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [cdembed]
                     })
                 }
@@ -143,7 +144,7 @@ module.exports = {
                     data.CDCoinflip = Date.now() + cdtime
                     data.save()
                     if (userstr) {
-                        await interaction.reply({
+                        await interaction.editReply({
                             embeds: [SetupEmbed],
                         })
                         await wait(1000)

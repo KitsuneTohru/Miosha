@@ -13,6 +13,7 @@ module.exports = {
                 .setDescription('Người Dùng Bạn Muốn Check CD')
                 .setRequired(false)),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
 
         const checkuser = interaction.options.getUser('user') || interaction.user
@@ -39,7 +40,7 @@ module.exports = {
                     .setDescription(`${checkuser} Không Có Sử Dụng Bất Cứ Lệnh Nào, Thì Làm Sao Check?`)
                     .setTimestamp()
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                await interaction.reply({
+                await interaction.editReply({
                     embeds: [NoData]
                 })
             }
@@ -115,7 +116,7 @@ module.exports = {
                     .setDescription(finalresult)
                     .setTimestamp()
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                await interaction.reply({
+                await interaction.editReply({
                     embeds: [CDCheckEmbed]
                 })
             }

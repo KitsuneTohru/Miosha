@@ -22,6 +22,7 @@ module.exports = {
                 .setDescription('Lí Do Bạn Timeout (Không Bắt Buộc)')
                 .setRequired(false)),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
 
         const target = interaction.options.getUser('user')
@@ -155,17 +156,17 @@ module.exports = {
         }
 
         if (!usingkey) {
-            return interaction.reply({
+            return interaction.editReply({
                 embeds: [NoPerm]
             })
         } else {
             if (key) {
-                return interaction.reply({
+                return interaction.editReply({
                     embeds: [TimeoutEmbed]
                 })
             } else if (resulttime > 0) {
                 await member.timeout(resulttime)
-                await interaction.reply({
+                await interaction.editReply({
                     embeds: [TimeoutEmbed]
                 })
                 logchannel.send({
@@ -173,14 +174,14 @@ module.exports = {
                 })
             } else if (resulttime === 0) {
                 await member.timeout(null)
-                await interaction.reply({
+                await interaction.editReply({
                     embeds: [TimeoutEmbed]
                 })
                 logchannel.send({
                     embeds: [LogEmbed]
                 })
             } else {
-                await interaction.reply({
+                await interaction.editReply({
                     embeds: [TimeoutEmbed]
                 })
             }

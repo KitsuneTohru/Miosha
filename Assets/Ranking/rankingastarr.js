@@ -1,6 +1,22 @@
 const rankingarr = [
-    ['none', 'orin', 'okuu', 'flandre', 'satori', 'marisa', 'remilia', 'seiran', 'yukari', 'ran', 'yuyuko', 'youmu', 'chen', 'koishi', 'patchouli', 'shinki',], 
-    ['#FFFFFF', '#FF6366', '#00D309', '#D7FF00', '#D057FF', '#FFF500', '#9EA1E4', '#78B6FF', '#FFF16B', '#F2D337', '#FF94FA', '#EDFFFE', '#965959', '#75FFC6', '#D490FF', '#fff8f8'], 
+    [
+        'none', 'orin', 'okuu', 
+        'flandre', 'satori', 'marisa', 
+        'remilia', 'seiran', 'yukari', 
+        'ran', 'yuyuko', 'youmu', 
+        'chen', 'koishi', 'patchouli',
+        'shinki', 'aya', 'sakuya', 
+        'fubuki',
+    ],
+    [
+        '#FFFFFF', '#FF6366', '#00D309',
+        '#D7FF00', '#D057FF', '#FFF500',
+        '#9EA1E4', '#78B6FF', '#FFF16B',
+        '#F2D337', '#FF94FA', '#EDFFFE',
+        '#965959', '#75FFC6', '#D490FF',
+        '#FFF8F8', '#E55A45', '#bcdada', 
+        '#00FFFF', 
+    ],
     [
         './Assets/RankCards/RankCard_0.png',
         './Assets/RankCards/RankCard_1.png',
@@ -17,8 +33,11 @@ const rankingarr = [
         './Assets/RankCards/RankCard_12.png',
         './Assets/RankCards/RankCard_13.png',
         './Assets/RankCards/RankCard_14.png',
-        './Assets/RankCards/RankCard_15.png'
-    ], 
+        './Assets/RankCards/RankCard_15.png',
+        './Assets/RankCards/RankCard_16.png',
+        './Assets/RankCards/RankCard_17.png',
+        './Assets/RankCards/RankCard_18.png'
+    ],
     [
         'Basic Member Of Lazy Gang',
         'Rin (Orin) • Touhou Addict',
@@ -35,8 +54,11 @@ const rankingarr = [
         'Lazy Gang - PCB: Staff',
         'Former PCB Team Member',
         'Patchouli - The Knowledge Of LYG',
-        'Shinki - The Makai God'
-    ], 
+        'Shinki - The Makai God',
+        'Aya - The Fastest Speed Breaker',
+        'Sakuya - Head Maid Of Devil Mansion',
+        'Shirakami Fubuki - Kon Kon Kitsune!',
+    ],
     [
         'https://cdn.discordapp.com/emojis/1097172753985056859.png',
         'https://cdn.discordapp.com/emojis/1146170313445494875.png',
@@ -53,8 +75,11 @@ const rankingarr = [
         'https://cdn.discordapp.com/emojis/1167062115442495510.png',
         'https://cdn.discordapp.com/emojis/1167053592818094142.png',
         'https://cdn.discordapp.com/emojis/1182981567983931423.png',
-        'https://cdn.discordapp.com/emojis/1184437410982002688.png'
-    ], 
+        'https://cdn.discordapp.com/emojis/1184437410982002688.png',
+        'https://cdn.discordapp.com/emojis/1188143101223636992.png',
+        'https://cdn.discordapp.com/emojis/1189156907282354217.png',
+        'https://cdn.discordapp.com/emojis/1190535308639473705.png',
+    ],
     [
         '<:LYG_blank:1097172753985056859>',
         '<:OrinSmile:1146170313445494875>',
@@ -72,7 +97,10 @@ const rankingarr = [
         '<:KoishiHappy:1167053592818094142>',
         '<:PatchyWhat:1182981567983931423>',
         '<:Smug_Shinki:1184437410982002688>',
-    ], 
+        '<:AyaSmug:1188143101223636992>',
+        '<:Sakuya_Wink:1189156907282354217>',
+        '<:FubukiBliss:1190535308639473705>',
+    ],
 ]
 /*rankingarr
 [0] Key List

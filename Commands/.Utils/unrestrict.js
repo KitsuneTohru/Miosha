@@ -11,6 +11,7 @@ module.exports = {
                 .setDescription('Người Dùng Bạn Muốn Gỡ Ban Lệnh')
                 .setRequired(true)),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
         const user = interaction.options.getUser('user')
 
@@ -28,7 +29,7 @@ module.exports = {
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
 
         if (!usingkey) {
-            await interaction.reply({
+            await interaction.editReply({
                 embeds: [NoPerm],
             })
         } else {
@@ -41,7 +42,7 @@ module.exports = {
                     .setTitle('<:OrinWhat:1146170336119885865> **User Not Found**')
                     .setDescription(`<a:LYG_FububiShake:1129764112004558950> • Người Dùng ${user} Làm Gì Có Bị Ban Đâu Mà Gỡ Ban Lệnh Nhỉ?`)
                     .setTimestamp()
-                return interaction.reply({
+                return interaction.editReply({
                     embeds: [NotBannedEmbed]
                 })
             } else {
@@ -53,7 +54,7 @@ module.exports = {
                     .setDescription(`<a:LYG_FububiShake:1129764112004558950> • Đã Gỡ Ban Sử Dụng Command Cho Người Dùng ${user}`)
                     .setTimestamp()
                 banbool.deleteOne({ UserID: user.id })
-                return interaction.reply({
+                return interaction.editReply({
                     embeds: [UnbanEmbed]
                 })
             }

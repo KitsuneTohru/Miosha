@@ -14,6 +14,7 @@ module.exports = {
                 .setMaxLength(32)
                 .setRequired(true)),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
         const cdtime = 10000
         const user = interaction.user.id
@@ -385,19 +386,20 @@ module.exports = {
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [cdembed]
                     })
                 }
                 else {
                     data.CDNumconv = Date.now() + cdtime
                     data.save()
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [ReadyEmbed],
                         components: [NumRow],
                     })
                     const filter = a => a.user.id === user;
-                    const collector = interaction.channel.createMessageComponentCollector({ filter, time: 10000 })
+                    const message = await interaction.fetchReply()
+                    const collector = interaction.channel.createMessageComponentCollector({ message, filter, time: 10000 })
                     collector.on('collect', async a => {
                         switch (a.customId) {
                             default:

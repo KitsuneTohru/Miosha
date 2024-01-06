@@ -13,6 +13,7 @@ module.exports = {
                 .setRequired(true)),
 
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
 
         const target = interaction.options.getUser('user')
@@ -58,18 +59,18 @@ module.exports = {
         }
 
         if (!usingkey) {
-            return interaction.reply({
+            return interaction.editReply({
                 embeds: [NoPerm]
             })
         } else {
             if (key) {
-                return interaction.reply({
+                return interaction.editReply({
                     embeds: [ErrEmbed]
                 })
             } else {
                 let WarnCounter = await WarnList.findOne({ UserID: target.id })
                 if (!WarnCounter) {
-                    return interaction.reply({
+                    return interaction.editReply({
                         embeds: [NoData]
                     })
                 } else {
@@ -79,7 +80,7 @@ module.exports = {
                         result += `> ${i + 1}. ${WarnCounter_[i]}\n`
                     }
                     if (WarnCounter_.length === 0) {
-                        return interaction.reply({
+                        return interaction.editReply({
                             embeds: [NoData]
                         })
                     }
@@ -90,7 +91,7 @@ module.exports = {
                         .setDescription(result)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                    return interaction.reply({
+                    return interaction.editReply({
                         embeds: [WarnListEmbed]
                     })
 

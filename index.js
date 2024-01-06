@@ -1,7 +1,7 @@
 const { REST, Routes } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, GatewayIntentBits, Collection } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, EmbedBuilder, Message } = require('discord.js');
 const dotenv = require('dotenv')
 const eventHandler = require('./Handlers/eventHandler')
 dotenv.config()
@@ -88,3 +88,4 @@ for (const file of eventFiles) {
 };
 
 client.login(token);
+

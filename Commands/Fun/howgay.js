@@ -34,9 +34,11 @@ module.exports = {
                 .setRequired(false)),
 
     async execute(interaction) {
+        //Setup Nhẹ
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
         //CDTime
-        const cdtime = 300000
+        const cdtime = 45000
         //Lấy User Và AvgSet
         const user = interaction.options.getUser('target')
         var avgbool = interaction.options.getBoolean('avgset')
@@ -118,7 +120,7 @@ module.exports = {
                     Time: Date.now() + (86400000 * 9999999)
                 })
             }
-            else if (lock_output) {
+            else if (lock_output && user.id === '751225225047179324') {
                 BanList.create({
                     UserID: interaction.user.id,
                     Key: true,
@@ -140,7 +142,7 @@ module.exports = {
                     .setTitle('<:OrinMenace:1169857691456372766> **Banned From Using Command**')
                     .setDescription(`<a:LYG_FububiShake:1129764112004558950> • Bạn Đã Bị BAN, Bạn Hoàn Toàn KHÔNG CÓ QUYỀN ĐƯỢC SỬ DỤNG LỆNH NÀY!!!\n<a:LYG_Clock:1084322030331105370> **Thời Gian Bị Ban:** ${timetxt} `)
                     .setTimestamp()
-                await interaction.reply({
+                await interaction.editReply({
                     embeds: [BanEmbed]
                 })
             } else {
@@ -152,7 +154,7 @@ module.exports = {
                     .setTitle('<:YayyShinki:1184437427050381342> **Unbanned From Using Command**')
                     .setDescription(`<a:LYG_FububiShake:1129764112004558950> • Đã Gỡ Ban Sử Dụng Command Này Cho Bạn, Vì Vậy Hãy Cẩn Thận Khi Động Phải Nhầm Người Nhá!`)
                     .setTimestamp()
-                await interaction.reply({
+                await interaction.editReply({
                     embeds: [UnbanEmbed]
                 })
                 banbool.deleteOne({ UserID: interaction.user.id })
@@ -247,47 +249,7 @@ module.exports = {
                 }
             }
         }
-        //Embed(False)
-        if (avgbool === false) {
-            GayEmbed_1 = new EmbedBuilder()
-                .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-                .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
-                .setColor(color)
-                .setDescription(`${result}`)
-                .setTimestamp()
-                .setImage(img_url)
-                .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-        }
-        //Embed(True)
-        if (avgbool === true) {
-            var AvgGayEmbed = []
-            const color1 = 'DarkButNotBlack'
-            const color2 = colorv2
-            const imgv2 = img_urlv2
-            const avgdesc = [
-                `<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}`,
-                `<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}\n> ${a[1]}`,
-                `<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}\n> ${a[1]}\n> ${a[2]}`,
-                `<a:LYG_Star:1084085189174632538> Kết Quả Khảo Sát:\n> ${a[0]}\n> ${a[1]}\n> ${a[2]}\n${resultv3}`,
-            ]
-            for (var count = 0; count <= 3; count++) {
-                var finalcolor
-                if (count < 3) {
-                    finalcolor = color1
-                }
-                else {
-                    finalcolor = color2
-                }
-                AvgGayEmbed[count] = new EmbedBuilder()
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-                    .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
-                    .setColor(finalcolor)
-                    .setDescription(avgdesc[count])
-                    .setTimestamp()
-                    .setImage(imgv2)
-                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-            }
-        }
+        
         const auser = interaction.user.id
         const CDPassList = BypassList
         function BypassCD(auser) {
@@ -318,7 +280,7 @@ module.exports = {
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [cdembed]
                     })
                 }
@@ -326,35 +288,69 @@ module.exports = {
                     data.CDHowgay = Date.now() + cdtime
                     data.save()
                     //Reply(Phụ Thuộc Vào Điều Kiện)
-                    await interaction.reply({
-                        embeds: [CalcEmbed]
-                    })
-                    await wait(3000)
-                    if (avgbool === false) {
-                        if (lock_output) {
+                    if (lock_output) {
+                        await interaction.editReply({
+                            embeds: [SpecialEmbed]
+                        })
+                    } else {
+                        if (!avgbool) {
                             await interaction.editReply({
-                                embeds: [SpecialEmbed]
+                                embeds: [CalcEmbed]
                             })
-                        }
-                        else {
+                            await wait(1000)
+                            const GayEmbed_1 = new EmbedBuilder()
+                                .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                                .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
+                                .setColor(color)
+                                .setDescription(`${result}`)
+                                .setTimestamp()
+                                .setImage(img_url)
+                                .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
+
                             await interaction.editReply({
                                 embeds: [GayEmbed_1]
                             })
-                        }
-                        await wait(500)
-                        if (rng > 100 && rngv2 >= 95 && !lock_output) {
-                            await interaction.followUp({
-                                embeds: [H100PlusEmbed]
-                            })
-                        }
-                    }
-                    else {
-                        if (lock_output) {
-                            await interaction.editReply({
-                                embeds: [SpecialEmbed]
-                            })
+
+                            await wait(500)
+                            if (rng > 100 && rngv2 >= 95) {
+                                await interaction.followUp({
+                                    embeds: [H100PlusEmbed]
+                                })
+                            }
                         }
                         else {
+                            await interaction.editReply({
+                                embeds: [CalcEmbed]
+                            })
+
+                            await wait(1000)
+                            const AvgGayEmbed = []
+                            const color1 = 'DarkButNotBlack'
+                            const color2 = colorv2
+                            const imgv2 = img_urlv2
+                            const avgdesc = [
+                                `<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}`,
+                                `<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}\n> ${a[1]}`,
+                                `<a:LYG_Clock:1084322030331105370> Đang Trong Tính Toán... Xin Hãy Kiên Nhẫn...\n> ${a[0]}\n> ${a[1]}\n> ${a[2]}`,
+                                `<a:LYG_Star:1084085189174632538> Kết Quả Khảo Sát:\n> ${a[0]}\n> ${a[1]}\n> ${a[2]}\n${resultv3}`,
+                            ]
+                            for (var count = 0; count <= 3; count++) {
+                                var finalcolor
+                                if (count < 3) {
+                                    finalcolor = color1
+                                }
+                                else {
+                                    finalcolor = color2
+                                }
+                                AvgGayEmbed[count] = new EmbedBuilder()
+                                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                                    .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
+                                    .setColor(finalcolor)
+                                    .setDescription(avgdesc[count])
+                                    .setTimestamp()
+                                    .setImage(imgv2)
+                                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
+                            }
                             for (var embed = 0; embed <= 3; embed++) {
                                 if (!lock_output) {
                                     await wait(500)
@@ -364,36 +360,41 @@ module.exports = {
                                 }
                                 else break
                             }
-                        }
-                        await wait(500)
-                        if (rng > 100 && rngv2 >= 95 && !lock_output) {
-                            await interaction.editReply({
-                                embeds: [H100PlusEmbed]
-                            })
+
+                            await wait(500)
+                            if (rng > 100 && rngv2 >= 95) {
+                                await interaction.editReply({
+                                    embeds: [H100PlusEmbed]
+                                })
+                            }
                         }
                     }
                 }
             }
-            var achievementdesc, achievementlink
+            //Achievements On Howgay
+            var achievementdesc, achievementlink, achievementcolor = '#000000'
             var a1key = "No", a2key = "No", a3key = "No"
             if (rng > 100 || avgpt > 100) {
                 achievementdesc = `> Chúc Mừng Người Dùng ${user} Đã Mở Khóa Thành Tựu Mới!!!\n${AchievementAssets[1][0]}`
                 achievementlink = AchievementAssets[0][0]
+                achievementcolor = AchievementAssets[2][1]
                 a1key = "Yes"
             }
             if (rng < 1 || avgpt < 1) {
                 achievementdesc = `> Chúc Mừng Người Dùng ${user} Đã Mở Khóa Thành Tựu Mới!!!\n${AchievementAssets[1][1]}`
                 achievementlink = AchievementAssets[0][1]
+                achievementcolor = AchievementAssets[2][1]
                 a2key = "Yes"
             }
             if (rng === 72.7 || avgpt === 72.7) {
                 achievementdesc = `> Chúc Mừng Người Dùng ${user} Đã Mở Khóa Thành Tựu Mới!!!\n${AchievementAssets[1][2]}`
                 achievementlink = AchievementAssets[0][2]
+                achievementcolor = AchievementAssets[2][0]
                 a3key = "Yes"
             }
 
             const HGAchivements = new EmbedBuilder()
-                .setColor(AchievementAssets[2][1])
+                .setColor(achievementcolor)
                 .setTitle(`<:YuyukoWoah:1152872168439423050> **Achievement Unlocked!!!**`)
                 .setAuthor({ name: `${user.username}`, iconURL: `${user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                 .setDescription(`${achievementdesc}`)
@@ -410,10 +411,26 @@ module.exports = {
                         A2: a2key,
                         A3: a3key
                     })
+                    if (a1key === "Yes " || a2key === "Yes" || a3key === "Yes") {
+                        await interaction.followUp({
+                            embeds: [HGAchivements],
+                        })
+                    }
                 } if (data1) {
                     const A1 = data1.A1
                     const A2 = data1.A2
                     const A3 = data1.A3
+
+                    if (!A1) {
+                        data1.A1 = a1key
+                    }
+                    if (!A2) {
+                        data1.A2 = a2key
+                    }
+                    if (!A3) {
+                        data1.A3 = a3key
+                    }
+                    
                     if (A1 === 'No') {
                         if (rng > 100 || avgpt > 100) {
                             data1.A1 = 'Yes'
@@ -439,7 +456,7 @@ module.exports = {
                         }
                     }
                     data1.save()
-                } 
+                }
             })
         })
     }

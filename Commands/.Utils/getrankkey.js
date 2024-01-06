@@ -12,6 +12,7 @@ module.exports = {
                 .setMinValue(1)
                 .setRequired(false)),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
 
         var page = interaction.options.getNumber('page')
@@ -65,12 +66,12 @@ module.exports = {
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
 
         if (usingkey) {
-            await interaction.reply({
+            await interaction.editReply({
                 embeds: [KeyEmbed]
             })
         }
         else {
-            await interaction.reply({
+            await interaction.editReply({
                 embeds: [NoPerm]
             })
         }

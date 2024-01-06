@@ -8,6 +8,7 @@ module.exports = {
         .setName('server')
         .setDescription('Đưa Ra Thông Tin Của Server'),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
         const cdtime = 10000
         const owner = await interaction.guild.fetchOwner()
@@ -66,14 +67,14 @@ module.exports = {
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [cdembed]
                     })
                 }
                 else {
                     data.CDServer = Date.now() + cdtime
                     data.save()
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [ServerEmbed]
                     })
                 }

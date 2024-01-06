@@ -9,6 +9,7 @@ module.exports = {
         .setName('happy')
         .setDescription('Bày Tỏ Cảm Xúc: Vui Vẻ'),
     async execute(interaction) {
+        await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
 
         const cdtime = 10000
@@ -46,7 +47,7 @@ module.exports = {
             } if (data) {
                 const cduser = data.UserID
                 const CDTime = data.CDHappy
-                console.log('[Command: User]', cduser, CDTime, Date.now())
+                console.log('[Command: Happy]', cduser, CDTime, Date.now())
                 if (CDTime > Date.now() && !Bypass_) {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')
@@ -55,14 +56,14 @@ module.exports = {
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [cdembed]
                     })
                 }
                 else {
                     data.CDHappy = Date.now() + cdtime
                     data.save()
-                    await interaction.reply({
+                    await interaction.editReply({
                         embeds: [HappyEmbed]
                     })
                 }

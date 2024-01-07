@@ -74,7 +74,7 @@ module.exports = {
             }
             if (data) {
                 const a = data.RankCardType
-                if(!a) {
+                if (!a) {
                     data.RankCardType = 'type1'
                     data.save()
                 }
@@ -104,8 +104,15 @@ module.exports = {
         })
 
         if (!fetchedLevel) {
+            const NoData = new EmbedBuilder()
+                .setColor('DarkGreen')
+                .setTitle(`**No Ranking Data**`)
+                .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Người Dùng Là ${user} Hiện Không Có Exp Chat Nào Cả, Hãy Chờ Người Đó Chat Đi Rồi Mới Tính Nhé!`)
+                .setTimestamp()
+                .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
             await interaction.editReply({
-                content: `<:LYG_MioWink:1086172116916912198> **Rank Của Người Dùng: ${user.username} Hiện Chưa Có, Hãy Thử Lại Sau Nhé!**`,
+                embeds: [NoData]
             })
             return
         }

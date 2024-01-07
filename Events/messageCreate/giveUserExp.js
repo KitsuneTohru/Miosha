@@ -35,7 +35,7 @@ module.exports = async (client, message) => {
             key = true
     }
     if (key === false) return
-    const xpToGive = Math.floor(Math.random() * 5) + 1
+    const xpToGive = Math.floor(Math.random() * 10) + 1 //Random Exp Line
     const query = {
         UserID: message.author.id,
         GuildID: message.guild.id
@@ -115,7 +115,7 @@ module.exports = async (client, message) => {
             cd.add(message.author.id)
             setTimeout(() => {
                 cd.delete(message.author.id)
-            }, 3 * 1000)
+            }, 5 * 1000) //CD Give Exp
         }
         //if (!level)
         else {
@@ -132,7 +132,7 @@ module.exports = async (client, message) => {
             cd.add(message.author.id)
             setTimeout(() => {
                 cd.delete(message.author.id)
-            }, 3 * 1000)
+            }, 5 * 1000) //CD Give Exp
         }
     } catch (error) {
         console.log(`Lỗi Khi Ném Exp: ${error}`)
@@ -148,7 +148,7 @@ module.exports = async (client, message) => {
             if (level > 0 && level <= 4) {
                 const role = message.guild.roles.cache.get(RankingRoles[0])
                 if ((level % 4) === 0) {
-                    if (!message.member.roles.cache.has(role)) {
+                    if (!message.member.roles.cache.has(role.id)) {
                         message.member.roles.add(role)
                     }
                 }
@@ -157,7 +157,7 @@ module.exports = async (client, message) => {
                     var role1 = message.guild.roles.cache.get(RankingRoles[i])
                     var role2 = message.guild.roles.cache.get(RankingRoles[i + 1])
                     if (((level / 4) - 1) === RankingRoles.indexOf(RankingRoles[i + 1]) && level <= RankingRoles.length * 3) {
-                        if (!message.member.roles.cache.has(role2)) {
+                        if (!message.member.roles.cache.has(role2.id)) {
                             message.member.roles.add(role2)
                             message.member.roles.remove(role1)
                             break
@@ -167,13 +167,13 @@ module.exports = async (client, message) => {
             }
             if (total >= 12000) {
                 const role3 = message.guild.roles.cache.get('967803874259898388')
-                if (!message.member.roles.cache.has(role3)) {
+                if (!message.member.roles.cache.has(role3.id)) {
                     message.member.roles.add(role3)
                 }
             }
             if (total >= 60000) {
                 const role4 = message.guild.roles.cache.get('900750143605866516')
-                if (!message.member.roles.cache.has(role4)) {
+                if (!message.member.roles.cache.has(role4.id)) {
                     message.member.roles.add(role4)
                 }
             }

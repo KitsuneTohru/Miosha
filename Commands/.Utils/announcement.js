@@ -1,6 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, ChannelType, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require('discord.js')
 const FooterEmbeds = require('../../Utils/embed')
-const wait = require('node:timers/promises').setTimeout
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -48,6 +47,7 @@ module.exports = {
             .setCustomId('a_img')
             .setLabel('Link Ảnh Đi Kèm Trong Embed')
             .setStyle(TextInputStyle.Short)
+            .setMaxLength(4000)
             .setRequired(false)
 
         const A_Title = new ActionRowBuilder().addComponents(TitleBox)
@@ -84,7 +84,7 @@ module.exports = {
                     const desc = modalResponse.fields.getTextInputValue('a_desc')
                     const context = modalResponse.fields.getTextInputValue('a_ctx') || '<@&901074521824559125>'
                     var img_url = modalResponse.fields.getTextInputValue('a_img') || 'https://cdn.discordapp.com/attachments/948615835369472064/1137282623165702234/Ban_sao_cua_LYG_-_Banners_20230805_141443_0000.png'
-                   
+
                     function xuatkey(img_url) {
                         var key
                         if (img_url === null) {
@@ -103,7 +103,7 @@ module.exports = {
                     if (!imgkey) {
                         img_url = 'https://cdn.discordapp.com/attachments/948615835369472064/1137282623165702234/Ban_sao_cua_LYG_-_Banners_20230805_141443_0000.png'
                     }
-                    console.log(title, desc, context, img_url)
+
                     const Announce_Embed = new EmbedBuilder()
                         .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setColor('White')
@@ -122,17 +122,17 @@ module.exports = {
                     })
                 }
             } catch (error) {
-                console.error(error)
                 const ErrEmbed = new EmbedBuilder()
                     .setColor('DarkButNotBlack')
                     .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                     .setTitle('<:OrinBruh:1160295126996881448> **Lỗi Submit Modal**')
-                    .setDescription('Uhh, Lỗi Submit Modal Rồi, Gọi Chủ Bot Ra Kiểm Tra Lại Code Đê')
+                    .setDescription('Uhh, Lỗi Submit Modal Rồi, Có 2 Nguyên Nhân Sau:\n1. Hết Giờ Kìa Ba, Nhập Lại Đê :V\n> 2. Lỗi Code, Pha Này Gọi Chủ Bot Lên Nhá :V')
                     .setTimestamp()
                 await interaction.reply({
                     embeds: [ErrEmbed],
                 })
+                console.error(error)
             }
         } else {
             interaction.reply({

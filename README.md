@@ -2,8 +2,7 @@
 
 ![Img0](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034504577074/Miosha-Overall.png)
 ## • Phiên Bản
-- **Phiên Bản:** v1.0.0
-> **Đã Hoàn Thành Tiến Độ!!! Phiên Bản Chính Thức Đầu Tiên Của Miosha!**
+- **Phiên Bản:** v1.0.5
 
 > 100% Code Do Tự Tay Orin *(Kitsunezi)* Viết, Có Tham Khảo Nguồn Từ Các Con Bot Khác Và Trên Mạng, Hoàn Toàn **KHÔNG SỬ DỤNG TEMPLATE**
 ## • Mục Đích Sử Dụng:
@@ -14,10 +13,8 @@
 
 ![Img1](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034269683782/Miosha-Info.png)
 ## • Changelog: 
-- Tung Bản Release Chính Thức Của Miosha
-- Một Số Lệnh Đang Được Phát Triển Và Tối Ưu Hóa Lại
-- Thêm Một Số Lệnh, Sửa Đổi Tên Lệnh
-- Sẽ Thêm Lệnh **/checkachievements** *(Sớm Thôi)*
+- Tối Ưu Hóa Lệnh **/howgay** Ở Khoản Add/Remove Role
+- Đã Thêm Lệnh **/checkachievements**
 
 ![Img2](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034072563823/Miosha-Credits.png)
 ## • Contributor List:

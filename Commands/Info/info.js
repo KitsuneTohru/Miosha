@@ -9,7 +9,7 @@ module.exports = {
         const FooterEmbeds_ = FooterEmbeds
         await interaction.deferReply()
         const user = interaction.user.id
-        const time = 1704540600
+        const time = 1704653400
         const date = new Date().setTime(Number(time) * 1000)
         const CreditButton = new ActionRowBuilder()
             .addComponents(
@@ -52,7 +52,7 @@ module.exports = {
             .setColor('#00FFFF')
             .setTitle(`Thông Tin Về Bot: Miosha#5189`)
             .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** v1.0.0\n> <:OkayuYay:1020272183060217876> **PHIÊN BẢN CHÍNH THỨC ĐẦU TIÊN CỦA MIOSHA!**\n> Vẫn Có Một Số Lệnh Trong Giai Đoạn Phát Triển Tối Ưu Thêm Nhé!!!\n<a:LYG_Clock:1084322030331105370> **Last Update:** <t:${time}> (<t:${time}:R>)`)
+            .setDescription(`<:LYG_FubukiPing1:1084085915368050788> **Phiên Bản:** v1.0.5\n> <:SanaeDizzy:1193158700496588965> Tối Ưu Hóa Lệnh **/howgay** Ở Khoản Tự Add/Remove Role Và Thêm Lệnh **/achievementcheck**\n<a:LYG_Clock:1084322030331105370> **Last Update:** <t:${time}> (<t:${time}:R>)`)
             .setImage('https://cdn.discordapp.com/attachments/948615835369472064/1096301056188760084/Miosha_-_Info.png')
             .setTimestamp(date)
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })

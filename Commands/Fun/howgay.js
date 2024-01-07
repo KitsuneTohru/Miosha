@@ -40,7 +40,7 @@ module.exports = {
         //CDTime
         const cdtime = 45000
         //Lấy User Và AvgSet
-        const user = interaction.options.getUser('target')
+        const user = interaction.options.getMember('target')
         var avgbool = interaction.options.getBoolean('avgset')
         if (avgbool === null) {
             avgbool = false
@@ -167,32 +167,35 @@ module.exports = {
             var rng = Math.random() * 101.1
             rng = (Math.floor(rng * 10) / 10).toFixed(1)
             //rng = 0.1 //CHỈ GỠ KHI TEST (CẤM LẠM DỤNG NHÁ XD)
-
+            
             var img_url, color, result
+
             for (var i = 0; i < NumEntry.length; i++) {
                 if (rng <= NumEntry[i]) {
                     img_url = HGAsset[0][2]
                     color = HGColor[0][i]
                     result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n` + EntryList[i][Math.floor(Math.random() * EntryList[i].length)]
-                    if (rng < 1) {
-                        img_url = HGAsset[1][Math.floor(Math.random() * HGAsset[1].length)]
-                        if (interaction.guild.id === '900742301373042809') {
-                            result += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1171750121109733438>\n> Ghi Chú: Nếu Bạn Có Role <@&1162944612508377088> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
-                        }
-                        break
-                    }
-                    if (rng > 100) {
-                        img_url = HGAsset[2][Math.floor(Math.random() * HGAsset[2].length)]
-                        if (interaction.guild.id === '900742301373042809') {
-                            result += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1162944612508377088>\n> Ghi Chú: Nếu Bạn Có Role <@&1171750121109733438> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
-                        }
-                        break
-                    }
                     for (var j = 0; j < SpecialEntry.length; j++) {
                         if (rng === SpecialEntry[j]) {
                             color = HGColor[1][0]
                             img_url = HGAsset[3][j]
                             result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n` + EntryList[7][j]
+                            break
+                        }
+                    }
+                    if (interaction.guild.id === '900742301373042809') {
+                        if (rng < 1) {
+                            img_url = HGAsset[1][Math.floor(Math.random() * HGAsset[1].length)]
+                            if (interaction.guild.id === '900742301373042809') {
+                                result += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1171750121109733438>\n> Ghi Chú: Nếu Bạn Có Role <@&1162944612508377088> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
+                            }
+                            break
+                        }
+                        if (rng > 100) {
+                            img_url = HGAsset[2][Math.floor(Math.random() * HGAsset[2].length)]
+                            if (interaction.guild.id === '900742301373042809') {
+                                result += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1162944612508377088>\n> Ghi Chú: Nếu Bạn Có Role <@&1171750121109733438> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
+                            }
                             break
                         }
                     }
@@ -205,6 +208,7 @@ module.exports = {
         else {
             var a = []
             var avgpt = 0, colorv2, resultv2, resultv3, img_urlv2, rngv3
+            
             for (var i = 0; i < 3; i++) {
                 rngv3 = Math.random() * 101.1
                 rngv3 = (Math.floor(rngv3 * 10) / 10).toFixed(1)
@@ -231,25 +235,27 @@ module.exports = {
                             break
                         }
                     }
-                    if (avgpt < 1) {
-                        img_urlv2 = HGAsset[1][Math.floor(Math.random() * HGAsset[1].length)]
-                        if (interaction.guild.id === '900742301373042809') {
-                            resultv3 += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1171750121109733438>\n> Ghi Chú: Nếu Bạn Có Role <@&1162944612508377088> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
+                    if (interaction.guild.id === '900742301373042809') {
+                        if (avgpt < 1) {
+                            img_urlv2 = HGAsset[1][Math.floor(Math.random() * HGAsset[1].length)]
+                            if (interaction.guild.id === '900742301373042809') {
+                                resultv3 += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1171750121109733438>\n> Ghi Chú: Nếu Bạn Có Role <@&1162944612508377088> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
+                            }
+                            break
                         }
-                        break
-                    }
-                    if (avgpt > 100) {
-                        img_urlv2 = HGAsset[2][Math.floor(Math.random() * HGAsset[2].length)]
-                        if (interaction.guild.id === '900742301373042809') {
-                            resultv3 += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1162944612508377088>\n> Ghi Chú: Nếu Bạn Có Role <@&1171750121109733438> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
+                        if (avgpt > 100) {
+                            img_urlv2 = HGAsset[2][Math.floor(Math.random() * HGAsset[2].length)]
+                            if (interaction.guild.id === '900742301373042809') {
+                                resultv3 += '\n> Bạn Đã Được Nhận Role Tặng Kèm: <@&1162944612508377088>\n> Ghi Chú: Nếu Bạn Có Role <@&1171750121109733438> Thì Bạn Chỉ Được Gỡ Role Này Thôi, Không Nhận Role Kia'
+                            }
+                            break
                         }
-                        break
                     }
                     break
                 }
             }
         }
-        
+
         const auser = interaction.user.id
         const CDPassList = BypassList
         function BypassCD(auser) {
@@ -371,6 +377,29 @@ module.exports = {
                     }
                 }
             }
+            //Roles On Howgay
+            if (interaction.guild.id === '900742301373042809') {
+                const role1 = interaction.guild.roles.cache.get('1171750121109733438') //Giga Chad
+                const role2 = interaction.guild.roles.cache.get('1162944612508377088') //Gay
+                if (rng < 1 || avgpt < 1) {
+                    if (user.roles.cache.has(role2.id)) {
+                        user.roles.remove(role2)
+                    }
+                    else {
+                        user.roles.add(role1)
+                    }
+                }
+                if (rng > 100 || avgpt > 100) {
+                    if (user.roles.cache.has(role1.id)) {
+                        user.roles.remove(role1)
+                    }
+                    else {
+                        user.roles.add(role2)
+                    }
+                }
+
+            }
+
             //Achievements On Howgay
             var achievementdesc, achievementlink, achievementcolor = '#000000'
             var a1key = "No", a2key = "No", a3key = "No"
@@ -430,7 +459,7 @@ module.exports = {
                     if (!A3) {
                         data1.A3 = a3key
                     }
-                    
+
                     if (A1 === 'No') {
                         if (rng > 100 || avgpt > 100) {
                             data1.A1 = 'Yes'

@@ -10,12 +10,12 @@ const AchievementList = new Schema({
     A4: String, //Kitsunezi (6*)
     A5: String, //Server History (6*)
     //A6 - A11 (Rank)
-    A6: String, //Lv1
-    A7: String, //Lv5
-    A8: String, //Lv10
-    A9: String, //Lv20
-    A10: String, //Lv30
-    A11: String, //Lv40
+    A6: String, //Lv1 (1*)
+    A7: String, //Lv5 (2*)
+    A8: String, //Lv10 (3*)
+    A9: String, //Lv20 (4*)
+    A10: String, //Lv30 (5*)
+    A11: String, //Lv40 (6*)
 })
 
 module.exports = model('Achievements', AchievementList)

@@ -42,6 +42,7 @@ module.exports = {
                 //Desc Chuẩn
                 var ALog = []
                 var AStatement = []
+                var AIndexes = [4, 7, 8, 9, 10, 11]
                 //Type
                 var ARarity = [
                     5, 5, 6,
@@ -82,38 +83,38 @@ module.exports = {
 
                 //Nối Desc Lại
                 for (var i = 0; i < ALog2.length; i++) {
-                    if (i < 4) {
+                    if (i < AIndexes[0]) {
                         if (i === 0) {
                             desc += `\n\n**Thành Tựu 6<:6_s:1193595282714279967>**\n> ${ALog2[i].slice(1)}`
                         } else {
                             desc += `\n> ${ALog2[i].slice(1)}`
                         }
-                    } else if (i < 7) {
-                        if (i === 4) {
+                    } else if (i < AIndexes[1]) {
+                        if (i === AIndexes[0]) {
                             desc += `\n\n**Thành Tựu 5<:5_s:1193595526097145906>**\n> ${ALog2[i].slice(1)}`
                         } else {
                             desc += `\n> ${ALog2[i].slice(1)}`
                         }
-                    } else if (i < 8) {
-                        if (i === 7) {
+                    } else if (i < AIndexes[2]) {
+                        if (i === AIndexes[1]) {
                             desc += `\n\n**Thành Tựu 4<:4_s:1193595536666804306>**\n> ${ALog2[i].slice(1)}`
                         } else {
                             desc += `\n> ${ALog2[i].slice(1)}`
                         }
-                    } else if (i < 9) {
-                        if (i === 8) {
+                    } else if (i < AIndexes[3]) {
+                        if (i === AIndexes[2]) {
                             desc += `\n\n**Thành Tựu 3<:3_s:1193595623883157534>**\n> ${ALog2[i].slice(1)}`
                         } else {
                             desc += `\n> ${ALog2[i].slice(1)}`
                         }
-                    } else if (i < 10) {
-                        if (i === 9) {
+                    } else if (i < AIndexes[4]) {
+                        if (i === AIndexes[3]) {
                             desc += `\n\n**Thành Tựu 2<:2_s:1193596744685060127>**\n> ${ALog2[i].slice(1)}`
                         } else {
                             desc += `\n> ${ALog2[i].slice(1)}`
                         }
-                    } else if (i < 11) {
-                        if (i === 10) {
+                    } else if (i < AIndexes[5]) {
+                        if (i === AIndexes[4]) {
                             desc += `\n\n**Thành Tựu 1<:1_s:1193597415945678988>**\n> ${ALog2[i].slice(1)}`
                         } else {
                             desc += `\n> ${ALog2[i].slice(1)}`

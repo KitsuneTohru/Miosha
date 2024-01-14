@@ -20,15 +20,13 @@ module.exports = {
         const FooterEmbeds_ = FooterEmbeds
 
         await interaction.deferReply()
-        var page = interaction.options.getNumber('page')
+        const page = interaction.options.getNumber('page') || 1
         const cdtime = 30000
-        if (page < 1 || page === null) {
-            page = 1
-        }
+    
         let allLevels = await Level.find({ GuildID: interaction.guild.id }).select('-_id UserID exp level total')
         allLevels.sort((a, b) => {
-            if (a.total < b.total) return 1
-            if (a.total > b.total) return -1
+            if (Number(a.total) < Number(b.total)) return 1
+            if (Number(a.total) > Number(b.total)) return -1
             return 0
         })
         const emolist = rankingarr[5]

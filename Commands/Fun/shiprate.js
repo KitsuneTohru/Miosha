@@ -157,7 +157,6 @@ module.exports = {
                                     embeds: [CalcEmbed]
                                 })
 
-
                                 const rnglist = [1, 30, 60, 90, 100, 101]
                                 var color = '#000000', finaldesc
                                 var rng = Math.random() * 101.1
@@ -169,7 +168,6 @@ module.exports = {
                                         break
                                     }
                                 }
-
 
                                 const FinalEmbed = new EmbedBuilder()
                                     .setColor(color)

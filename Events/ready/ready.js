@@ -17,11 +17,11 @@ module.exports = async (client) => {
     }
 
     var i = 0
-    const namearr = ['v1.0.5: /help',
+    const namearr = ['v1.1.0: /help',
         'Welcome To Lazy Gang!',
-        'Tối Ưu Hóa: /howgay | Thêm Lệnh /achievementcheck',
+        'Thêm Lệnh: /quickmath',
         'Changelog: /info',
-        'Most Usage: /howgay',
+        'Most Usage: /howgay | /quickmath',
         'Special -- [TESTING] Có Thêm Một Số Tinh Năng Mới Đang Thử Nghiệm']
     while (i !== -1) {
         await client.user.setPresence({

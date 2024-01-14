@@ -22,6 +22,8 @@ let cdSchema = new Schema({
     CDPick: String, //Pick
     CDRoll: String, //Roll
     CDTest: String, //Test
+    //---Minigame
+    CDQuickMath: String, //QuickMath
     //===User
     CDAvatar: String, //Avatar
     CDGuildAvt: String, //Guildavt

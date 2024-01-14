@@ -148,7 +148,7 @@ module.exports = async (client, message) => {
             if (level > 0 && level <= 4) {
                 const role = message.guild.roles.cache.get(RankingRoles[0])
                 if ((level % 4) === 0) {
-                    if (!message.member.roles.cache.has(role.id)) {
+                    if (!message.member.roles.cache.has(RankingRoles[0])) {
                         message.member.roles.add(role)
                     }
                 }
@@ -157,7 +157,7 @@ module.exports = async (client, message) => {
                     var role1 = message.guild.roles.cache.get(RankingRoles[i])
                     var role2 = message.guild.roles.cache.get(RankingRoles[i + 1])
                     if (((level / 4) - 1) === RankingRoles.indexOf(RankingRoles[i + 1]) && level <= RankingRoles.length * 3) {
-                        if (!message.member.roles.cache.has(role2.id)) {
+                        if (!message.member.roles.cache.has(RankingRoles[i + 1])) {
                             message.member.roles.add(role2)
                             message.member.roles.remove(role1)
                             break
@@ -167,13 +167,13 @@ module.exports = async (client, message) => {
             }
             if (total >= 12000) {
                 const role3 = message.guild.roles.cache.get('967803874259898388')
-                if (!message.member.roles.cache.has(role3.id)) {
+                if (!message.member.roles.cache.has('967803874259898388')) {
                     message.member.roles.add(role3)
                 }
             }
             if (total >= 60000) {
                 const role4 = message.guild.roles.cache.get('900750143605866516')
-                if (!message.member.roles.cache.has(role4.id)) {
+                if (!message.member.roles.cache.has('900750143605866516')) {
                     message.member.roles.add(role4)
                 }
             }

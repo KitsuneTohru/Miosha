@@ -119,8 +119,8 @@ module.exports = {
 
         let allLevels = await Level.find({ GuildID: interaction.guild.id }).select('-_id UserID total')
         allLevels.sort((a, b) => {
-            if (a.total < b.total) return 1
-            if (a.total > b.total) return -1
+            if (Number(a.total) < Number(b.total)) return 1
+            if (Number(a.total) > Number(b.total)) return -1
             return 0
         })
         let currentRank = allLevels.findIndex((lvl) => lvl.UserID === user.id) + 1

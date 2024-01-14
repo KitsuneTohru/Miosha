@@ -2,7 +2,7 @@
 
 ![Img0](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034504577074/Miosha-Overall.png)
 ## • Phiên Bản
-- **Phiên Bản:** v1.0.5
+- **Phiên Bản:** v1.1.0
 
 > 100% Code Do Tự Tay Orin *(Kitsunezi)* Viết, Có Tham Khảo Nguồn Từ Các Con Bot Khác Và Trên Mạng, Hoàn Toàn **KHÔNG SỬ DỤNG TEMPLATE**
 ## • Mục Đích Sử Dụng:
@@ -13,8 +13,7 @@
 
 ![Img1](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034269683782/Miosha-Info.png)
 ## • Changelog: 
-- Tối Ưu Hóa Lệnh **/howgay** Ở Khoản Add/Remove Role
-- Đã Thêm Lệnh **/checkachievements**
+- Thêm Minigame Mới: **/quickmath**, Chi Tiết Game Ở Lệnh **/minigames** Nhé!
 
 ![Img2](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034072563823/Miosha-Credits.png)
 ## • Contributor List:
@@ -33,6 +32,7 @@
 - Idea
     + Layyes (Friend)
     + Kong (Friend)
+    + Megaminxup (Cyno) *(Mod LYG)*
     + ...
 - Testing
     + ...

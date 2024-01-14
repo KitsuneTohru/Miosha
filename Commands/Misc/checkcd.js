@@ -48,20 +48,23 @@ module.exports = {
                 const CDList = [
                     Math.floor(data.CDRank / 1000),
                     Math.floor(data.CDTop / 1000),
+                    Math.floor(data.CDQuickMath / 1000),
                     Math.floor(data.CDHowgay / 1000),
                     Math.floor(data.CDOmikuji / 1000),
+                    
                 ]
                 const CmdName = [
                     '**Rank:**',
                     '**Top:**',
+                    '**QuickMath:**',
                     '**Howgay:**',
-                    '**Omikuji:**'
+                    '**Omikuji:**', 
                 ]
                 var n
                 if (interaction.guild.id === '900742301373042809') {
                     n = 0
                 } else {
-                    n = 2
+                    n = 3
                 }
                 const CDTimeChr = []
                 var result = [`> Cooldown Một Số Lệnh Thông Dụng Cho ${checkuser}\n\n`]
@@ -75,6 +78,7 @@ module.exports = {
                         }
                         result.push(CDTimeChr[i])
                     }
+                    result.pop()
                     let BanTime = await BanList.findOne({ UserID: checkuser.id })
                     if (BanTime) {
                         const a = BanTime.Time
@@ -89,11 +93,18 @@ module.exports = {
                         CDTimeChr[i] = `${CmdName[i]} (Có Thể Dùng)\n`
                         result.push(CDTimeChr[i])
                     }
+
                     var Omikuji = `${CmdName[CmdName.length - 1]} (<t:${CDList[CDList.length - 1]}:R>)\n`
                     if ((Date.now() / 1000) > CDList[CDList.length - 1]) {
                         Omikuji = `${CmdName[CmdName.length - 1]} (Có Thể Dùng)\n`
                     }
+
+                    var QuickMath = `${CmdName[2]} (<t:${CDList[2]}:R>)\n`
+                    if ((Date.now() / 1000) > CDList[2]) {
+                        QuickMath = `${CmdName[2]} (Có Thể Dùng)\n`
+                    }
                     result.push(Omikuji)
+                    result[3] = QuickMath
                     let BanTime = await BanList.findOne({ UserID: checkuser.id })
                     if (BanTime) {
                         const a = BanTime.Time

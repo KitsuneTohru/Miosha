@@ -5,6 +5,7 @@ const QuickMathDb = new Schema({
     GameKey: String,
     Level: String,
     Score: String,
+    Note: String,
 })
 
 module.exports = model('QuickMathDb', QuickMathDb)

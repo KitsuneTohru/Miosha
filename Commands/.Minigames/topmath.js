@@ -44,7 +44,7 @@ module.exports = {
         const Difficulty = interaction.options.getString('difficulty')
         const page = interaction.options.getNumber('page') || 1
 
-        let QuickMath = await QuickMathDb.find({ GameKey: Difficulty }).select('-_id UserID Level Score')
+        let QuickMath = await QuickMathDb.find({ GameKey: Difficulty }).select('-_id UserID Level Score Note')
         QuickMath.sort((a, b) => {
             if(Number(a.Score) < Number(b.Score)) return 1
             if(Number(a.Score) > Number(b.Score)) return -1
@@ -64,7 +64,14 @@ module.exports = {
 
         const TopMath = []
         for (var i = 0; i < QuickMath.length; i++) {
-            TopMath[i] = `**#${i + 1}** | **User:** <@${QuickMath[i].UserID}>\n> **Level:** ${QuickMath[i].Level} | **Score:** ${QuickMath[i].Score}\n`
+            let Diff = `**${Difficulty}**`
+            if(QuickMath[i].Note === 'Rush') {
+                Diff = `**${Difficulty} (Rush)**`
+            }
+            if(QuickMath[i].Note === 'Extra') {
+                Diff = `**Ex-${Difficulty}**`
+            }
+            TopMath[i] = `**#${i + 1}** | **User:** <@${QuickMath[i].UserID}> [${Diff}]\n> **Level:** ${QuickMath[i].Level} | **Score:** ${QuickMath[i].Score}\n`
         }
 
         const pageuplim = (page * 10)

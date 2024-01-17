@@ -35,7 +35,7 @@ module.exports = async (client, message) => {
             key = true
     }
     if (key === false) return
-    const xpToGive = Math.floor(Math.random() * 10) + 1 //Random Exp Line
+    const xpToGive = Math.floor(Math.random() * 5) + 1 //Random Exp Line
     const query = {
         UserID: message.author.id,
         GuildID: message.guild.id
@@ -115,7 +115,7 @@ module.exports = async (client, message) => {
             cd.add(message.author.id)
             setTimeout(() => {
                 cd.delete(message.author.id)
-            }, 5 * 1000) //CD Give Exp
+            }, 3 * 1000) //CD Give Exp
         }
         //if (!level)
         else {
@@ -129,10 +129,11 @@ module.exports = async (client, message) => {
                 titleicon: false,
             })
             await newLevel.save()
+            
             cd.add(message.author.id)
             setTimeout(() => {
                 cd.delete(message.author.id)
-            }, 5 * 1000) //CD Give Exp
+            }, 3 * 1000) //CD Give Exp
         }
     } catch (error) {
         console.log(`Lỗi Khi Ném Exp: ${error}`)

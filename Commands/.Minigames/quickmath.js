@@ -4,6 +4,7 @@ const MathGame1 = require('../../Assets/MathGame/QuickMath')
 const wait = require('node:timers/promises').setTimeout;
 const cdSchema = require('../../Database/cooldown')
 const QuickMathDb = require('../../Database/quickmath')
+//const BypassList = require('../../Utils/cdbypass')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -67,9 +68,9 @@ module.exports = {
         var CheckIKey = false, Time, Multi, Emoji, Color
 
         const KeyList = MathGameAsset[7]
-        const CDList = [3600000, 1920000, 720000, 360000, 180000]
+        const CDList = [600000, 480000, 360000, 240000, 120000]
         const Time1 = MathGameAsset[5][0], Time2 = MathGameAsset[5][1], Bonus1 = MathGameAsset[6][0], Bonus2 = MathGameAsset[6][1]
-        
+
         //Tạo Dựng Time Và Bonus Cho Key None Và Extra
         for (var i = 0; i < KeyList.length; i++) {
             if (GameKey === KeyList[i]) {
@@ -155,27 +156,27 @@ module.exports = {
                         }
                     case 1:
                         {
-                            return Multi * 1.1
+                            return Multi * 1.05
                         }
                     case 2:
                         {
-                            return Multi * 1.2
+                            return Multi * 1.08
                         }
                     case 3:
                         {
-                            return Multi * 1.3
+                            return Multi * 1.1
                         }
                     case 4:
                         {
-                            return Multi * 1.4
+                            return Multi * 1.12
                         }
                     case 5:
                         {
-                            return Multi * 1.5
+                            return Multi * 1.15
                         }
                     default:
                         {
-                            return Multi * 1.5
+                            return Multi * 1.15
                         }
                 }
             } else {
@@ -520,6 +521,48 @@ module.exports = {
             str = str.split(TempChar)
             return str
         }
+        //Hàm Set Accuracy [Time Decreasing]
+        function SetAccuracy(MsgCount) {
+            switch (Number(MsgCount)) {
+                case 0:
+                    {
+                        return Time
+                    }
+                case 1:
+                    {
+                        return Time * 0.6
+                    }
+                case 2:
+                    {
+                        return Time * 0.3
+                    }
+                default:
+                    {
+                        return Time * 0.001
+                    }
+            }
+        }
+        //Hàm Hệ Số Điểm Accuracy
+        function SetMultiAcc(MsgCount) {
+            switch (Number(MsgCount)) {
+                case 0:
+                    {
+                        return 1
+                    }
+                case 1:
+                    {
+                        return 1/3
+                    }
+                case 2:
+                    {
+                        return 1/6
+                    }
+                default:
+                    {
+                        return 0.001
+                    }
+            }
+        }
         //* Ghi Chú: Test Kênh Ngoài Thì Nguyên Block Này Là Để Vô Dấu Này Nhé! -> /*
         if (interaction.channel.id !== '1195982067780042863') {
             const WrongChannel = new EmbedBuilder()
@@ -533,8 +576,19 @@ module.exports = {
                 embeds: [WrongChannel]
             })
         }
+        /*const auser = interaction.user.id
+        const CDPassList = BypassList
+        function BypassCD(auser) {
+            for (var i in CDPassList) {
+                if (auser === CDPassList[i]) {
+                    return true
+                }
+            }
+            return false
+        }
+        const Bypass_ = BypassCD(auser)*/
         //*/ // <- Kết Thúc Block
-        
+
         //CD Check Và Chạy Lệnh
         cdSchema.findOne({ UserID: user.id }, async (err, data) => {
             if (err) throw err
@@ -548,6 +602,7 @@ module.exports = {
                 const cduser = data.UserID
                 const CDTime = data.CDQuickMath
                 console.log('[Command: QuickMath]', cduser, CDTime, Date.now())
+                //if (CDTime > Date.now() && !Bypass_) {
                 if (CDTime > Date.now()) {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')
@@ -567,17 +622,17 @@ module.exports = {
                         switch (RunKey) {
                             case 'rush':
                                 {
-                                    desc1 = `${Emoji} **Chào Mừng Người Chơi ${user} Đến Với QuickMath!!!**\n> **Độ Khó:** ${GameKey1} (Rush)\n> **Thời Gian:** ${Time}s\n\n**Game Sẽ Tạo Trong Chốc Lát... Xin Vui Lòng Chờ!!!**\n<:SanaePout:1152875631386832946> **Lưu Ý:**  Để Có Được Trải Nghiệm Tốt Nhất Thì Làm Ơn:\n> 1. Đừng Dùng Bot Khác Khi Đang Chơi Minigame Này\n> 2. Đừng Dùng Máy Tính Bỏ Túi Như Casio, Máy Tính Ở Điện Thoại, PC, Laptop Hay TV...\n> 3. Không Giới Hạn Nhận Tin Nhắn, Nếu Quá Thời Gian, Coi Như Game Over\n\n<:OrinMenace:1169857691456372766> **SPECIAL RULE:** [Rush] - Giảm \`10%/20%/30%/40%/50%\` Thời Gian Tính Mỗi Khi Lên 1 Level (Nhiều Nhất Là \`50%\`)`
+                                    desc1 = `${Emoji} **Chào Mừng Người Chơi ${user} Đến Với QuickMath!!!**\n> **Độ Khó:** ${GameKey1} (Rush)\n> **Thời Gian:** ${Time}s\n\n**Game Sẽ Tạo Trong Chốc Lát... Xin Vui Lòng Chờ!!!**\n<:SanaePout:1152875631386832946> **Lưu Ý:**  Để Có Được Trải Nghiệm Tốt Nhất Thì Làm Ơn:\n> 1. Đừng Dùng Bot Khác Khi Đang Chơi Minigame Này\n> 2. Đừng Dùng Máy Tính Bỏ Túi Như Casio, Máy Tính Ở Điện Thoại, PC, Laptop Hay TV...\n> 3. Bạn Có **3 Lần Thử**, Nếu Quá Giới Hạn Hay Quá Thời Gian, Coi Như Game Over\n\n<:OrinMenace:1169857691456372766> **SPECIAL RULE:** [Rush] - Giảm \`10%/20%/30%/40%/50%\` Thời Gian Tính Mỗi Khi Lên 1 Level (Nhiều Nhất Là \`50%\`)`
                                     break
                                 }
                             case 'extra':
                                 {
-                                    desc1 = `${Emoji} **Chào Mừng Người Chơi ${user} Đến Với QuickMath!!!**\n> **Độ Khó:** Ex-${GameKey1}\n> **Thời Gian:** ${Time}s\n\n**Game Sẽ Tạo Trong Chốc Lát... Xin Vui Lòng Chờ!!!**\n<:SanaePout:1152875631386832946> **Lưu Ý:**  Để Có Được Trải Nghiệm Tốt Nhất Thì Làm Ơn:\n> 1. Đừng Dùng Bot Khác Khi Đang Chơi Minigame Này\n> 2. Đừng Dùng Máy Tính Bỏ Túi Như Casio, Máy Tính Ở Điện Thoại, PC, Laptop Hay TV...\n> 3. Không Giới Hạn Nhận Tin Nhắn, Nếu Quá Thời Gian, Coi Như Game Over\n\n<:OrinMenace:1169857691456372766> **SPECIAL RULE:** [Extra] - Tăng Số Chữ Số Cần Tính Toán Từ **2** Lên **3**`
+                                    desc1 = `${Emoji} **Chào Mừng Người Chơi ${user} Đến Với QuickMath!!!**\n> **Độ Khó:** Ex-${GameKey1}\n> **Thời Gian:** ${Time}s\n\n**Game Sẽ Tạo Trong Chốc Lát... Xin Vui Lòng Chờ!!!**\n<:SanaePout:1152875631386832946> **Lưu Ý:**  Để Có Được Trải Nghiệm Tốt Nhất Thì Làm Ơn:\n> 1. Đừng Dùng Bot Khác Khi Đang Chơi Minigame Này\n> 2. Đừng Dùng Máy Tính Bỏ Túi Như Casio, Máy Tính Ở Điện Thoại, PC, Laptop Hay TV...\n> 3. Bạn Có **3 Lần Thử**, Nếu Quá Giới Hạn Hay Quá Thời Gian, Coi Như Game Over\n\n<:OrinMenace:1169857691456372766> **SPECIAL RULE:** [Extra] - Tăng Số Chữ Số Cần Tính Toán Từ **2** Lên **3**`
                                     break
                                 }
                             default:
                                 {
-                                    desc1 = `${Emoji} **Chào Mừng Người Chơi ${user} Đến Với QuickMath!!!**\n> **Độ Khó:** ${GameKey1}\n> **Thời Gian:** ${Time}s\n\n**Game Sẽ Tạo Trong Chốc Lát... Xin Vui Lòng Chờ!!!**\n<:SanaePout:1152875631386832946> **Lưu Ý:**  Để Có Được Trải Nghiệm Tốt Nhất Thì Làm Ơn:\n> 1. Đừng Dùng Bot Khác Khi Đang Chơi Minigame Này\n> 2. Đừng Dùng Máy Tính Bỏ Túi Như Casio, Máy Tính Ở Điện Thoại, PC, Laptop Hay TV...\n> 3. Không Giới Hạn Nhận Tin Nhắn, Nếu Quá Thời Gian, Coi Như Game Over`
+                                    desc1 = `${Emoji} **Chào Mừng Người Chơi ${user} Đến Với QuickMath!!!**\n> **Độ Khó:** ${GameKey1}\n> **Thời Gian:** ${Time}s\n\n**Game Sẽ Tạo Trong Chốc Lát... Xin Vui Lòng Chờ!!!**\n<:SanaePout:1152875631386832946> **Lưu Ý:**  Để Có Được Trải Nghiệm Tốt Nhất Thì Làm Ơn:\n> 1. Đừng Dùng Bot Khác Khi Đang Chơi Minigame Này\n> 2. Đừng Dùng Máy Tính Bỏ Túi Như Casio, Máy Tính Ở Điện Thoại, PC, Laptop Hay TV...\n> 3. Bạn Có **3 Lần Thử**, Nếu Quá Giới Hạn Hay Quá Thời Gian, Coi Như Game Over`
                                 }
 
                         }
@@ -592,7 +647,7 @@ module.exports = {
                             embeds: [StartEmbed]
                         })
                         await wait(2500)
-                        var key = 0, score = 0, level = 0, restrictkey = false, i = 0
+                        var key = 0, score = 0, level = 0, restrictkey = false, i = 0, MsgCount = 0
                         while (key === 0) {
                             if (!restrictkey) {
                                 restrictkey = true
@@ -615,74 +670,81 @@ module.exports = {
                                 await interaction.followUp({
                                     embeds: [RunEmbed],
                                 })
+
                                 const msg = interaction.fetchReply()
-                                try {
-                                    const filter = m => {
-                                        if (m.author.bot) return
-                                        if (Number(m.content) === Result && m.author.id === interaction.user.id && m.channel.id === interaction.channel.id) {
-                                            return true
-                                        } else {
-                                            return false
+                                while (restrictkey && key == 0) {
+                                    try {
+                                        const filter = m => {
+                                            if (m.author.bot) return
+                                            if (m.author.id === interaction.user.id && m.channel.id === interaction.channel.id) {
+                                                return true
+                                            } else {
+                                                return false
+                                            }
                                         }
-                                    }
-                                    const collector = await interaction.channel.awaitMessages({ msg, filter, time: Number(RunTime(Time, RunKey, level)) * 1000, errors: ['time'], max: 1 })
-                                    if (collector) {
-                                        score += (i + 1) * Number(Bonus(Multi, RunKey, level))
-                                        score = Math.round(score)
-                                        i++
-                                        restrictkey = false
-                                    }
-                                } catch (err) {
-                                    var desc2 
-                                    switch (RunKey) {
-                                        case 'rush':
-                                            {
-                                                desc2 = `${Emoji} **Kết Thúc Trò Chơi!!!**\n> **Độ Khó:** ${GameKey1} (Rush)\n> **Điểm Số:**  ${score}\n> **Level: ${level}**\n> **Câu Hỏi:** ${i + 1}\n\n**Câu Trả Lời:**\n` + '```js\n' + Eqt_Q + '=' + Result + '```'
-                                                break
-                                            }
-                                        case 'extra':
-                                            {
-                                                desc2 = `${Emoji} **Kết Thúc Trò Chơi!!!**\n> **Độ Khó:** Ex-${GameKey1}\n> **Điểm Số:**  ${score}\n> **Level: ${level}**\n> **Câu Hỏi:** ${i + 1}\n\n**Câu Trả Lời:**\n` + '```js\n' + Eqt_Q + '=' + Result + '```'
-                                                break
-                                            }
-                                        default:
-                                            {
-                                                desc2 = `${Emoji} **Kết Thúc Trò Chơi!!!**\n> **Độ Khó:** ${GameKey1}\n> **Điểm Số:**  ${score}\n> **Level: ${level}**\n> **Câu Hỏi:** ${i + 1}\n\n**Câu Trả Lời:**\n` + '```js\n' + Eqt_Q + '=' + Result + '```'
-                                            }
-                                    }
-                                    const GameOverEmbed = new EmbedBuilder()
-                                        .setColor(Color)
-                                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-                                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
-                                        .setTitle('<a:LYG_TighnariNotes:1090126010571300874> **Minigame - QuickMath**')
-                                        .setDescription(`${desc2}`)
-                                        .setTimestamp()
-                                    await interaction.followUp({
-                                        embeds: [GameOverEmbed]
-                                    })
-                                    key++
-                                    if (score > 0) {
-                                        QuickMathDb.findOne({ UserID: user.id, GameKey: GameKey1 }, async (err, data1) => {
-                                            if (err) throw (err)
-                                            if (!data1) {
-                                                QuickMathDb.create({
-                                                    UserID: user.id,
-                                                    GameKey: GameKey1,
-                                                    Level: level,
-                                                    Score: score,
-                                                    Note: RunKey.slice(0, 1).toUpperCase() + RunKey.slice(1),
-                                                })
-                                            }
-                                            if (data1) {
-                                                const PreScore = data1.Score
-                                                if (score > PreScore) {
-                                                    data1.Level = level
-                                                    data1.Score = score
-                                                    data1.Note = RunKey.slice(0, 1).toUpperCase() + RunKey.slice(1)
-                                                    data1.save()
+                                        const collector = await interaction.channel.awaitMessages({ msg, filter, time: Number(RunTime(SetAccuracy(MsgCount), RunKey, level)) * 1000, errors: ['time'], max: 1 })
+                                        if (Number(collector.first().content) === Result) {
+                                            score += (i + 1) * Number(Bonus(Multi, RunKey, level)) * SetMultiAcc(MsgCount)
+                                            score = Math.round(score)
+                                            i++
+                                            MsgCount = 0
+                                            restrictkey = false
+                                        } else {
+                                            MsgCount++
+                                        }
+                                        console.log(`[QuickMath Debugger] Câu: ${i+1}, Độ Khó: ${GameKey1}\nSố Lượng Tin Nhắn: ${MsgCount}, Thời Gian: ${RunTime(SetAccuracy(MsgCount), RunKey, level)}, Hệ Số: ${SetMultiAcc(MsgCount)}\nLuật Đặc Biệt: [${RunKey.slice(0,1).toUpperCase()+RunKey.slice(1)}]`)
+                                    } catch (err) {
+                                        var desc2
+                                        switch (RunKey) {
+                                            case 'rush':
+                                                {
+                                                    desc2 = `${Emoji} **Kết Thúc Trò Chơi!!!**\n> **Độ Khó:** ${GameKey1} (Rush)\n> **Điểm Số:**  ${score}\n> **Level: ${level}**\n> **Câu Hỏi:** ${i + 1}\n\n**Câu Trả Lời:**\n` + '```js\n' + Eqt_Q + '=' + Result + '```'
+                                                    break
                                                 }
-                                            }
+                                            case 'extra':
+                                                {
+                                                    desc2 = `${Emoji} **Kết Thúc Trò Chơi!!!**\n> **Độ Khó:** Ex-${GameKey1}\n> **Điểm Số:**  ${score}\n> **Level: ${level}**\n> **Câu Hỏi:** ${i + 1}\n\n**Câu Trả Lời:**\n` + '```js\n' + Eqt_Q + '=' + Result + '```'
+                                                    break
+                                                }
+                                            default:
+                                                {
+                                                    desc2 = `${Emoji} **Kết Thúc Trò Chơi!!!**\n> **Độ Khó:** ${GameKey1}\n> **Điểm Số:**  ${score}\n> **Level: ${level}**\n> **Câu Hỏi:** ${i + 1}\n\n**Câu Trả Lời:**\n` + '```js\n' + Eqt_Q + '=' + Result + '```'
+                                                }
+                                        }
+                                        const GameOverEmbed = new EmbedBuilder()
+                                            .setColor(Color)
+                                            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                                            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
+                                            .setTitle('<a:LYG_TighnariNotes:1090126010571300874> **Minigame - QuickMath**')
+                                            .setDescription(`${desc2}`)
+                                            .setTimestamp()
+                                        await interaction.followUp({
+                                            embeds: [GameOverEmbed]
                                         })
+                                        key++
+                                        if (score > 0) {
+                                            QuickMathDb.findOne({ UserID: user.id, GameKey: GameKey1 }, async (err, data1) => {
+                                                if (err) throw (err)
+                                                if (!data1) {
+                                                    QuickMathDb.create({
+                                                        UserID: user.id,
+                                                        GameKey: GameKey1,
+                                                        Level: level,
+                                                        Score: score,
+                                                        Note: RunKey.slice(0, 1).toUpperCase() + RunKey.slice(1),
+                                                    })
+                                                }
+                                                if (data1) {
+                                                    const PreScore = data1.Score
+                                                    if (score > PreScore) {
+                                                        data1.Level = level
+                                                        data1.Score = score
+                                                        data1.Note = RunKey.slice(0, 1).toUpperCase() + RunKey.slice(1)
+                                                        data1.save()
+                                                    }
+                                                }
+                                            })
+                                        }
                                     }
                                 }
                             }

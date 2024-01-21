@@ -14,7 +14,7 @@ const AchievementAssets = require('../../Assets/Achievements/achievements')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('omikuji')
-        .setDescription('Dùng Để Rút Quẻ'),
+        .setDescription('Dùng Để Rút Quẻ May Mắn Hàng Ngày (Reset CD: 5h Sáng UTC+7)'),
     async execute(interaction) {
         await interaction.deferReply()
 
@@ -22,12 +22,20 @@ module.exports = {
             var CD = new Date(Date.now())
             CD.setDate(CD.getDate() + 1)
             CD.setHours(5, 0, 0, 0)
-        
+
             const Daily_CD = CD.getTime()
             return Daily_CD
         }
         const Daily_CD = DailyCD()
 
+        const ColorList = [
+            '#b9b9b9', //Type 1
+            '#9aff84', //Type 2
+            '#84eeff', //Type 3
+            '#c76efa', //Type 4
+            '#fffa00' //Type 5
+        ]
+        let Color
         const FooterEmbeds_ = FooterEmbeds
         //BUTTON TYPE 5 ENTRY
         const type5_1 = new ActionRowBuilder()
@@ -68,38 +76,44 @@ module.exports = {
         const type5e = Type5Entries[0]
         const type5l = Type5Entries[1]
         //TYPE 1 ENTRY: RNG ITEM: TRUE/IMG URL: FALSE
-        if (rng <= 84) {
+        if (rng <= 50) {
             rng1 = Math.floor(Math.random() * type1.length)
             result = type1[rng1]
+            Color = ColorList[0]
         }
         //TYPE 2 ENTRY: RNG ITEM: TRUE/IMG URL: FALSE        
-        else if (rng <= 96) {
+        else if (rng <= 75) {
             rng2 = Math.floor(Math.random() * type2.length)
             result = type2[rng2]
+            Color = ColorList[1]
         }
         //TYPE 3 ENTRY: RNG ITEM: TRUE/IMG_URL: TRUE
-        else if (rng <= 99) {
+        else if (rng <= 90) {
             rng3 = Math.floor(Math.random() * type3e.length)
             result = type3e[rng3]
             img_url = type3l[rng3]
+            Color = ColorList[2]
         }
         //TYPE 4 ENTRY: RNG ITEM: FALSE/IMG_URL: TRUE
-        else if (rng <= 99.9) {
+        else if (rng <= 99) {
             rng4 = Math.floor(Math.random() * type4e.length)
             result = type4e[rng4]
             img_url = type4l[rng4]
+            Color = ColorList[3]
         }
-        //TYPE 5 ENTRY: RNG ITEM: FALSE/IMG_URL: TRUE/BONUS: BUTTON -> Ephemeral
-        else if (rng <= 99.95) {
+        //TYPE 5 ENTRY: RNG ITEM: FALSE/IMG_URL: TRUE/BONUS: BUTTON -> DMs
+        else if (rng <= 99.5) {
             result = type5e[0]
             img_url = type5l[0]
+            Color = ColorList[4]
         }
         else {
             result = type5e[1]
             img_url = type5l[1]
+            Color = ColorList[4]
         }
-        //EMBED TYPE 5 ENTRY
 
+        //EMBED TYPE 5 ENTRY
         const KitsuneziEmbed = new EmbedBuilder()
             .setColor('Red')
             .setTitle(`<:LYG_FubukiPain:1084085934926069823> **Kitsunezi's Backstory**`)
@@ -142,9 +156,22 @@ module.exports = {
                 else { //Line Này Dùng // Nếu Bỏ Qua CD
                     data.CDOmikuji = Daily_CD
                     data.save()
+                    //EMBED READY
+                    const DrawingCard = new EmbedBuilder()
+                        .setColor('White')
+                        .setTitle(`**<:LYG_Omikuji:1084322622491344937> Đền Thần - Rút Quẻ Hàng Ngày**`)
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setDescription(`<:LYG_Omikuji:1084322622491344937> | Thẻ Của Bạn Đang Được Rút... Xin Vui Lòng Chờ...`)
+                        .setTimestamp(Date.now())
+                        .setImage(img_url)
+                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
+                    await interaction.editReply({
+                        embeds: [DrawingCard]
+                    })
+                    await wait(2000)
                     //EMBED GỐC ENTRY
-                    const embed = new EmbedBuilder()
-                        .setColor('Aqua')
+                    const OmikujiCard = new EmbedBuilder()
+                        .setColor(Color)
                         .setTitle(`**<:LYG_Omikuji:1084322622491344937> Đền Thần - Rút Quẻ Hàng Ngày**`)
                         .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(result)
@@ -152,15 +179,15 @@ module.exports = {
                         .setImage(img_url)
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                     await interaction.editReply({
-                        embeds: [embed],
+                        embeds: [OmikujiCard],
                     })
-                    if (rng > 99.9 && rng <= 99.95) {
+                    if (rng > 99 && rng <= 99.5) {
                         await interaction.editReply({
                             embed: [embed],
                             components: [type5_1]
                         })
                     }
-                    else if (rng > 99.95 && rng <= 100) {
+                    else if (rng > 99.5 && rng <= 100) {
                         await interaction.editReply({
                             embed: [embed],
                             components: [type5_2]
@@ -221,18 +248,18 @@ module.exports = {
                 //Achievements On Omikuji
                 var a4key = "No", a5key = "No"
                 var achievementdesc, achievementlink, achievementcolor = '#000000'
-                if (rng > 99.9 && rng <= 99.95) {
+                if (rng > 99 && rng <= 99.5) {
                     achievementdesc = `> Chúc Mừng Người Dùng ${interaction.user} Đã Mở Khóa Thành Tựu Mới!!!\n${AchievementAssets[1][3]}`
                     achievementlink = AchievementAssets[0][3]
                     achievementcolor = AchievementAssets[2][0]
                     a4key = "Yes"
                 }
-                if (rng > 99.95 && rng <= 100) {
+                if (rng > 99.5 && rng <= 100) {
                     achievementdesc = `> Chúc Mừng Người Dùng ${interaction.user} Đã Mở Khóa Thành Tựu Mới!!!\n${AchievementAssets[1][4]}`
                     achievementlink = AchievementAssets[0][4]
                     achievementcolor = AchievementAssets[2][0]
                     a5key = "Yes"
-                } 
+                }
 
                 const OmikujiAchivements = new EmbedBuilder()
                     .setColor(achievementcolor)
@@ -257,34 +284,34 @@ module.exports = {
                             })
                         }
                     } if (data1) {
-                            const A4 = data1.A4
-                            const A5 = data1.A5
+                        const A4 = data1.A4
+                        const A5 = data1.A5
 
-                            if (!A4) {
-                                data1.A4 = a4key
-                            }
-                            if (!A5) {
-                                data1.A5 = a5key
-                            }
-
-                            if (A4 === "No") {
-                                if (rng > 99.9 && rng <= 99.95) {
-                                    data1.A4 = "Yes"
-                                    await interaction.followUp({
-                                        embeds: [OmikujiAchivements]
-                                    })
-                                }
-                            }
-                            if (A5 === "No") {
-                                if (rng > 99.95 && rng <= 100) {
-                                    data1.A5 = "Yes"
-                                    await interaction.followUp({
-                                        embeds: [OmikujiAchivements]
-                                    })
-                                }
-                            }
-                            data1.save()
+                        if (!A4) {
+                            data1.A4 = a4key
                         }
+                        if (!A5) {
+                            data1.A5 = a5key
+                        }
+
+                        if (A4 === "No") {
+                            if (rng > 99 && rng <= 99.5) {
+                                data1.A4 = "Yes"
+                                await interaction.followUp({
+                                    embeds: [OmikujiAchivements]
+                                })
+                            }
+                        }
+                        if (A5 === "No") {
+                            if (rng > 99.5 && rng <= 100) {
+                                data1.A5 = "Yes"
+                                await interaction.followUp({
+                                    embeds: [OmikujiAchivements]
+                                })
+                            }
+                        }
+                        data1.save()
+                    }
                 })
             } //Line Này Dùng // Nếu Bỏ Qua CD
         })

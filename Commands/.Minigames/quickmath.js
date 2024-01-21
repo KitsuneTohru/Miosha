@@ -538,7 +538,7 @@ module.exports = {
                     }
                 default:
                     {
-                        return Time * 0.001
+                        return Time = 0.01
                     }
             }
         }
@@ -551,11 +551,11 @@ module.exports = {
                     }
                 case 1:
                     {
-                        return 1/3
+                        return 1 / 3
                     }
                 case 2:
                     {
-                        return 1/6
+                        return 1 / 6
                     }
                 default:
                     {
@@ -564,7 +564,20 @@ module.exports = {
             }
         }
         //* Ghi Chú: Test Kênh Ngoài Thì Nguyên Block Này Là Để Vô Dấu Này Nhé! -> /*
-        if (interaction.channel.id !== '1195982067780042863') {
+        let ChannelKey = false
+        const MathChannels = [
+            '1195982067780042863',
+            '1198301612012220559',
+            '1198301502838669333',
+            '1198301306717229148'
+        ]
+        for (var i = 0; i < MathChannels.length; i++) {
+            if (interaction.channel.id === MathChannels[i]) {
+                ChannelKey = true
+                break
+            }
+        }
+        if (!ChannelKey) {
             const WrongChannel = new EmbedBuilder()
                 .setColor('DarkRed')
                 .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
@@ -647,7 +660,9 @@ module.exports = {
                             embeds: [StartEmbed]
                         })
                         await wait(2500)
-                        var key = 0, score = 0, level = 0, restrictkey = false, i = 0, MsgCount = 0
+
+                        //Chạy Game Từ Đây
+                        var key = 0, score = 0, level = 0, restrictkey = false, i = 0, MsgCount = 0, ScoreAdded = 0, InGameDesc
                         while (key === 0) {
                             if (!restrictkey) {
                                 restrictkey = true
@@ -660,12 +675,17 @@ module.exports = {
                                     Result = CalcNormal(Eqt_Q)
                                 }
                                 level = Math.floor(i / 20)
+                                if (i > 0) {
+                                    InGameDesc = `${Emoji} **Điểm Số:**  ${score} (+${ScoreAdded})\n> **Level: ${level}** || **Câu Hỏi:** ${i + 1}\n` + '```js\n' + Eqt_Q + '=?```'
+                                } else {
+                                    InGameDesc = `${Emoji} **Điểm Số:**  ${score}\n> **Level: ${level}** || **Câu Hỏi:** ${i + 1}\n` + '```js\n' + Eqt_Q + '=?```'
+                                }
                                 const RunEmbed = new EmbedBuilder()
                                     .setColor(Color)
                                     .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                                     .setTitle('<a:LYG_TighnariNotes:1090126010571300874> **Minigame - QuickMath**')
-                                    .setDescription(`${Emoji} **Điểm Số:**  ${score}\n> **Level: ${level}** || **Câu Hỏi:** ${i + 1}\n` + '```js\n' + Eqt_Q + '=?```')
+                                    .setDescription(`${InGameDesc}`)
                                     .setTimestamp()
                                 await interaction.followUp({
                                     embeds: [RunEmbed],
@@ -685,14 +705,16 @@ module.exports = {
                                         const collector = await interaction.channel.awaitMessages({ msg, filter, time: Number(RunTime(SetAccuracy(MsgCount), RunKey, level)) * 1000, errors: ['time'], max: 1 })
                                         if (Number(collector.first().content) === Result) {
                                             score += (i + 1) * Number(Bonus(Multi, RunKey, level)) * SetMultiAcc(MsgCount)
-                                            score = Math.round(score)
+                                            ScoreAdded = (i + 1) * Number(Bonus(Multi, RunKey, level)) * SetMultiAcc(MsgCount)
+                                            score = Number(score.toFixed(1))
+                                            ScoreAdded = Number(ScoreAdded.toFixed(1))
                                             i++
                                             MsgCount = 0
                                             restrictkey = false
                                         } else {
                                             MsgCount++
                                         }
-                                        console.log(`[QuickMath Debugger] Câu: ${i+1}, Độ Khó: ${GameKey1}\nSố Lượng Tin Nhắn: ${MsgCount}, Thời Gian: ${RunTime(SetAccuracy(MsgCount), RunKey, level)}, Hệ Số: ${SetMultiAcc(MsgCount)}\nLuật Đặc Biệt: [${RunKey.slice(0,1).toUpperCase()+RunKey.slice(1)}]`)
+                                        //console.log(`[QuickMath Debugger] Câu: ${i+1}, Độ Khó: ${GameKey1}\nSố Lượng Tin Nhắn: ${MsgCount}, Thời Gian: ${RunTime(SetAccuracy(MsgCount), RunKey, level)}, Hệ Số: ${SetMultiAcc(MsgCount)}\nLuật Đặc Biệt: [${RunKey.slice(0,1).toUpperCase()+RunKey.slice(1)}]`)
                                     } catch (err) {
                                         var desc2
                                         switch (RunKey) {

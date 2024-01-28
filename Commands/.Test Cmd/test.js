@@ -1,4 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require('discord.js');
+const chalk = require('chalk')
+
 const cdSchema = require('../../Database/cooldown')
 const FooterEmbeds = require('../../Utils/embed')
 
@@ -82,7 +84,7 @@ module.exports = {
                 if (data) {
                     const user = data.UserID
                     const CDTime = data.CDTest
-                    console.log('[Command: Test]', user, CDTime, Date.now())
+                     console.log(chalk.yellow('[Command: Test]') + ` ${cduser}, ${CDTime}, ${Date.now()}`)
                     
                     const BypassCD_ = BypassCD(user)
                     if (CDTime > Date.now() && !BypassCD_) {

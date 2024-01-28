@@ -1,4 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const chalk = require('chalk')
+
 const cdSchema = require('../../Database/cooldown')
 const FooterEmbeds = require('../../Utils/embed')
 const BypassList = require('../../Utils/cdbypass')
@@ -24,8 +26,8 @@ module.exports = {
             rng--
         }
         var rngstr = strlist[rng]
-        const responselist = ['Tớ Chọn Cái Này:', 'Theo Tớ Thì Là Cái Này: ', 'Lựa Chọn Của Tớ Đây: ', 'Tớ Chọn Cho Bạn Cái Này: ', 'Đây, Ổn Chứ?']
-        var rerng = Math.round(Math.random() * 5)
+        const responselist = ['Tớ Chọn Cái Này: ', 'Theo Tớ Thì Là Cái Này: ', 'Lựa Chọn Của Tớ Đây: ', 'Tớ Chọn Cho Bạn Cái Này: ', 'Đây, Ổn Chứ? ']
+        var rerng = Math.round(Math.random() * responselist.length)
         if (rerng >= responselist.length) {
             rerng--
         }
@@ -52,7 +54,7 @@ module.exports = {
             } if (data) {
                 const cduser = data.UserID
                 const CDTime = data.CDPick
-                console.log('[Command: Pick]', cduser, CDTime, Date.now())
+                console.log(chalk.yellow('[Command: Pick]') + ` ${cduser}, ${CDTime}, ${Date.now()}`)
                 if (CDTime > Date.now() && !Bypass_) {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')

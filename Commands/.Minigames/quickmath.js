@@ -1,4 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
+const chalk = require('chalk')
+
 const FooterEmbeds = require('../../Utils/embed')
 const MathGame1 = require('../../Assets/MathGame/QuickMath')
 const wait = require('node:timers/promises').setTimeout;
@@ -614,7 +616,7 @@ module.exports = {
             if (data) {
                 const cduser = data.UserID
                 const CDTime = data.CDQuickMath
-                console.log('[Command: QuickMath]', cduser, CDTime, Date.now())
+                console.log(chalk.yellow('[Command: QuickMath]') + ` ${cduser}, ${CDTime}, ${Date.now()}`)
                 //if (CDTime > Date.now() && !Bypass_) {
                 if (CDTime > Date.now()) {
                     const cdembed = new EmbedBuilder()

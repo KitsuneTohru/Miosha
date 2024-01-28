@@ -14,5 +14,6 @@ const WhiteListedChannel = [
     '1177831119664717834',
     '1177830171340972082',
     '1087584222962794578',
+    '1200077820949438536', //Sẽ Xóa Khi Hết Bounty
 ]
 module.exports = (WhiteListedChannel)

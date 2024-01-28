@@ -1,6 +1,7 @@
 const { ActivityType } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout
 const mongoose = require('mongoose')
+const chalk = require('chalk')
 const mongodbURL = process.env.MONGO_URL;
 
 
@@ -13,7 +14,7 @@ module.exports = async (client) => {
     })
 
     if (mongoose.connect) {
-        console.log('Database Của Tớ Đang Chạy Nhá, Yên Tâm!')
+        console.log(chalk.blue('[LOG]') + ' Database Của Tớ Đang Chạy Nhá, Yên Tâm!')
     }
 
     var i = 0

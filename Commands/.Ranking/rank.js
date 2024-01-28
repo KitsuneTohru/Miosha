@@ -1,4 +1,6 @@
 const { SlashCommandBuilder, AttachmentBuilder, EmbedBuilder } = require('discord.js')
+const chalk = require('chalk')
+
 const Canvas = require('@napi-rs/canvas')
 const Level = require('../../Database/level')
 const cdSchema = require('../../Database/cooldown')
@@ -386,7 +388,7 @@ module.exports = {
             } if (data) {
                 const cduser = data.UserID
                 const CDTime = data.CDRank
-                console.log('[Command: Rank]', cduser, CDTime, Date.now())
+                console.log(chalk.yellow('[Command: Rank]') + ` ${cduser}, ${CDTime}, ${Date.now()}`)
                 if (CDTime > Date.now() && !Bypass_) {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')

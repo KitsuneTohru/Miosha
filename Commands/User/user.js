@@ -1,4 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const chalk = require('chalk')
+
 const cdSchema = require('../../Database/cooldown')
 const FooterEmbeds = require('../../Utils/embed')
 const BypassList = require('../../Utils/cdbypass')
@@ -38,7 +40,7 @@ module.exports = {
             } if (data) {
                 const cduser = data.UserID
                 const CDTime = data.CDUser
-                console.log('[Command: User]', cduser, CDTime, Date.now())
+                console.log(chalk.yellow('[Command: User]') + ` ${cduser}, ${CDTime}, ${Date.now()}`)
                 if (CDTime > Date.now() && !Bypass_) {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')

@@ -1,4 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
+const chalk = require('chalk')
+
 const Level = require('../../Database/level')
 const cdSchema = require('../../Database/cooldown')
 const lvlcalc = require('../../Utils/lvlcalc')
@@ -120,7 +122,7 @@ module.exports = {
             } if (data) {
                 const cduser = data.UserID
                 const CDTime = data.CDTop
-                console.log('[Command: Top]', cduser, CDTime, Date.now())
+                console.log(chalk.yellow('[Command: Top]') + ` ${cduser}, ${CDTime}, ${Date.now()}`)
                 if (CDTime > Date.now() && !Bypass_) {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')

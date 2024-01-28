@@ -1,13 +1,19 @@
+const { Client, GatewayIntentBits, Collection, EmbedBuilder, Message } = require('discord.js');
+
 const { REST, Routes } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, GatewayIntentBits, Collection, EmbedBuilder, Message } = require('discord.js');
-const dotenv = require('dotenv')
+
 const eventHandler = require('./Handlers/eventHandler')
+const chalk = require('chalk')
+
+const dotenv = require('dotenv')
 dotenv.config()
+
 const token = process.env.TOKEN;
 const clientID = process.env.CLIENT_ID;
 const guildID = process.env.GUILD_ID;
+
 const commands = [];
 
 const client = new Client({
@@ -36,7 +42,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 (async () => {
     try {
         const a = commands.length - commands.slice(LYG_Related).length
-        console.log(`Bắt Đầu Làm Mới ${commands.length} Lệnh`);
+        console.log(chalk.blue('[LOG]') + ` Bắt Đầu Làm Mới ${commands.length} Lệnh`);
         let data
         data = await rest.put(
             Routes.applicationGuildCommands(clientID, guildID),
@@ -48,7 +54,7 @@ const rest = new REST({ version: '10' }).setToken(token);
             { body: commands.slice(LYG_Related, commands.length) },
             //{ body : []},
         );
-        console.log(`Thành Công Khởi Tạo ${data.length} Lệnh\nLYG Command Only: ${a} Lệnh`)
+        console.log(chalk.blue('[LOG]') + ` Thành Công Khởi Tạo ${data.length} Lệnh\n` + chalk.blue('[LOG]') + ` LYG Command Only: ${a} Lệnh`)
     } catch (error) {
         console.error(error);
     }

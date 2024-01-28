@@ -1,4 +1,6 @@
 const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
+const chalk = require('chalk')
+
 const wait = require('node:timers/promises').setTimeout;
 
 const cdSchema = require('../../Database/cooldown')
@@ -17,6 +19,8 @@ module.exports = {
         .setDescription('Dùng Để Rút Quẻ May Mắn Hàng Ngày (Reset CD: 5h Sáng UTC+7)'),
     async execute(interaction) {
         await interaction.deferReply()
+        
+        let cardtype, rngtype
 
         function DailyCD() {
             var CD = new Date(Date.now())
@@ -80,12 +84,15 @@ module.exports = {
             rng1 = Math.floor(Math.random() * type1.length)
             result = type1[rng1]
             Color = ColorList[0]
+            cardtype = chalk.hex(`${Color}`)('[Type: 1]')
         }
         //TYPE 2 ENTRY: RNG ITEM: TRUE/IMG URL: FALSE        
         else if (rng <= 75) {
             rng2 = Math.floor(Math.random() * type2.length)
             result = type2[rng2]
             Color = ColorList[1]
+            cardtype = chalk.hex(`${Color}`)('[Type: 2]')
+            rngtype = chalk.hex(`${Color}`)
         }
         //TYPE 3 ENTRY: RNG ITEM: TRUE/IMG_URL: TRUE
         else if (rng <= 90) {
@@ -93,6 +100,8 @@ module.exports = {
             result = type3e[rng3]
             img_url = type3l[rng3]
             Color = ColorList[2]
+            cardtype = chalk.hex(`${Color}`)('[Type: 3]')
+            rngtype = chalk.hex(`${Color}`)
         }
         //TYPE 4 ENTRY: RNG ITEM: FALSE/IMG_URL: TRUE
         else if (rng <= 99) {
@@ -100,17 +109,23 @@ module.exports = {
             result = type4e[rng4]
             img_url = type4l[rng4]
             Color = ColorList[3]
+            cardtype = chalk.hex(`${Color}`)('[Type: 4]')
+            rngtype = chalk.hex(`${Color}`)
         }
         //TYPE 5 ENTRY: RNG ITEM: FALSE/IMG_URL: TRUE/BONUS: BUTTON -> DMs
         else if (rng <= 99.5) {
             result = type5e[0]
             img_url = type5l[0]
             Color = ColorList[4]
+            cardtype = chalk.hex(`${Color}`)('[Type: 5]')
+            rngtype = chalk.hex(`${Color}`)
         }
         else {
             result = type5e[1]
             img_url = type5l[1]
             Color = ColorList[4]
+            cardtype = chalk.hex(`${Color}`)('[Type: 5]')
+            rngtype = chalk.hex(`${Color}`)
         }
 
         //EMBED TYPE 5 ENTRY
@@ -140,7 +155,7 @@ module.exports = {
             } if (data) {
                 const cduser = data.UserID
                 const CDTime = data.CDOmikuji
-                console.log('[Command: Omikuji]', cduser, CDTime, Date.now())
+                console.log(chalk.yellow('[Command: Omikuji]') + ` ${cduser}, ${CDTime}, ${Date.now()}`)
                 if (CDTime > Date.now()) { //Line Này Dùng /* Nếu Test Bỏ Qua CD
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')
@@ -163,7 +178,6 @@ module.exports = {
                         .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_Omikuji:1084322622491344937> | Thẻ Của Bạn Đang Được Rút... Xin Vui Lòng Chờ...`)
                         .setTimestamp(Date.now())
-                        .setImage(img_url)
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                     await interaction.editReply({
                         embeds: [DrawingCard]
@@ -243,7 +257,7 @@ module.exports = {
                             }
                         }
                     })
-                    console.log('========================================\nSố Encounter: ', rng, rng1, rng2, rng3, rng4, '\n========================================')
+                    console.log('========================================\n', cardtype,' Số Encounter: ', rngtype(`${rng}`), rng1, rng2, rng3, rng4, '\n========================================')
                 }
                 //Achievements On Omikuji
                 var a4key = "No", a5key = "No"

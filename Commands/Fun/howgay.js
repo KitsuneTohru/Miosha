@@ -8,6 +8,8 @@
 ========================================================*/
 
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
+const chalk = require('chalk')
+
 const wait = require('node:timers/promises').setTimeout;
 const cdSchema = require('../../Database/cooldown')
 const HGList = require('../../Assets/Howgay/hglist')
@@ -37,6 +39,7 @@ module.exports = {
         //Setup Nhẹ
         await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
+        let colortype
         //CDTime
         const cdtime = 45000
         //Lấy User Và AvgSet
@@ -167,13 +170,14 @@ module.exports = {
             var rng = Math.random() * 101.1
             rng = (Math.floor(rng * 10) / 10).toFixed(1)
             //rng = 0.1 //CHỈ GỠ KHI TEST (CẤM LẠM DỤNG NHÁ XD)
-            
+
             var img_url, color, result
 
             for (var i = 0; i < NumEntry.length; i++) {
                 if (rng <= NumEntry[i]) {
                     img_url = HGAsset[0][2]
                     color = HGColor[0][i]
+                    colortype = chalk.hex(`${color}`)
                     result = `Chỉ Số Gay Của ${user} Là: **${rng}%**\n` + EntryList[i][Math.floor(Math.random() * EntryList[i].length)]
                     for (var j = 0; j < SpecialEntry.length; j++) {
                         if (rng === SpecialEntry[j]) {
@@ -202,20 +206,27 @@ module.exports = {
                     break
                 }
             }
-            console.log('========================================\nRng Encounter:', rng, '\nRngv2 Encounter:', rngv2, '\n========================================')
+            console.log('========================================\nRng Encounter:', colortype(`${rng}`), '\nRngv2 Encounter:', rngv2, '\n========================================')
         }
         //avgbool == True
         else {
             var a = []
-            var avgpt = 0, colorv2, resultv2, resultv3, img_urlv2, rngv3
-            
+            var avgpt = 0, colorv2, resultv2, resultv3, img_urlv2, rngv3, colorv3
+
             for (var i = 0; i < 3; i++) {
                 rngv3 = Math.random() * 101.1
                 rngv3 = (Math.floor(rngv3 * 10) / 10).toFixed(1)
                 avgpt = avgpt + Number(rngv3)
+                for (var j = 0; j < NumEntry.length; j++) {
+                    if (rngv3 <= NumEntry[j]) {
+                        colorv3 = HGColor[0][j]
+                        colortype = chalk.hex(`${colorv3}`)
+                        break
+                    }
+                }
                 resultv2 = (`<a:LYG_Ping:900775951317737473> **|** Chỉ Số Gay Của ${user} **__(Lần: ${i + 1})__** Là: **${rngv3}%**`)
                 a[i] = resultv2
-                console.log('========================================\nTính Toán Theo Rngv3 (Lần', i + 1, ') =', rngv3, '\n========================================')
+                console.log('========================================\nTính Toán Theo Rngv3 (Lần', `${i + 1}) =`, colortype(`${rngv3}`), '\n========================================')
             }
 
             avgpt = avgpt / 3
@@ -226,6 +237,7 @@ module.exports = {
                 if (avgpt <= NumEntry[i]) {
                     img_urlv2 = HGAsset[0][2]
                     colorv2 = HGColor[0][i]
+                    colortype = chalk.hex(`${colorv2}`)
                     resultv3 = `Chỉ Số Gay Của ${user} Là: **${avgpt}%**\n` + EntryList[i][Math.floor(Math.random() * EntryList[i].length)]
                     for (var j = 0; j < SpecialEntry.length; j++) {
                         if (avgpt === SpecialEntry[j]) {
@@ -254,6 +266,7 @@ module.exports = {
                     break
                 }
             }
+            console.log('========================================\nAvgpt Calc:', colortype(`${avgpt}`), '\nRngv2 Encounter:', rngv2, '\n========================================')
         }
 
         const auser = interaction.user.id
@@ -277,7 +290,7 @@ module.exports = {
             } if (data) {
                 const cduser = data.UserID
                 const CDTime = data.CDHowgay
-                console.log('[Command: Howgay]', cduser, CDTime, Date.now())
+                console.log(chalk.yellow('[Command: Howgay]') + ` ${cduser}, ${CDTime}, ${Date.now()}`)
                 if (CDTime > Date.now() && !Bypass_) {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')

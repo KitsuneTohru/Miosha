@@ -1,4 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
+const chalk = require('chalk')
+
 const FooterEmbeds = require('../../Utils/embed')
 const wait = require('node:timers/promises').setTimeout;
 const shiprate = require('../../Assets/Shiprate/shiprateasset')
@@ -48,7 +50,7 @@ module.exports = {
             if (data) {
                 const cduser = data.UserID
                 const CDTime = data.CDShiprate
-                console.log('[Command: Shiprate]', cduser, CDTime, Date.now())
+                console.log(chalk.yellow('[Command: Shiprate]') + ` ${cduser}, ${CDTime}, ${Date.now()}`)
                 if (CDTime > Date.now() && !Bypass_) {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')

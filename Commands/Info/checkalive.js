@@ -1,4 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const chalk = require('chalk')
+
 const cdSchema = require('../../Database/cooldown')
 const FooterEmbeds = require('../../Utils/embed')
 
@@ -20,7 +22,7 @@ module.exports = {
             } if (data) {
                 const cduser = data.UserID
                 const CDTime = data.CDPing
-                console.log('[Command: Checkalive]', cduser, CDTime, Date.now())
+                console.log(chalk.yellow('[Command: Checkalive]') + ` ${cduser}, ${CDTime}, ${Date.now()}`)
 
                 let totalSeconds = (interaction.client.uptime / 1000)
                 let days = Math.floor(totalSeconds / 86400)

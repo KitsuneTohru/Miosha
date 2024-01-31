@@ -35,32 +35,45 @@ module.exports = async (client, message) => {
             key = true
     }
     if (key === false) return
+
     const xpToGive = Math.floor(Math.random() * 5) + 1 //Random Exp Line
-    const query = {
-        UserID: message.author.id,
-        GuildID: message.guild.id
-    }
-    try {
-        const level = await Level.findOne(query)
 
-        if (level) {
-            level.exp += xpToGive
-            level.total += xpToGive
+    Level.findOne({ UserID: message.author.id, GuildID: message.guild.id }, async (err, data) => {
+        if (err) throw err
+        if (!data) {
+            await Level.create({
+                UserID: message.author.id,
+                GuildID: message.guild.id,
+                exp: xpToGive,
+                total: xpToGive,
+                role: false,
+                background: false,
+                titleicon: false,
+                restrict: `Code-0`
+            })
+            cd.add(message.author.id)
+            setTimeout(() => {
+                cd.delete(message.author.id)
+            }, 3 * 1000) //CD Give Exp
+        }
+        if (data) {
+            data.exp += xpToGive
+            data.total += xpToGive
 
-            if (level.exp > LvlCalc(level.level)) {
-                level.exp = level.exp - LvlCalc(level.level)
-                level.level += 1
+            if (data.exp > LvlCalc(data.level)) {
+                data.exp = data.exp - LvlCalc(data.level)
+                data.level += 1
                 const LvlUpEmbed = new EmbedBuilder()
                     .setColor('White')
                     .setTitle(`**Server Ranking - Level Up**`)
                     .setAuthor({ name: `${message.author.username}`, iconURL: `${message.member.displayAvatarURL({ dynamic: true, size: 512 })}` })
-                    .setDescription(`**<:LYG_MioAwoo:942060912351772774> Chúc Mừng ${message.member} Đã Lên 1 Level!!!**\n> <:LYG_MioWink:1086172116916912198> Cấp Bậc Hiện Tại Của Bạn: **${level.level - 1} >>> ${level.level}**\n\n<a:OrinSway:1160295722009251870> *Nên Nhớ Rằng:* Level Càng Cao Thì Sẽ Có Nhiều Quyền Lợi Nhé!`)
+                    .setDescription(`**<:LYG_MioAwoo:942060912351772774> Chúc Mừng ${message.member} Đã Lên 1 Level!!!**\n> <:LYG_MioWink:1086172116916912198> Cấp Bậc Hiện Tại Của Bạn: **${data.level - 1} >>> ${data.level}**\n\n<a:OrinSway:1160295722009251870> *Nên Nhớ Rằng:* Level Càng Cao Thì Sẽ Có Nhiều Quyền Lợi Nhé!`)
                     .setTimestamp()
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                 channel1.send({ content: `<@${message.member.id}> Thông Báo Level Up`, embeds: [LvlUpEmbed] })
             }
-            if (level.level === 20 && level.role === false) {
-                level.role = true
+            if (data.level === 20 && data.role === false) {
+                data.role = true
                 const RoleRequestEmbed = new EmbedBuilder()
                     .setColor('Green')
                     .setTitle(`**Server Ranking - Role Request**`)
@@ -75,8 +88,8 @@ module.exports = async (client, message) => {
                 } catch (err) {
                     channel2.send({ content: `<@${message.member.id}> Thông Báo Nhận Role (Vì DMs Của Người Dùng Không Mở)`, embeds: [RoleRequestEmbed] })
                 }
-            } else if (level.level === 30 && level.background === false) {
-                level.background = true
+            } else if (data.level === 30 && data.background === false) {
+                data.background = true
                 const BackgroundRequestEmbed = new EmbedBuilder()
                     .setColor('Yellow')
                     .setTitle(`**Server Ranking - Background Request**`)
@@ -91,8 +104,8 @@ module.exports = async (client, message) => {
                 } catch (err) {
                     channel3.send({ content: `<@${message.member.id}> Thông Báo Nhận Role (Vì DMs Của Người Dùng Không Mở)`, embeds: [BackgroundRequestEmbed] })
                 }
-            } else if (level.level === 40 && level.titleicon === false) {
-                level.titleicon = true
+            } else if (data.level === 40 && data.titleicon === false) {
+                data.titleicon = true
                 const TitleIconRequestEmbed = new EmbedBuilder()
                     .setColor('Blue')
                     .setTitle(`**Server Ranking - Title Icon**`)
@@ -108,44 +121,17 @@ module.exports = async (client, message) => {
                     channel4.send({ content: `<@${message.member.id}> Thông Báo Nhận Role (Vì DMs Của Người Dùng Không Mở)`, embeds: [TitleIconRequestEmbed] })
                 }
             }
-            await level.save().catch((e) => {
-                console.log(`Lỗi Khi Update Level: ${e}`)
-                return
-            })
-            cd.add(message.author.id)
-            setTimeout(() => {
-                cd.delete(message.author.id)
-            }, 3 * 1000) //CD Give Exp
-        }
-        //if (!level)
-        else {
-            const newLevel = new Level({
-                UserID: message.author.id,
-                GuildID: message.guild.id,
-                exp: xpToGive,
-                total: xpToGive,
-                role: false,
-                background: false,
-                titleicon: false,
-            })
-            await newLevel.save()
             
             cd.add(message.author.id)
             setTimeout(() => {
                 cd.delete(message.author.id)
             }, 3 * 1000) //CD Give Exp
-        }
-    } catch (error) {
-        console.log(`Lỗi Khi Ném Exp: ${error}`)
-    }
 
-    Level.findOne({ UserID: message.author.id }, async (err, data) => {
-        if (err) throw err
-        if (!data) return
-        if (data) {
             const level = data.level
             const total = data.total
-
+            const restriction = data.restrict || 'Code-0'
+            data.restrict = restriction
+            data.save()
             if (level > 0 && level <= 4) {
                 const role = message.guild.roles.cache.get(RankingRoles[0])
                 if ((level % 4) === 0) {
@@ -167,15 +153,19 @@ module.exports = async (client, message) => {
                 }
             }
             if (total >= 12000) {
-                const role3 = message.guild.roles.cache.get('967803874259898388')
-                if (!message.member.roles.cache.has('967803874259898388')) {
-                    message.member.roles.add(role3)
+                if (restriction !== 'Code-1' && restriction !== 'Code-3') {
+                    const role3 = message.guild.roles.cache.get('967803874259898388')
+                    if (!message.member.roles.cache.has('967803874259898388')) {
+                        message.member.roles.add(role3)
+                    }
                 }
             }
             if (total >= 60000) {
-                const role4 = message.guild.roles.cache.get('900750143605866516')
-                if (!message.member.roles.cache.has('900750143605866516')) {
-                    message.member.roles.add(role4)
+                if (restriction !== 'Code-2' && restriction !== 'Code-3') {
+                    const role4 = message.guild.roles.cache.get('900750143605866516')
+                    if (!message.member.roles.cache.has('900750143605866516')) {
+                        message.member.roles.add(role4)
+                    }
                 }
             }
         }

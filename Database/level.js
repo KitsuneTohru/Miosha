@@ -1,5 +1,5 @@
 const { model, Schema } = require('mongoose')
-    
+
 const LvlSchema = new Schema({
     UserID: {
         type: String,
@@ -32,7 +32,11 @@ const LvlSchema = new Schema({
     titleicon: {
         type: Boolean,
         default: false
-    }, 
+    },
+    restrict: {
+        type: String,
+        required: false
+    } 
 })
 
 module.exports = model('Level', LvlSchema)

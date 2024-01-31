@@ -12,6 +12,8 @@ const Type5Entries = require('../../Assets/Omikuji/type5')
 const FooterEmbeds = require('../../Utils/embed')
 const AchievementList = require('../../Database/achievement')
 const AchievementAssets = require('../../Assets/Achievements/achievements')
+//const BypassList = require('../../Utils/cdbypass')
+const OmikujiTracker = require('../../Database/omikujitracking')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -19,7 +21,7 @@ module.exports = {
         .setDescription('Dùng Để Rút Quẻ May Mắn Hàng Ngày (Reset CD: 5h Sáng UTC+7)'),
     async execute(interaction) {
         await interaction.deferReply()
-        
+
         let cardtype, rngtype
 
         function DailyCD() {
@@ -71,26 +73,30 @@ module.exports = {
         //ENTRY RUN
         let result;
         //ENTRY SET
-        const type1 = Type1Entries
-        const type2 = Type2Entries
+        const type1 = Type1Entries[0]
+        const type2 = Type2Entries[0]
         const type3e = Type3Entries[0]
         const type3l = Type3Entries[1]
         const type4e = Type4Entries[0]
         const type4l = Type4Entries[1]
         const type5e = Type5Entries[0]
         const type5l = Type5Entries[1]
+        var KeyPos
         //TYPE 1 ENTRY: RNG ITEM: TRUE/IMG URL: FALSE
         if (rng <= 50) {
             rng1 = Math.floor(Math.random() * type1.length)
             result = type1[rng1]
+            KeyPos = `1${rng1}`
             Color = ColorList[0]
             cardtype = chalk.hex(`${Color}`)('[Type: 1]')
+            rngtype = chalk.hex(`${Color}`)
         }
         //TYPE 2 ENTRY: RNG ITEM: TRUE/IMG URL: FALSE        
         else if (rng <= 75) {
             rng2 = Math.floor(Math.random() * type2.length)
             result = type2[rng2]
             Color = ColorList[1]
+            KeyPos = `2${rng2}`
             cardtype = chalk.hex(`${Color}`)('[Type: 2]')
             rngtype = chalk.hex(`${Color}`)
         }
@@ -100,6 +106,7 @@ module.exports = {
             result = type3e[rng3]
             img_url = type3l[rng3]
             Color = ColorList[2]
+            KeyPos = `3${rng3}`
             cardtype = chalk.hex(`${Color}`)('[Type: 3]')
             rngtype = chalk.hex(`${Color}`)
         }
@@ -109,6 +116,7 @@ module.exports = {
             result = type4e[rng4]
             img_url = type4l[rng4]
             Color = ColorList[3]
+            KeyPos = `4${rng4}`
             cardtype = chalk.hex(`${Color}`)('[Type: 4]')
             rngtype = chalk.hex(`${Color}`)
         }
@@ -117,6 +125,7 @@ module.exports = {
             result = type5e[0]
             img_url = type5l[0]
             Color = ColorList[4]
+            KeyPos = `50`
             cardtype = chalk.hex(`${Color}`)('[Type: 5]')
             rngtype = chalk.hex(`${Color}`)
         }
@@ -124,6 +133,7 @@ module.exports = {
             result = type5e[1]
             img_url = type5l[1]
             Color = ColorList[4]
+            KeyPos = `51`
             cardtype = chalk.hex(`${Color}`)('[Type: 5]')
             rngtype = chalk.hex(`${Color}`)
         }
@@ -145,6 +155,18 @@ module.exports = {
             .setTimestamp(Date.now())
             .setImage(img_url)
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
+
+        /*const auser = interaction.user.id
+        const CDPassList = BypassList
+        function BypassCD(auser) {
+            for (var i in CDPassList) {
+                if (auser === CDPassList[i]) {
+                    return true
+                }
+            }
+            return false
+        }
+        const Bypass_ = BypassCD(auser)*/
         cdSchema.findOne({ UserID: interaction.user.id }, async (err, data) => {
             if (err) throw err
             if (!data) {
@@ -156,7 +178,7 @@ module.exports = {
                 const cduser = data.UserID
                 const CDTime = data.CDOmikuji
                 console.log(chalk.yellow('[Command: Omikuji]') + ` ${cduser}, ${CDTime}, ${Date.now()}`)
-                if (CDTime > Date.now()) { //Line Này Dùng /* Nếu Test Bỏ Qua CD
+                if (CDTime > Date.now() /*&& !Bypass_*/) { //Line Này Dùng /* Nếu Test Bỏ Qua CD
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')
                         .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
@@ -171,6 +193,87 @@ module.exports = {
                 else { //Line Này Dùng // Nếu Bỏ Qua CD
                     data.CDOmikuji = Daily_CD
                     data.save()
+                    OmikujiTracker.findOne({ GuildID: interaction.guild.id }, async (err, data0) => {
+                        if (err) throw err
+                        if (!data0) {
+                            let T1 = [], T2 = [], T3 = [], T4 = [], T5 = []
+                            for (var i = 0; i < type1.length; i++) {
+                                T1.push('0')
+                            }
+                            for (var i = 0; i < type2.length; i++) {
+                                T2.push('0')
+                            }
+                            for (var i = 0; i < type3e.length; i++) {
+                                T3.push('0')
+                            }
+                            for (var i = 0; i < type4e.length; i++) {
+                                T4.push('0')
+                            }
+                            for (var i = 0; i < type5e.length; i++) {
+                                T5.push('0')
+                            }
+                            OmikujiTracker.create({
+                                GuildID: interaction.guild.id,
+                                Type1: T1,
+                                Type2: T2,
+                                Type3: T3,
+                                Type4: T4,
+                                Type5: T5
+                            })
+                        }
+                        if (data0) {
+                            const Types = [
+                                data0.Type5,
+                                data0.Type4,
+                                data0.Type3,
+                                data0.Type2,
+                                data0.Type1
+                            ]
+                            const TypeKey = Number(KeyPos.slice(0, 1))
+                            const TypePos = Number(KeyPos.slice(1))
+
+                            var NewData
+                            switch (TypeKey) {
+                                case 1:
+                                    {
+                                        NewData = Types[4]
+                                        NewData[TypePos]++
+                                        data0.Type1 = NewData
+                                        break
+                                    }
+                                case 2:
+                                    {
+                                        NewData = Types[3]
+                                        NewData[TypePos]++
+                                        data0.Type2 = NewData
+                                        break
+                                    }
+                                case 3:
+                                    {
+                                        NewData = Types[2]
+                                        NewData[TypePos]++
+                                        data0.Type3 = NewData
+                                        break
+                                    }
+                                case 4:
+                                    {
+                                        NewData = Types[1]
+                                        NewData[TypePos]++
+                                        data0.Type4 = NewData
+                                        break
+                                    }
+                                case 5:
+                                    {
+                                        NewData = Types[0]
+                                        NewData[TypePos]++
+                                        data0.Type5 = NewData
+                                        break
+                                    }
+                            }
+                            data0.save()
+                            console.log(`${chalk.yellow('[DEBUG]')} Guild ID: ${chalk.magentaBright(interaction.guild.id)}\n${chalk.yellow('[DEBUG]')} Arr Type List: ${chalk.hex('#fffa00')(Types[0])} ${chalk.hex('#c76efa')(Types[1])} ${chalk.hex('#84eeff')(Types[2])} ${chalk.hex('#9aff84')(Types[3])} ${chalk.hex('#b9b9b9')(Types[4])}\n${chalk.yellow('[DEBUG]')} EntryKey: ${chalk.cyanBright(`${KeyPos} [${TypeKey} • ${TypePos}]`)}\n${chalk.cyan('[LOG]')} ${cardtype}\n${chalk.cyan('[LOG]')} Số Encounter: ${rngtype(`${rng}`)}`)
+                        }
+                    })
                     //EMBED READY
                     const DrawingCard = new EmbedBuilder()
                         .setColor('White')
@@ -257,7 +360,6 @@ module.exports = {
                             }
                         }
                     })
-                    console.log('========================================\n', cardtype,' Số Encounter: ', rngtype(`${rng}`), rng1, rng2, rng3, rng4, '\n========================================')
                 }
                 //Achievements On Omikuji
                 var a4key = "No", a5key = "No"

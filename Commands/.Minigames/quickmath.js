@@ -527,14 +527,15 @@ module.exports = {
         function SetAccuracy(MsgCount) {
             switch (Number(MsgCount)) {
                 case 0:
+                case 1:
                     {
                         return Time
                     }
-                case 1:
+                case 2:
                     {
                         return Time * 0.6
                     }
-                case 2:
+                case 3:
                     {
                         return Time * 0.3
                     }
@@ -548,14 +549,15 @@ module.exports = {
         function SetMultiAcc(MsgCount) {
             switch (Number(MsgCount)) {
                 case 0:
+                case 1:
                     {
                         return 1
                     }
-                case 1:
+                case 2:
                     {
                         return 1 / 3
                     }
-                case 2:
+                case 3:
                     {
                         return 1 / 6
                     }

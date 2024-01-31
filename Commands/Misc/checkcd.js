@@ -46,11 +46,11 @@ module.exports = {
             }
             if (data) {
                 const CDList = [
-                    Math.floor(data.CDRank / 1000),
-                    Math.floor(data.CDTop / 1000),
-                    Math.floor(data.CDQuickMath / 1000),
-                    Math.floor(data.CDHowgay / 1000),
-                    Math.floor(data.CDOmikuji / 1000),
+                    Math.floor(data.CDRank / 1000) || null,
+                    Math.floor(data.CDTop / 1000) || null,
+                    Math.floor(data.CDQuickMath / 1000) || null,
+                    Math.floor(data.CDHowgay / 1000) || null,
+                    Math.floor(data.CDOmikuji / 1000) || null,
                     
                 ]
                 const CmdName = [
@@ -71,7 +71,7 @@ module.exports = {
                 var finalresult = ''
                 if (!Bypass_) {
                     for (var i = n; i < CDList.length; i++) {
-                        if (CDList[i] > (Date.now() / 1000)) {
+                        if (CDList[i] > (Date.now() / 1000) && CDList[i] !== null) {
                             CDTimeChr[i] = `${CmdName[i]} (<t:${CDList[i]}:R>)\n`
                         } else {
                             CDTimeChr[i] = `${CmdName[i]} (Có Thể Dùng)\n`
@@ -95,12 +95,12 @@ module.exports = {
                     }
 
                     var Omikuji = `${CmdName[CmdName.length - 1]} (<t:${CDList[CDList.length - 1]}:R>)\n`
-                    if ((Date.now() / 1000) > CDList[CDList.length - 1]) {
+                    if ((Date.now() / 1000) > CDList[CDList.length - 1] || CDList[CDList.length - 1] === null) {
                         Omikuji = `${CmdName[CmdName.length - 1]} (Có Thể Dùng)\n`
                     }
 
                     var QuickMath = `${CmdName[2]} (<t:${CDList[2]}:R>)\n`
-                    if ((Date.now() / 1000) > CDList[2]) {
+                    if ((Date.now() / 1000) > CDList[2] || CDList[2] === null ) {
                         QuickMath = `${CmdName[2]} (Có Thể Dùng)\n`
                     }
                     result.push(Omikuji)

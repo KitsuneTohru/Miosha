@@ -20,6 +20,17 @@ const Type3Entries = [
         'https://cdn.discordapp.com/attachments/1183257186521067645/1183358471677165618/Koishi.gif',
         'https://cdn.discordapp.com/attachments/1183257186521067645/1183310770684035132/Orin.gif',
         'https://cdn.discordapp.com/attachments/1183257186521067645/1183311837282959460/Okuu.gif'
+    ],
+    [
+        `Lời Chúc Phúc Từ Venti`,
+        `Lời Khuyên Từ Zhongli`,
+        `Nỗi Niềm Của Ei`,
+        `Chia Sẻ Của Nahida`,
+        `Tâm Sự Mỏng Của Furina`,
+        `Satori - Yên Tĩnh Là Trên Hết`,
+        `Koishi - Vô Tư Không Lo Nghĩ`,
+        `Orin - The Blazing Cat`,
+        `Okuu - The Hell Raven`
     ]
 ]
 /*Type 3 Entries

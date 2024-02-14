@@ -16,6 +16,7 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
 
         OmikujiTracker.findOne({ GuildID: interaction.guild.id }, async (err, data) => {
             if (err) throw err
@@ -23,7 +24,7 @@ module.exports = {
                 const NoData = new EmbedBuilder()
                     .setColor('DarkGreen')
                     .setTitle(`**No Data**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Server ${interaction.guild.name} Hiện Tại Không Có Tí Dữ Liệu Nào Cả!`)
                     .setTimestamp()
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -54,7 +55,7 @@ module.exports = {
                     '<:2_s:1193596744685060127>',
                     '<:1_s:1193597415945678988>'
                 ]
-                
+
                 for (var i = 0; i < Types.length; i++) {
                     let tdesc = `\n\n> ${EmojiType[i]} **Type ${Types.length - i}**`
                     var s = 0
@@ -63,14 +64,14 @@ module.exports = {
                         s += Number(Types[i][j])
                         PreDesc += `- ${CardName[i][j]}: \`(${Types[i][j]})\`\n`
                         if (j === Types[i].length - 1) {
-                            desc += `${tdesc} **\`(${s})\`**\n\n${PreDesc}`
+                            desc += `${tdesc} ▸ **\`(${s})\`** ◂\n\n${PreDesc}`
                         }
                     }
                 }
                 const TrackerEmbed = new EmbedBuilder()
                     .setColor('White')
                     .setTitle(`**Miosha - Check Số Lần Rút Thẻ Omikuji Ở Server**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`${desc}`)
                     .setTimestamp()
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })

@@ -16,6 +16,7 @@ module.exports = {
         await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
         const user = interaction.options.getUser('user') || interaction.user
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
 
         AchievementList.findOne({ UserID: user.id }, async (err, data) => {
             if (err) return err
@@ -23,7 +24,7 @@ module.exports = {
                 const NoData = new EmbedBuilder()
                     .setColor('DarkGreen')
                     .setTitle(`**No Achievement Data**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Người Dùng Là ${user} Hiện Không Có Thành Tựu Nào Cả`)
                     .setTimestamp()
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -67,7 +68,7 @@ module.exports = {
 
                 //Desc Chuẩn Chính
                 var desc = `<:SanaeSparkle:1152875383293743184> • **Số Thành Tựu Của ${user}:** ${ACounts}/${AKeys.length}`
-                
+
                 //Gộp 2 Mảng Desc Chuẩn Và Type, Tạo Desc Raw
                 var ALog2 = []
                 for (var i = 0; i < ALog.length; i++) {
@@ -125,7 +126,7 @@ module.exports = {
                 const AchievementEmbed = new EmbedBuilder()
                     .setColor('White')
                     .setTitle(`**Miosha - Check Thành Tựu**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`${desc}`)
                     .setTimestamp()
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })

@@ -73,6 +73,7 @@ module.exports = {
         const CDList = [600000, 480000, 360000, 240000, 120000]
         const Time1 = MathGameAsset[5][0], Time2 = MathGameAsset[5][1], Bonus1 = MathGameAsset[6][0], Bonus2 = MathGameAsset[6][1]
 
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
         //Tạo Dựng Time Và Bonus Cho Key None Và Extra
         for (var i = 0; i < KeyList.length; i++) {
             if (GameKey === KeyList[i]) {
@@ -527,9 +528,12 @@ module.exports = {
         function SetAccuracy(MsgCount) {
             switch (Number(MsgCount)) {
                 case 0:
-                case 1:
                     {
                         return Time
+                    }
+                case 1:
+                    {
+                        return Time * 0.6
                     }
                 case 2:
                     {
@@ -549,9 +553,12 @@ module.exports = {
         function SetMultiAcc(MsgCount) {
             switch (Number(MsgCount)) {
                 case 0:
-                case 1:
                     {
                         return 1
+                    }
+                case 1:
+                    {
+                        return 1 / 3
                     }
                 case 2:
                     {
@@ -584,7 +591,7 @@ module.exports = {
         if (!ChannelKey) {
             const WrongChannel = new EmbedBuilder()
                 .setColor('DarkRed')
-                .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+               .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                 .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                 .setTitle('<a:LYG_TighnariNotes:1090126010571300874> **Minigame - QuickMath**')
                 .setDescription(`<:OrinBruh:1160295126996881448> ${user} Oi Nhầm Kênh Rồi, Qua Kênh <#1195982067780042863> Để Có Thể Dùng Lệnh Nhé!`)
@@ -624,7 +631,7 @@ module.exports = {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')
                         .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
-                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                       .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -655,7 +662,7 @@ module.exports = {
                         }
                         const StartEmbed = new EmbedBuilder()
                             .setColor(Color)
-                            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                           .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                             .setTitle('<a:LYG_TighnariNotes:1090126010571300874> **Minigame - QuickMath**')
                             .setDescription(`${desc1}`)
@@ -686,7 +693,7 @@ module.exports = {
                                 }
                                 const RunEmbed = new EmbedBuilder()
                                     .setColor(Color)
-                                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                                   .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                                     .setTitle('<a:LYG_TighnariNotes:1090126010571300874> **Minigame - QuickMath**')
                                     .setDescription(`${InGameDesc}`)
@@ -739,7 +746,7 @@ module.exports = {
                                         }
                                         const GameOverEmbed = new EmbedBuilder()
                                             .setColor(Color)
-                                            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                                           .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                                             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                                             .setTitle('<a:LYG_TighnariNotes:1090126010571300874> **Minigame - QuickMath**')
                                             .setDescription(`${desc2}`)

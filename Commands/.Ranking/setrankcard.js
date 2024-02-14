@@ -24,10 +24,12 @@ module.exports = {
         await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
         const cardtype = interaction.options.getString('type')
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
+
         if (cardtype === 'type1' || cardtype === 'type2') {
-            const special_txt = '`'+cardtype+'`'
+            const special_txt = '`' + cardtype + '`'
             const CardTypeEmbed = new EmbedBuilder()
-                .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                 .setTitle(`<a:OrinPopcorn:1146170440738406572> **Lazy Gang - Set Rankcard**`)
                 .setColor('Blurple')
                 .setDescription(`> Đã Thay Đổi Kiểu Rank Card Cho Người Dùng ${interaction.user}\n> Loại Rank Card: ${special_txt}`)

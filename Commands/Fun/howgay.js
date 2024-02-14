@@ -40,6 +40,7 @@ module.exports = {
         await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
         let colortype
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
         //CDTime
         const cdtime = 45000
         //Lấy User Và AvgSet
@@ -61,7 +62,7 @@ module.exports = {
         const easter_result = '<:LYG_XD:1087375888276000788> **|** Không Sao Không Sao, Có Chủ Nhân Ở Đây Biến Đổi Cậu Rồi, Cậu Sẽ Là Thuộc Hạ Của Tôi Thôi\nSrc: Manga From: **Shio Ayatsuki** ||Thực Chất Là Bộ "210" Đấy Á =))||'
         const spcl_chr = ('`/howgay`')
         const H100PlusEmbed = new EmbedBuilder()
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setTitle('🏳️‍🌈 **- Bí Mật Của Command XD...**')
             .setColor(HGColor[1][1])
             .setDescription(`${easter_result}`)
@@ -70,7 +71,7 @@ module.exports = {
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
         //Chờ Embed...
         const CalcEmbed = new EmbedBuilder()
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
             .setColor('#FFFFFF')
             .setDescription(`<a:LYG_LoadSlot:1087377575107645569> **|** Hệ Thống Đang Kiểm Tra Độ Gay Của ${user}... Xin Chờ Một Lát...\n**LƯU Ý:** Đừng Lấy Chuyện Này Làm Chuyện Nghiêm Túc Nhá! Quạo Rồi Không Ai Chịu Trách Nhiệm Đâu!`)
@@ -98,7 +99,7 @@ module.exports = {
         }
 
         const SpecialEmbed = new EmbedBuilder()
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
             .setColor('#6E0000')
             .setDescription(lock_desc)
@@ -140,7 +141,7 @@ module.exports = {
                 }
                 const BanEmbed = new EmbedBuilder()
                     .setColor('DarkOrange')
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                     .setTitle('<:OrinMenace:1169857691456372766> **Banned From Using Command**')
                     .setDescription(`<a:LYG_FububiShake:1129764112004558950> • Bạn Đã Bị BAN, Bạn Hoàn Toàn KHÔNG CÓ QUYỀN ĐƯỢC SỬ DỤNG LỆNH NÀY!!!\n<a:LYG_Clock:1084322030331105370> **Thời Gian Bị Ban:** ${timetxt} `)
@@ -152,7 +153,7 @@ module.exports = {
                 //Unban Embed
                 const UnbanEmbed = new EmbedBuilder()
                     .setColor('DarkGreen')
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                     .setTitle('<:YayyShinki:1184437427050381342> **Unbanned From Using Command**')
                     .setDescription(`<a:LYG_FububiShake:1129764112004558950> • Đã Gỡ Ban Sử Dụng Command Này Cho Bạn, Vì Vậy Hãy Cẩn Thận Khi Động Phải Nhầm Người Nhá!`)
@@ -295,7 +296,7 @@ module.exports = {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')
                         .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
-                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -318,7 +319,7 @@ module.exports = {
                             })
                             await wait(1000)
                             const GayEmbed_1 = new EmbedBuilder()
-                                .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                                .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                                 .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
                                 .setColor(color)
                                 .setDescription(`${result}`)
@@ -362,7 +363,7 @@ module.exports = {
                                     finalcolor = color2
                                 }
                                 AvgGayEmbed[count] = new EmbedBuilder()
-                                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                                     .setTitle('🏳️‍🌈 **- Check Chỉ Số Gay Của Ai Đó...**')
                                     .setColor(finalcolor)
                                     .setDescription(avgdesc[count])

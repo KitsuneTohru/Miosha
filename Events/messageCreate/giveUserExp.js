@@ -24,8 +24,17 @@ module.exports = async (client, message) => {
 
     if (message.channel.type === ChannelType.DM || message.channel.type === ChannelType.GroupDM) return
     if (message.guild.id !== '900742301373042809' || message.author.bot || cd.has(message.author.id)) return
-
     if ((message.content.length) <= 1) return
+
+    let xpToGive = Math.floor(Math.random() * 5) + 1 //Random Exp Line
+    let expCD = 3000 //CD Exp Line
+
+    const iuser = await message.guild.members.fetch(message.author.id)
+
+    if (Date.now() < 1708275600000) {
+        xpToGive = Math.floor(Math.random() * 15) + 1
+        expCD = 5000
+    }
 
     const DMUser = message.author
     const WhiteList = WhiteListedChannel
@@ -36,7 +45,7 @@ module.exports = async (client, message) => {
     }
     if (key === false) return
 
-    const xpToGive = Math.floor(Math.random() * 5) + 1 //Random Exp Line
+
 
     Level.findOne({ UserID: message.author.id, GuildID: message.guild.id }, async (err, data) => {
         if (err) throw err
@@ -54,7 +63,8 @@ module.exports = async (client, message) => {
             cd.add(message.author.id)
             setTimeout(() => {
                 cd.delete(message.author.id)
-            }, 3 * 1000) //CD Give Exp
+            }, expCD) //CD Give Exp
+
         }
         if (data) {
             data.exp += xpToGive
@@ -66,7 +76,7 @@ module.exports = async (client, message) => {
                 const LvlUpEmbed = new EmbedBuilder()
                     .setColor('White')
                     .setTitle(`**Server Ranking - Level Up**`)
-                    .setAuthor({ name: `${message.author.username}`, iconURL: `${message.member.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${message.author.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`**<:LYG_MioAwoo:942060912351772774> Chúc Mừng ${message.member} Đã Lên 1 Level!!!**\n> <:LYG_MioWink:1086172116916912198> Cấp Bậc Hiện Tại Của Bạn: **${data.level - 1} >>> ${data.level}**\n\n<a:OrinSway:1160295722009251870> *Nên Nhớ Rằng:* Level Càng Cao Thì Sẽ Có Nhiều Quyền Lợi Nhé!`)
                     .setTimestamp()
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -77,7 +87,7 @@ module.exports = async (client, message) => {
                 const RoleRequestEmbed = new EmbedBuilder()
                     .setColor('Green')
                     .setTitle(`**Server Ranking - Role Request**`)
-                    .setAuthor({ name: `${message.author.username}`, iconURL: `${message.member.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${message.author.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`<:LYG_MioAwoo:942060912351772774> Chúc Mừng ${message.member} Đã Chạm **Level 20!!!**\n> <:LYG_MioWink:1086172116916912198> Bạn Đã **Có Đủ** Điều Kiện Để Nhận Role Riêng Rồi Nhé!\n\n<:FeelsRan:1152866964637745215> • **Tên Role:** *(Tên Tự Chọn)*\n<:FeelsYukari:1152873847113134140> • **Màu Role:** *(Màu Tự Chọn Theo Mã Hex)*\n\n<:YuyukoWoke:1152872728194469888> **Lưu Ý:** Bạn Đã Có Role Riêng Trước Đó Rồi Thì **MIỄN XIN ROLE** Nhá! Chỉ Có Quyền Thay Tên Và Màu Role Thôi!`)
                     .setTimestamp()
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -93,7 +103,7 @@ module.exports = async (client, message) => {
                 const BackgroundRequestEmbed = new EmbedBuilder()
                     .setColor('Yellow')
                     .setTitle(`**Server Ranking - Background Request**`)
-                    .setAuthor({ name: `${message.author.username}`, iconURL: `${message.member.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${message.author.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`<:LYG_MioAwoo:942060912351772774> Chúc Mừng ${message.member} Đã Chạm **Level 30!!!**\n> <:LYG_MioWink:1086172116916912198> Bạn Đã **Có Đủ** Điều Kiện Để Mở Background Riêng Rồi Nhé!\n\n<:FeelsYoumu:1152874972876898364> Loại Ảnh Dùng Cho Background Bạn Có Quyền Chọn Nhé! **Kích Cỡ Ảnh** (934px ⨯ 282px)\n\n<:YuyukoWoke:1152872728194469888> **Lưu Ý:** Bạn Đã Có Background Trước Đó Rồi Thì **MIỄN XIN BACKGROUND** Nhá! Chỉ Có Quyền Thay Ảnh Background Thôi!`)
                     .setTimestamp()
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -109,7 +119,7 @@ module.exports = async (client, message) => {
                 const TitleIconRequestEmbed = new EmbedBuilder()
                     .setColor('Blue')
                     .setTitle(`**Server Ranking - Title Icon**`)
-                    .setAuthor({ name: `${message.author.username}`, iconURL: `${message.member.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${message.author.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`<:LYG_MioAwoo:942060912351772774> Chúc Mừng ${message.member} Đã Chạm **Level 40!!!**\n> <:LYG_MioWink:1086172116916912198> Bạn Đã **Có Đủ** Điều Kiện Để Mở Title Và Icon Riêng Rồi Nhé!\n\n<:FeelsOrin:1152867805692170281> **Icon:** Ảnh 1:1 Bất Kì\n<:FeelsYuyuko:1152872215583408138> **Title:** Dòng Title Bất Kì Nhưng **Không Quá 45 Kí Tự (Tính Cả Dấu Cách) VÀ BẰNG TIẾNG ANH** Nhá!\n\n<:YuyukoWoke:1152872728194469888> **Lưu Ý:** Bạn Đã Có Title Và Icon Trước Đó Rồi Thì **MIỄN XIN TITLE VÀ ICON** Nhá! Chỉ Có Quyền Thay Title Và Icon Thôi!`)
                     .setTimestamp()
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -121,11 +131,10 @@ module.exports = async (client, message) => {
                     channel4.send({ content: `<@${message.member.id}> Thông Báo Nhận Role (Vì DMs Của Người Dùng Không Mở)`, embeds: [TitleIconRequestEmbed] })
                 }
             }
-            
             cd.add(message.author.id)
             setTimeout(() => {
                 cd.delete(message.author.id)
-            }, 3 * 1000) //CD Give Exp
+            }, expCD) //CD Give Exp
 
             const level = data.level
             const total = data.total
@@ -143,9 +152,14 @@ module.exports = async (client, message) => {
                 for (var i = 0; i < RankingRoles.length; i++) {
                     var role1 = message.guild.roles.cache.get(RankingRoles[i])
                     var role2 = message.guild.roles.cache.get(RankingRoles[i + 1])
+
                     if (((level / 4) - 1) === RankingRoles.indexOf(RankingRoles[i + 1]) && level <= RankingRoles.length * 3) {
                         if (!message.member.roles.cache.has(RankingRoles[i + 1])) {
                             message.member.roles.add(role2)
+                            message.member.roles.remove(role1)
+                            break
+                        }
+                        if (message.member.roles.cache.has(RankingRoles[i]) && level < 48) {
                             message.member.roles.remove(role1)
                             break
                         }
@@ -233,7 +247,7 @@ module.exports = async (client, message) => {
             const RankingAchivements = new EmbedBuilder()
                 .setColor(achievementcolor)
                 .setTitle(`<:YuyukoWoah:1152872168439423050> **Achievement Unlocked!!!**`)
-                .setAuthor({ name: `${message.author.username}`, iconURL: `${message.member.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                .setAuthor({ name: `${message.author.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                 .setDescription(`${achievementdesc}`)
                 .setTimestamp()
                 .setImage(achievementlink)

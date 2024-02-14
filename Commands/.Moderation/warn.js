@@ -30,10 +30,12 @@ module.exports = {
         const usemem = await interaction.guild.members.fetch(interaction.user.id)
         const logchannel = await interaction.guild.channels.fetch('1165537322943643678')
 
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
+
         const NoPerm = new EmbedBuilder()
             .setColor('DarkAqua')
             .setTitle(`<:OrinBruh:1160295126996881448> Không Đủ Thẩm Quyền`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Bạn Không Có Đủ Thẩm Quyền, Làm Thế Nào Bạn Có Thể Dùng Lệnh Hả???`)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -41,7 +43,7 @@ module.exports = {
         const ErrEmbed = new EmbedBuilder()
             .setColor('Green')
             .setTitle(`Miosha#5189 - Warn`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Bạn Không Thể Cảnh Cáo ${target} Được Vì Tớ Không Đủ Thẩm Quyền!!!`)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -49,7 +51,7 @@ module.exports = {
         const WarnEmbed = new EmbedBuilder()
             .setColor('Yellow')
             .setTitle(`Miosha#5189 - Warn`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_RushiaKnife:977202151480766565> | Đã Cảnh Cáo Người Dùng ${target}\n> **Lí Do Cảnh Cáo:** ${reason}`)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -84,7 +86,7 @@ module.exports = {
                 const LogEmbed = new EmbedBuilder()
                     .setColor('Yellow')
                     .setTitle(`Miosha#5189 - Logger`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`<:LYG_RushiaKnife:977202151480766565> **__Hành Động: Warn__**\n\n> **Người Dùng:** ${target}\n> **Lí Do Cảnh Cáo:** ${reason}\n> **Người Thực Hiện:** ${interaction.user}`)
                     .setTimestamp()
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -100,8 +102,8 @@ module.exports = {
                         })
                     }
                     if (data) {
-                       data.WarnReasons.push(reason)
-                       data.save()
+                        data.WarnReasons.push(reason)
+                        data.save()
                     }
                 })
             }

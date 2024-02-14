@@ -17,6 +17,7 @@ module.exports = {
         const FooterEmbeds_ = FooterEmbeds
 
         const checkuser = interaction.options.getUser('user') || interaction.user
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
 
         const auser = interaction.user.id
         function BypassCD(auser) {
@@ -36,7 +37,7 @@ module.exports = {
                 const NoData = new EmbedBuilder()
                     .setColor('Red')
                     .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Check Cooldown**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`${checkuser} Không Có Sử Dụng Bất Cứ Lệnh Nào, Thì Làm Sao Check?`)
                     .setTimestamp()
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -51,14 +52,14 @@ module.exports = {
                     Math.floor(data.CDQuickMath / 1000) || null,
                     Math.floor(data.CDHowgay / 1000) || null,
                     Math.floor(data.CDOmikuji / 1000) || null,
-                    
+
                 ]
                 const CmdName = [
                     '**Rank:**',
                     '**Top:**',
                     '**QuickMath:**',
                     '**Howgay:**',
-                    '**Omikuji:**', 
+                    '**Omikuji:**',
                 ]
                 var n
                 if (interaction.guild.id === '900742301373042809') {
@@ -100,7 +101,7 @@ module.exports = {
                     }
 
                     var QuickMath = `${CmdName[2]} (<t:${CDList[2]}:R>)\n`
-                    if ((Date.now() / 1000) > CDList[2] || CDList[2] === null ) {
+                    if ((Date.now() / 1000) > CDList[2] || CDList[2] === null) {
                         QuickMath = `${CmdName[2]} (Có Thể Dùng)\n`
                     }
                     result.push(Omikuji)
@@ -123,7 +124,7 @@ module.exports = {
                 const CDCheckEmbed = new EmbedBuilder()
                     .setColor('White')
                     .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Check Cooldown**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(finalresult)
                     .setTimestamp()
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })

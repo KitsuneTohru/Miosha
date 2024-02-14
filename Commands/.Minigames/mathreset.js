@@ -10,7 +10,9 @@ module.exports = {
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
         await interaction.deferReply()
+
         const FooterEmbeds_ = FooterEmbeds
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
 
         const ButtonChoice = new ActionRowBuilder()
             .addComponents(
@@ -28,27 +30,27 @@ module.exports = {
         const ResetEmbedChoice = new EmbedBuilder()
             .setColor('#FFFFFF')
             .setTitle(`**QuickMath - Reset**`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+           .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<a:LYG_Warning:900776122726367342> **CẢNH BÁO TRƯỚC KHI RESET ĐIỂM SỐ:**\n ${interaction.user} • Đây Là Hành Động Reset Bảng Xếp Hạng QuickMath **TOÀN BỘ ĐỘ KHÓ**, Bạn Có Chắc Rằng Bạn Muốn Reset Nó Chứ ?\n\n<:OrinTired:1147089528906072155> **Đồng Ý** || <:FeelsOrin:1152867805692170281> **Giữ Lại**`)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
         const ResetEmbed = new EmbedBuilder()
             .setColor('Red')
             .setTitle(`**QuickMath - Reset**`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+           .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`**Reset Thành Công Toàn Bộ Điểm Số Ở Game QuickMath Rồi Nhé!**`)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
         const KeepEmbed = new EmbedBuilder()
             .setColor('Blue')
             .setTitle(`**QuickMath - Reset**`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+           .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription('**Đã Hủy Bỏ Reset Điểm Số QuickMath Trong Server Rồi Nhé!**')
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
         const WaitingEmbed = new EmbedBuilder()
             .setColor('Yellow')
             .setTitle(`**QuickMath - Reset**`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+           .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription('<a:OrinSway2:1160295832394932326> **Đang Reset Điểm Số Của Minigame QuickMath...**')
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
         await interaction.editReply({

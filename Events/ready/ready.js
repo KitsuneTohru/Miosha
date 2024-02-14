@@ -18,9 +18,9 @@ module.exports = async (client) => {
     }
 
     var i = 0
-    const namearr = ['v1.1.0: /help',
+    const namearr = ['v1.2.0: /help',
         'Welcome To Lazy Gang!',
-        'Thêm Lệnh: /quickmath',
+        'Thêm 2 Tính Năng Mới: Chi Tiết Tại /info',
         'Changelog: /info',
         'Most Usage: /howgay | /quickmath',
         'Special -- [TESTING] Có Thêm Một Số Tinh Năng Mới Đang Thử Nghiệm']

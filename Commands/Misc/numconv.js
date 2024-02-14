@@ -23,6 +23,8 @@ module.exports = {
         const auser = interaction.user.id
         const str = interaction.options.getString('number')
         var checkstr = str.toUpperCase()
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
+
         const NumRow = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
@@ -110,18 +112,18 @@ module.exports = {
         const ReadyEmbed = new EmbedBuilder()
             .setColor('Default')
             .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | Quy Đổi Số: (**${checkstr}**)\n\n**Hãy Chọn Nút Bên Dưới Để Chọn Kiểu Giá Trị Nhập Vào Nhé!!!**\n• [DEC]\n• [HEX]\n• [BIN]\n• [OCT]`)
             .setTimestamp()
-            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
         //Error Embed
         const ErrorEmbed = new EmbedBuilder()
             .setColor('Red')
             .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | Oi! Bạn Đã Nhập Sai Định Dạng Số Rồi! (**${checkstr}**)`)
             .setTimestamp()
-            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
         //Wait Embed
         function SetWaitEmbed(key) {
             var WaitEmbed
@@ -129,37 +131,37 @@ module.exports = {
                 WaitEmbed = new EmbedBuilder()
                     .setColor('Grey')
                     .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`<a:LYG_Loading:900784653701627925> | ${interaction.user}... Xin Chờ Một Lát, Số Sẽ Được Chuyển Đổi: **[DEC]** ` + '`' + checkstr + '`')
                     .setTimestamp()
-                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
             }
             if (key === 'HEX') {
                 WaitEmbed = new EmbedBuilder()
                     .setColor('Grey')
                     .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`<a:LYG_Loading:900784653701627925> | ${interaction.user}... Xin Chờ Một Lát, Số Sẽ Được Chuyển Đổi: **[HEX]** ` + '`' + checkstr + '`')
                     .setTimestamp()
-                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
             }
             if (key === 'BIN') {
                 WaitEmbed = new EmbedBuilder()
                     .setColor('Grey')
                     .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`<a:LYG_Loading:900784653701627925> | ${interaction.user}... Xin Chờ Một Lát, Số Sẽ Được Chuyển Đổi: **[BIN]** ` + '`' + checkstr + '`')
                     .setTimestamp()
-                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
             }
             if (key === 'OCT') {
                 WaitEmbed = new EmbedBuilder()
                     .setColor('Grey')
                     .setTitle(`<a:LYG_GanyuNap:1096457111094964277> **Quy Đổi Số**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`<a:LYG_Loading:900784653701627925> | ${interaction.user}... Xin Chờ Một Lát, Số Sẽ Được Chuyển Đổi: **[OCT]** ` + '`' + checkstr + '`')
                     .setTimestamp()
-                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
             }
             return WaitEmbed
         }
@@ -322,39 +324,39 @@ module.exports = {
                 FinalEmbed = new EmbedBuilder()
                     .setColor('Green')
                     .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(decconv(checkstr))
                     .setTimestamp()
-                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
             }
             if (key === 'HEX') {
                 FinalEmbed = new EmbedBuilder()
                     .setColor('Yellow')
                     .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(hexconv(checkstr))
                     .setTimestamp()
-                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
 
             }
             if (key === 'BIN') {
                 FinalEmbed = new EmbedBuilder()
                     .setColor('Blue')
                     .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(binconv(checkstr))
                     .setTimestamp()
-                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
 
             }
             if (key === 'OCT') {
                 FinalEmbed = new EmbedBuilder()
                     .setColor('Purple')
                     .setTitle(`**<a:LYG_GanyuNap:1096457111094964277> Quy Đổi Số**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(octconv(checkstr))
                     .setTimestamp()
-                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                    .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
 
             }
             return FinalEmbed
@@ -384,10 +386,10 @@ module.exports = {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')
                         .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
-                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
-                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                     await interaction.editReply({
                         embeds: [cdembed]
                     })

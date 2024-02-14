@@ -2,7 +2,7 @@
 
 ![Img0](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034504577074/Miosha-Overall.png)
 ## • Phiên Bản
-- **Phiên Bản:** v1.1.0
+- **Phiên Bản:** v1.2.0
 
 > 100% Code Do Tự Tay Orin *(Kitsunezi)* Viết, Có Tham Khảo Nguồn Từ Các Con Bot Khác Và Trên Mạng, Hoàn Toàn **KHÔNG SỬ DỤNG TEMPLATE**
 ## • Mục Đích Sử Dụng:
@@ -13,15 +13,16 @@
 
 ![Img1](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034269683782/Miosha-Info.png)
 ## • Changelog: 
-- Thêm Minigame Mới: **/quickmath**, Chi Tiết Game Ở Lệnh **/minigames** Nhé!
+- Thêm 2 Tính Năng Mới:
+    + Kênh Xét Ảnh
+    + Mod Ping Có Thông Báo
 
 ![Img2](https://cdn.discordapp.com/attachments/1098463125268873216/1098468034072563823/Miosha-Credits.png)
 ## • Contributor List:
 - Main Contributor
     + Orin *(Kitsunezi)*
 - Co-Contributor
-    + ~~IC _(Đã Rời Dự Án)_~~
-    + Mari Lemon *(Admin LYG)*
+    + Mari Lemon *(Owner LYG)*
 
 ## • Sponsor List:
 - Yamai *(Owner LYG)*

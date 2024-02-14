@@ -20,6 +20,7 @@ module.exports = {
     async execute(interaction) {
         const FooterEmbeds_ = FooterEmbeds
         await interaction.deferReply()
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
 
         const OUser = interaction.options.getUser('old-user')
         const NUser = interaction.options.getUser('new-user')
@@ -39,7 +40,7 @@ module.exports = {
             )
 
         const Processing = new EmbedBuilder()
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setTitle(`<:MarisaThink:1152871970606694480> **Lazy Gang - Data Transfer**`)
             .setColor('Blurple')
             .setDescription(`<:OkuuWut:1183327798509703289> **Bạn Có Chắc Chắn Muốn Chuyển Data Chứ?**\n> **Người Dùng Cũ:** ${OUser} \`(${OUser.id})\`\n> **Người Dùng Mới:** ${NUser} \`(${NUser.id})\`\n<:OrinMenace:1169857691456372766> **CẢNH BÁO:** Một Khi Đã Làm Là Không Thể Sửa, Nên Lưu Ý Kĩ Điều Này Nhé!`)
@@ -49,14 +50,14 @@ module.exports = {
         const NoPerm = new EmbedBuilder()
             .setColor('DarkAqua')
             .setTitle(`<:OrinBruh:1160295126996881448> Không Đủ Thẩm Quyền`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Bạn Không Có Đủ Thẩm Quyền, Làm Thế Nào Bạn Có Thể Dùng Lệnh Hả???`)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
         const ErrEmbed = new EmbedBuilder()
             .setColor('DarkAqua')
             .setTitle(`<:OrinBruh:1160295126996881448> Người Dùng Giống Nhau`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Bruh, Cả Hai ID Giống Nhau Thì Tớ Chuyển Làm Gì Cho Mệt? Nếu Chuyển Thì Cần 2 Người Dùng Khác Nhau Chứ!`)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -65,20 +66,20 @@ module.exports = {
         const TransferedEmbed = new EmbedBuilder()
             .setColor('Green')
             .setTitle(`<:MarisaThink:1152871970606694480> **Lazy Gang - Data Transfer**`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:OrinWink:1152868455016562738> **Đã Chuyển Data Thành Công!**\n> **Người Dùng Cũ:** ${OUser} \`(${OUser.id})\`\n> **Người Dùng Mới:** ${NUser} \`(${NUser.id})\``)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
         const KeepEmbed = new EmbedBuilder()
             .setColor('Blue')
             .setTitle(`**Server Ranking - Reset**`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription('<:OkuuFlare:1165494255733715007> **Đã Hủy Bỏ Data Transfer Rồi Nhé!**')
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
         const WaitingEmbed = new EmbedBuilder()
             .setColor('Yellow')
             .setTitle(`**Server Ranking - Reset**`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<a:OrinSway2:1160295832394932326> **Đang Chuyển Data...**\n> **Người Dùng Cũ:** ${OUser} \`(${OUser.id})\`\n> **Người Dùng Mới:** ${NUser} \`(${NUser.id})\``)
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
 
@@ -123,7 +124,7 @@ module.exports = {
                         await RankKey.findOneAndUpdate({ UserID: OUser.id }, {
                             UserID: NUser.id
                         })
-                        
+
                         await interaction.editReply({
                             embeds: [TransferedEmbed]
                         })

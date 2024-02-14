@@ -28,6 +28,8 @@ module.exports = {
             user = interaction.user
         }
 
+        const user_ = await interaction.guild.members.fetch(user.id)
+
         const keylist = rankingarr[0]
         const colorlist = rankingarr[1]
         const imglist = rankingarr[2]
@@ -35,7 +37,7 @@ module.exports = {
         const iconlist = rankingarr[4]
         const iconembed = rankingarr[5]
 
-
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
         var key
         let RankKey_ = await RankKey.findOne({ UserID: user.id }).select('-_id Key')
         if (!RankKey_) {
@@ -109,7 +111,7 @@ module.exports = {
             const NoData = new EmbedBuilder()
                 .setColor('DarkGreen')
                 .setTitle(`**No Ranking Data**`)
-                .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                 .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Người Dùng Là ${user} Hiện Không Có Exp Chat Nào Cả, Hãy Chờ Người Đó Chat Đi Rồi Mới Tính Nhé!`)
                 .setTimestamp()
                 .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -175,7 +177,7 @@ module.exports = {
             context.fillStyle = '#B7B7B7'
             context.fillRect(25, 215, 192, 48)
             context.strokeRect(25, 215, 192, 48)
-            const avatar = await Canvas.loadImage(user.displayAvatarURL({ extension: 'jpg' }))
+            const avatar = await Canvas.loadImage(user_.displayAvatarURL({ extension: 'jpg' }))
             context.drawImage(avatar, 25, 15, 192, 192)
 
             //Detail 4 - Icon
@@ -252,8 +254,6 @@ module.exports = {
 
             context.fillStyle = color
             context.lineWidth = 4
-            context.lineCap = "round";
-            context.lineJoin = "round";
             context.stroke()
 
             context.fillStyle = '#B7B7B7'
@@ -356,7 +356,7 @@ module.exports = {
             //Detail 8 - Avatar
 
             context.strokeStyle = color
-            const avatar = await Canvas.loadImage(user.displayAvatarURL({ extension: 'jpg' }))
+            const avatar = await Canvas.loadImage(user_.displayAvatarURL({ extension: 'jpg' }))
             context.beginPath()
             context.roundRect(136, 9, 136, 136, [28])
             context.closePath()
@@ -393,7 +393,7 @@ module.exports = {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')
                         .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
-                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -407,7 +407,7 @@ module.exports = {
                     const RankEmbed = new EmbedBuilder()
                         .setColor(color)
                         .setTitle(`**LYG - Rank Card**`)
-                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`${embed_icon} **Rank Của Người Dùng: ${user}**`)
                         .setTimestamp()
                         .setImage(`attachment://${user.id}-rank.png`)

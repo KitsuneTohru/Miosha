@@ -10,8 +10,11 @@ module.exports = {
         .setDescription('Kiểm Tra Thông Số Của Bot Trong Server'),
     async execute(interaction) {
         const FooterEmbeds_ = FooterEmbeds
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
+
         await interaction.deferReply()
         const cdtime = 5000
+
         cdSchema.findOne({ UserID: interaction.user.id }, async (err, data) => {
             if (err) throw err
             if (!data) {
@@ -31,17 +34,17 @@ module.exports = {
                 totalSeconds %= 3600
                 let minutes = Math.floor(totalSeconds / 60)
                 let seconds = Math.floor(totalSeconds % 60)
-                if(minutes < 10) {
+                if (minutes < 10) {
                     minutes = `0${minutes}`
                 }
-                if(seconds < 10) {
+                if (seconds < 10) {
                     seconds = `0${seconds}`
                 }
 
                 const embed = new EmbedBuilder()
                     .setColor('White')
                     .setTitle(`<a:LYG_Ping:900775951317737473> **Kiểm Tra Thông Số Của Bot Trong Server...**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`> <:JustOrin:1156221079988215879> Server: **${interaction.guild.name}**\n\n> <a:LYG_Loading:900784653701627925> Độ Trễ: **${interaction.client.ws.ping}**ms\n> <:youmuIrritated:1167060667929460800> Uptime: **${days}**d **${hours}**h **${minutes}**m **${seconds}**s`)
                     .setTimestamp(Date.now())
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -60,7 +63,7 @@ module.exports = {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')
                         .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
-                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })

@@ -14,6 +14,7 @@ module.exports = {
         await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
         const user = interaction.options.getUser('user')
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
 
         const usemem = await interaction.guild.members.fetch(interaction.user.id)
         var usingkey = false
@@ -23,7 +24,7 @@ module.exports = {
         const NoPerm = new EmbedBuilder()
             .setColor('DarkAqua')
             .setTitle(`<:OrinBruh:1160295126996881448> Không Đủ Thẩm Quyền`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Bạn Không Có Đủ Thẩm Quyền, Làm Thế Nào Bạn Có Thể Dùng Lệnh Hả???`)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -37,7 +38,7 @@ module.exports = {
             if (!banbool) {
                 const NotBannedEmbed = new EmbedBuilder()
                     .setColor('Gold')
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                     .setTitle('<:OrinWhat:1146170336119885865> **User Not Found**')
                     .setDescription(`<a:LYG_FububiShake:1129764112004558950> • Người Dùng ${user} Làm Gì Có Bị Ban Đâu Mà Gỡ Ban Lệnh Nhỉ?`)
@@ -48,7 +49,7 @@ module.exports = {
             } else {
                 const UnbanEmbed = new EmbedBuilder()
                     .setColor('DarkGreen')
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                     .setTitle('<:YayyShinki:1184437427050381342> **Unbanned From Using Command**')
                     .setDescription(`<a:LYG_FububiShake:1129764112004558950> • Đã Gỡ Ban Sử Dụng Command Cho Người Dùng ${user}`)

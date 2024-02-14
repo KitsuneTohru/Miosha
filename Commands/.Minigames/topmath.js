@@ -44,6 +44,8 @@ module.exports = {
         const Difficulty = interaction.options.getString('difficulty')
         const page = interaction.options.getNumber('page') || 1
 
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
+        
         let QuickMath = await QuickMathDb.find({ GameKey: Difficulty }).select('-_id UserID Level Score Note')
         QuickMath.sort((a, b) => {
             if(Number(a.Score) < Number(b.Score)) return 1
@@ -87,7 +89,7 @@ module.exports = {
         }
 
         const TopMathEmbed = new EmbedBuilder()
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+           .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setTitle(`<:YuyukoWoah:1152872168439423050> **QuickMath - Bảng Xếp Hạng** (Trang: ${page})`)
             .setColor(Color)
             .setDescription(`\n### ${Emoji} **Độ Khó:** ${Difficulty}\n${desc}\n\n<a:LYG_TighnariNotes:1090126010571300874> • Dùng **/top ${page + 1}** Để Xem Page ${page + 1} Nhé!`)

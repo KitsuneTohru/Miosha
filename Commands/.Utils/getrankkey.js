@@ -29,7 +29,9 @@ module.exports = {
 
         const userlist = []
         for (var i = 0; i < KeyList.length; i++) {
-            userlist[i] = `> **User:** <@${KeyList[i].UserID}>\n> **Keyword:** ${KeyList[i].Key}\n\n`
+            if (KeyList[i].Key !== undefined) {
+                userlist.push(`> **User:** <@${KeyList[i].UserID}>\n> **Keyword:** ${KeyList[i].Key}\n\n`)
+            }
         }
 
         const pageuplim = (page * 10)
@@ -45,7 +47,7 @@ module.exports = {
         }
 
         const KeyEmbed = new EmbedBuilder()
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setTitle(`<:YuyukoWoah:1152872168439423050> **Lazy Gang - Keyword Ranking** (Trang: ${page})`)
             .setColor('Blurple')
             .setDescription(`${desc}\n\n<a:LYG_TighnariNotes:1090126010571300874> • Dùng **/getrankkey ${page + 1}** Để Xem Page ${page + 1} Nhé!`)
@@ -60,7 +62,7 @@ module.exports = {
         const NoPerm = new EmbedBuilder()
             .setColor('DarkAqua')
             .setTitle(`<:OrinBruh:1160295126996881448> Không Đủ Thẩm Quyền`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Bạn Không Có Đủ Thẩm Quyền, Làm Thế Nào Bạn Có Thể Dùng Lệnh Hả???`)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })

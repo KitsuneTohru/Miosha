@@ -6,7 +6,7 @@ const rankingarr = [
         'ran', 'yuyuko', 'youmu', 
         'chen', 'koishi', 'patchouli',
         'shinki', 'aya', 'sakuya', 
-        'fubuki',
+        'fubuki', 'tenshi', 'shiroko',
     ],
     [
         '#FFFFFF', '#FF6366', '#00D309',
@@ -15,7 +15,7 @@ const rankingarr = [
         '#F2D337', '#FF94FA', '#EDFFFE',
         '#965959', '#75FFC6', '#D490FF',
         '#FFF8F8', '#E55A45', '#bcdada', 
-        '#00FFFF', 
+        '#00FFFF',  '#64FFF1', '#aff5f6'
     ],
     [
         './Assets/RankCards/RankCard_0.png',
@@ -36,7 +36,9 @@ const rankingarr = [
         './Assets/RankCards/RankCard_15.png',
         './Assets/RankCards/RankCard_16.png',
         './Assets/RankCards/RankCard_17.png',
-        './Assets/RankCards/RankCard_18.png'
+        './Assets/RankCards/RankCard_18.png',
+        './Assets/RankCards/RankCard_19.png',
+        './Assets/RankCards/RankCard_20.png',
     ],
     [
         'Basic Member Of Lazy Gang',
@@ -58,6 +60,8 @@ const rankingarr = [
         'Aya - The Fastest Speed Breaker',
         'Sakuya - Head Maid Of Devil Mansion',
         'Shirakami Fubuki - Kon Kon Kitsune!',
+        'Tenshi - Uchouten Dreamers',
+        'Shiroko - Neko-rin\'s Summer Arc 2023',
     ],
     [
         'https://cdn.discordapp.com/emojis/1097172753985056859.png',
@@ -79,6 +83,8 @@ const rankingarr = [
         'https://cdn.discordapp.com/emojis/1188143101223636992.png',
         'https://cdn.discordapp.com/emojis/1189156907282354217.png',
         'https://cdn.discordapp.com/emojis/1190535308639473705.png',
+        'https://cdn.discordapp.com/emojis/1205836795527569469.png',
+        'https://cdn.discordapp.com/emojis/1206633868271030332.png',
     ],
     [
         '<:LYG_blank:1097172753985056859>',
@@ -100,6 +106,8 @@ const rankingarr = [
         '<:AyaSmug:1188143101223636992>',
         '<:Sakuya_Wink:1189156907282354217>',
         '<:FubukiBliss:1190535308639473705>',
+        '<:TenshiSmug:1205836795527569469>',
+        '<:ShirokoSip:1206633868271030332>',
     ],
 ]
 /*rankingarr

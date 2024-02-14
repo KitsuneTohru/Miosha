@@ -21,6 +21,7 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
 
         const target = interaction.options.getUser('user')
         const timestring = interaction.options.getString('duration')
@@ -101,7 +102,7 @@ module.exports = {
         const NoPerm = new EmbedBuilder()
             .setColor('DarkAqua')
             .setTitle(`<:OrinBruh:1160295126996881448> Không Đủ Thẩm Quyền`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Bạn Không Có Đủ Thẩm Quyền, Làm Thế Nào Bạn Có Thể Dùng Lệnh Hả???`)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -109,7 +110,7 @@ module.exports = {
         const RestrictEmbed = new EmbedBuilder()
             .setColor(color)
             .setTitle(`Miosha#5189 - Restriction`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(desc)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })

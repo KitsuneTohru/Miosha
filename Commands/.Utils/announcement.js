@@ -15,6 +15,7 @@ module.exports = {
         const FooterEmbeds_ = FooterEmbeds
 
         const channel = interaction.options.getChannel('channel')
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
 
         const AnnounceModal = new ModalBuilder()
             .setCustomId('a_modal')
@@ -66,7 +67,7 @@ module.exports = {
         const NoPerm = new EmbedBuilder()
             .setColor('DarkAqua')
             .setTitle(`<:OrinBruh:1160295126996881448> Không Đủ Thẩm Quyền`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(`<:LYG_KeqingDoi:1086190826536849499> | Bạn Không Có Đủ Thẩm Quyền, Làm Thế Nào Bạn Có Thể Dùng Lệnh Hả???`)
             .setTimestamp()
             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -105,7 +106,7 @@ module.exports = {
                     }
 
                     const Announce_Embed = new EmbedBuilder()
-                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setColor('White')
                         .setTitle(title)
                         .setDescription(desc)
@@ -124,7 +125,7 @@ module.exports = {
             } catch (error) {
                 const ErrEmbed = new EmbedBuilder()
                     .setColor('DarkButNotBlack')
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                     .setTitle('<:OrinBruh:1160295126996881448> **Lỗi Submit Modal**')
                     .setDescription('Uhh, Lỗi Submit Modal Rồi, Có 2 Nguyên Nhân Sau:\n1. Hết Giờ Kìa Ba, Nhập Lại Đê :V\n> 2. Lỗi Code, Pha Này Gọi Chủ Bot Lên Nhá :V')

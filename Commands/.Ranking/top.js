@@ -20,11 +20,12 @@ module.exports = {
                 .setRequired(false)),
     async execute(interaction) {
         const FooterEmbeds_ = FooterEmbeds
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
 
         await interaction.deferReply()
         const page = interaction.options.getNumber('page') || 1
         const cdtime = 30000
-    
+
         let allLevels = await Level.find({ GuildID: interaction.guild.id }).select('-_id UserID exp level total')
         allLevels.sort((a, b) => {
             if (Number(a.total) < Number(b.total)) return 1
@@ -38,13 +39,13 @@ module.exports = {
             const a = allLevels[i].UserID
             let KeyList = await RankKey.findOne({ UserID: a }).select('-_id Key')
             var key = 'none'
-            if (!KeyList) { 
-                emoji[i] = emolist[0] 
+            if (!KeyList) {
+                emoji[i] = emolist[0]
                 continue
             }
             emoji[i] = emolist[0]
             key = KeyList.Key
-            switch(key){
+            switch (key) {
                 case 'admin':
                     {
                         key = 'yuyuko'
@@ -65,8 +66,8 @@ module.exports = {
                         key = key
                     }
             }
-            for(var j = 0; j < keylist.length; j++){
-                if(key === keylist[j]){
+            for (var j = 0; j < keylist.length; j++) {
+                if (key === keylist[j]) {
                     emoji[i] = emolist[j]
                     break
                 }
@@ -94,12 +95,12 @@ module.exports = {
         }
 
         const TopEmbed = new EmbedBuilder()
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setTitle(`<:YuyukoWoah:1152872168439423050> **Lazy Gang - Bảng Xếp Hạng Toàn Tập** (Trang: ${page})`)
             .setColor('Blurple')
             .setDescription(`${desc}\n\n<a:LYG_TighnariNotes:1090126010571300874> • Dùng **/top ${page + 1}** Để Xem Page ${page + 1} Nhé!`)
             .setTimestamp()
-            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+            .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
 
         const auser = interaction.user.id
         const CDPassList = BypassList
@@ -127,10 +128,10 @@ module.exports = {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')
                         .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
-                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
-                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random()*FooterEmbeds_[1].length)]}` })
+                        .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                     await interaction.editReply({
                         embeds: [cdembed]
                     })

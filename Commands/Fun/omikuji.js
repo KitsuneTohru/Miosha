@@ -14,6 +14,7 @@ const AchievementList = require('../../Database/achievement')
 const AchievementAssets = require('../../Assets/Achievements/achievements')
 //const BypassList = require('../../Utils/cdbypass')
 const OmikujiTracker = require('../../Database/omikujitracking')
+//const OmikujiNewYear = require('../../Database/newyearomikuji')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -43,6 +44,7 @@ module.exports = {
         ]
         let Color
         const FooterEmbeds_ = FooterEmbeds
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
         //BUTTON TYPE 5 ENTRY
         const type5_1 = new ActionRowBuilder()
             .addComponents(
@@ -142,7 +144,7 @@ module.exports = {
         const KitsuneziEmbed = new EmbedBuilder()
             .setColor('Red')
             .setTitle(`<:LYG_FubukiPain:1084085934926069823> **Kitsunezi's Backstory**`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(Type5Entries[2][0])
             .setTimestamp(Date.now())
             .setImage(img_url)
@@ -150,7 +152,7 @@ module.exports = {
         const LYGEmbed = new EmbedBuilder()
             .setColor('Yellow')
             .setTitle(`<a:LYG_Planet:1084085941821513789> **LYG's Secret**`)
-            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setDescription(Type5Entries[2][1])
             .setTimestamp(Date.now())
             .setImage(img_url)
@@ -167,6 +169,31 @@ module.exports = {
             return false
         }
         const Bypass_ = BypassCD(auser)*/
+
+        /*var Bypass_
+        if (Date.now() <= 1707735600000) {
+            OmikujiNewYear.findOne({ UserID: interaction.user.id }, async (err, datan) => {
+                if (err) throw err
+                if (!datan) {
+                    OmikujiNewYear.create({
+                        UserID: interaction.user.id,
+                        Pulls: 1
+                    })
+                    Bypass_ = 0
+                }
+                if (datan) {
+                    Bypass_ = 1
+                    let Pulls = datan.Pulls
+                    if (Number(Pulls) < 20) {
+                        Bypass_ = 0
+                    }
+                    datan.Pulls = Number(Pulls) + 1
+                    datan.save()
+                    console.log(chalk.cyan('[DEBUG]') + ` Pulls: ${Pulls}, BypassKey: ${Bypass_}`)
+                }
+            })
+        }*/
+
         cdSchema.findOne({ UserID: interaction.user.id }, async (err, data) => {
             if (err) throw err
             if (!data) {
@@ -178,19 +205,22 @@ module.exports = {
                 const cduser = data.UserID
                 const CDTime = data.CDOmikuji
                 console.log(chalk.yellow('[Command: Omikuji]') + ` ${cduser}, ${CDTime}, ${Date.now()}`)
-                if (CDTime > Date.now() /*&& !Bypass_*/) { //Line Này Dùng /* Nếu Test Bỏ Qua CD
+                let CDKEY = CDTime > Date.now()
+                console.log(chalk.cyan('[DEBUG] ') + `${CDKEY}`)
+                //if (CDTime > Date.now()) {
+                if (CDKEY) {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')
                         .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
-                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
                     await interaction.editReply({
                         embeds: [cdembed]
                     })
-                } //Line Này Dùng */ Nếu Bỏ Qua CD
-                else { //Line Này Dùng // Nếu Bỏ Qua CD
+                }
+                else {
                     data.CDOmikuji = Daily_CD
                     data.save()
                     OmikujiTracker.findOne({ GuildID: interaction.guild.id }, async (err, data0) => {
@@ -211,6 +241,47 @@ module.exports = {
                             }
                             for (var i = 0; i < type5e.length; i++) {
                                 T5.push('0')
+                            }
+                            const TypeKey = Number(KeyPos.slice(0, 1))
+                            const TypePos = Number(KeyPos.slice(1))
+
+                            var NewData
+                            switch (TypeKey) {
+                                case 1:
+                                    {
+                                        NewData = T1
+                                        NewData[TypePos]++
+                                        T1 = NewData
+                                        break
+                                    }
+                                case 2:
+                                    {
+                                        NewData = T2
+                                        NewData[TypePos]++
+                                        T2 = NewData
+                                        break
+                                    }
+                                case 3:
+                                    {
+                                        NewData = T3
+                                        NewData[TypePos]++
+                                        T3 = NewData
+                                        break
+                                    }
+                                case 4:
+                                    {
+                                        NewData = T4
+                                        NewData[TypePos]++
+                                        T4 = NewData
+                                        break
+                                    }
+                                case 5:
+                                    {
+                                        NewData = T5
+                                        NewData[TypePos]++
+                                        T5 = NewData
+                                        break
+                                    }
                             }
                             OmikujiTracker.create({
                                 GuildID: interaction.guild.id,
@@ -278,7 +349,7 @@ module.exports = {
                     const DrawingCard = new EmbedBuilder()
                         .setColor('White')
                         .setTitle(`**<:LYG_Omikuji:1084322622491344937> Đền Thần - Rút Quẻ Hàng Ngày**`)
-                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_Omikuji:1084322622491344937> | Thẻ Của Bạn Đang Được Rút... Xin Vui Lòng Chờ...`)
                         .setTimestamp(Date.now())
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -290,7 +361,7 @@ module.exports = {
                     const OmikujiCard = new EmbedBuilder()
                         .setColor(Color)
                         .setTitle(`**<:LYG_Omikuji:1084322622491344937> Đền Thần - Rút Quẻ Hàng Ngày**`)
-                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(result)
                         .setTimestamp(Date.now())
                         .setImage(img_url)
@@ -300,13 +371,13 @@ module.exports = {
                     })
                     if (rng > 99 && rng <= 99.5) {
                         await interaction.editReply({
-                            embed: [embed],
+                            embed: [OmikujiCard],
                             components: [type5_1]
                         })
                     }
                     else if (rng > 99.5 && rng <= 100) {
                         await interaction.editReply({
-                            embed: [embed],
+                            embed: [OmikujiCard],
                             components: [type5_2]
                         })
                     }
@@ -325,7 +396,7 @@ module.exports = {
                                         embeds: [KitsuneziEmbed]
                                     })
                                     interaction.editReply({
-                                        embeds: [embed],
+                                        embeds: [OmikujiCard],
                                         components: []
                                     })
                                     interaction.followUp({
@@ -333,7 +404,9 @@ module.exports = {
                                     })
                                 } catch (err) {
                                     interaction.followUp({
-                                        content: 'Oi! Bạn Hãy Mở DMs Của Bạn Để Có Thể Coi Nhé!'
+                                        content: 'Oi! Bạn Hãy Mở DMs Của Bạn Để Có Thể Coi Nhé!',
+                                        components: [type5_1],
+                                        ephemeral: true
                                     })
                                 }
                             }
@@ -346,7 +419,7 @@ module.exports = {
                                         embeds: [LYGEmbed]
                                     })
                                     interaction.editReply({
-                                        embeds: [embed],
+                                        embeds: [OmikujiCard],
                                         components: []
                                     })
                                     interaction.followUp({
@@ -354,7 +427,9 @@ module.exports = {
                                     })
                                 } catch (err) {
                                     interaction.followUp({
-                                        content: 'Oi! Bạn Hãy Mở DMs Của Bạn Để Có Thể Coi Nhé!'
+                                        content: 'Oi! Bạn Hãy Mở DMs Của Bạn Để Có Thể Coi Nhé!',
+                                        components: [type5_2],
+                                        ephemeral: true
                                     })
                                 }
                             }
@@ -380,7 +455,7 @@ module.exports = {
                 const OmikujiAchivements = new EmbedBuilder()
                     .setColor(achievementcolor)
                     .setTitle(`<:YuyukoWoah:1152872168439423050> **Achievement Unlocked!!!**`)
-                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setDescription(`${achievementdesc}`)
                     .setTimestamp()
                     .setImage(achievementlink)
@@ -429,7 +504,7 @@ module.exports = {
                         data1.save()
                     }
                 })
-            } //Line Này Dùng // Nếu Bỏ Qua CD
+            }
         })
     }
 }

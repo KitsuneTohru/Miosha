@@ -23,6 +23,7 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply()
         const FooterEmbeds_ = FooterEmbeds
+        const iuser = await interaction.guild.members.fetch(interaction.user.id)
         const cdtime = 45000
 
         const user1 = interaction.options.getUser('user1')
@@ -55,7 +56,7 @@ module.exports = {
                     const cdembed = new EmbedBuilder()
                         .setColor('Red')
                         .setTitle(`<a:LYG_Clock:1084322030331105370> **Command - Cooldown**`)
-                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                        .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                         .setDescription(`<:LYG_FubukiPing1:1084085915368050788> | <@${cduser}> Oi! Bạn Phải Chờ Đến <t:${Math.round(CDTime / 1000)}> (<t:${Math.round(CDTime / 1000)}:R>) Mới Có Thể Thực Hiện Lệnh Nhé!`)
                         .setTimestamp()
                         .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -87,7 +88,7 @@ module.exports = {
                         const StartEmbed = new EmbedBuilder()
                             .setColor('White')
                             .setTitle(`<:MarisaThink:1152871970606694480> **Kiểm Tra Mối Quan Hệ Của Hai User Nào Đó...**`)
-                            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                             .setDescription(`<a:LYG_TighnariNotes:1090126010571300874> Hệ Thống Cần Một Chút Thông Tin Về Người Dùng\n\n> **Người Thứ Nhất:** ${user1} *(Chưa Xác Định)*\n> **Người Thứ Hai:** ${user2} *(Chưa Xác Định)*\n\n**Lưu Ý:** Lệnh Chỉ Để Cho Vui, Không Có Ý Tứ Nào Nhá`)
                             .setTimestamp()
                             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -113,17 +114,17 @@ module.exports = {
                             if (i === 1) {
                                 if (a.customId === 'male') {
                                     key[i] = '(<:Wanderer_Heh:1059112869020586004> Nam)'
-                                    desc[i] = `<a:LYG_TighnariNotes:1090126010571300874> Hệ Thống Cần Một Chút Thông Tin Về Người Dùng\n\n> **Người Thứ Nhất:** ${user1} *${key[i-1]}*\n> **Người Thứ Hai:** ${user2} *${key[i]}*\n\n**Lưu Ý:** Lệnh Chỉ Để Cho Vui, Không Có Ý Tứ Nào Nhá`
+                                    desc[i] = `<a:LYG_TighnariNotes:1090126010571300874> Hệ Thống Cần Một Chút Thông Tin Về Người Dùng\n\n> **Người Thứ Nhất:** ${user1} *${key[i - 1]}*\n> **Người Thứ Hai:** ${user2} *${key[i]}*\n\n**Lưu Ý:** Lệnh Chỉ Để Cho Vui, Không Có Ý Tứ Nào Nhá`
                                 }
                                 if (a.customId === 'female') {
                                     key[i] = '(<:ChenNya:1167062115442495510> Nữ)'
-                                    desc[i] = `<a:LYG_TighnariNotes:1090126010571300874> Hệ Thống Cần Một Chút Thông Tin Về Người Dùng\n\n> **Người Thứ Nhất:** ${user1} *${key[i-1]}*\n> **Người Thứ Hai:** ${user2} *${key[i]}*\n\n**Lưu Ý:** Lệnh Chỉ Để Cho Vui, Không Có Ý Tứ Nào Nhá`
+                                    desc[i] = `<a:LYG_TighnariNotes:1090126010571300874> Hệ Thống Cần Một Chút Thông Tin Về Người Dùng\n\n> **Người Thứ Nhất:** ${user1} *${key[i - 1]}*\n> **Người Thứ Hai:** ${user2} *${key[i]}*\n\n**Lưu Ý:** Lệnh Chỉ Để Cho Vui, Không Có Ý Tứ Nào Nhá`
                                 }
                             }
                             GetEmbed[i] = new EmbedBuilder()
                                 .setColor('White')
                                 .setTitle(`<:MarisaThink:1152871970606694480> **Kiểm Tra Mối Quan Hệ Của Hai User Nào Đó...**`)
-                                .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                                .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                                 .setDescription(`${desc[i]}`)
                                 .setTimestamp()
                                 .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -138,7 +139,7 @@ module.exports = {
                                 GetEmbed[i] = new EmbedBuilder()
                                     .setColor('White')
                                     .setTitle(`<:MarisaThink:1152871970606694480> **Kiểm Tra Mối Quan Hệ Của Hai User Nào Đó...**`)
-                                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                                     .setDescription(`${desc[i]}`)
                                     .setTimestamp()
                                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -150,7 +151,7 @@ module.exports = {
                                 const CalcEmbed = new EmbedBuilder()
                                     .setColor('White')
                                     .setTitle(`<:MarisaThink:1152871970606694480> **Kiểm Tra Mối Quan Hệ Của Hai User Nào Đó...**`)
-                                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                                     .setDescription(`<:LYG_Okayu_Mogu:1089566808719237210> Hệ Thống Đang Tính Toán Mức Dộ Hợp Nhau Giữa Hai Người\n\n> ${user1} *${key[0]}*\n> ${user2} *${key[1]}*\n\n> <a:LYG_Slot:900776450137935872> Xin Vui Lòng Chờ Một Lát...\n\n**Lưu Ý:** Lệnh Chỉ Để Cho Vui, Không Có Ý Tứ Nào Nhá`)
                                     .setTimestamp()
                                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -174,7 +175,7 @@ module.exports = {
                                 const FinalEmbed = new EmbedBuilder()
                                     .setColor(color)
                                     .setTitle(`<:MarisaThink:1152871970606694480> **Kiểm Tra Mối Quan Hệ Của Hai User Nào Đó...**`)
-                                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                                    .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                                     .setDescription(`${finaldesc}`)
                                     .setTimestamp()
                                     .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })
@@ -190,7 +191,7 @@ module.exports = {
                         const ErrEmbed = new EmbedBuilder()
                             .setColor('Red')
                             .setTitle(`<:MarisaThink:1152871970606694480> **Kiểm Tra Mối Quan Hệ Của Hai User Nào Đó...**`)
-                            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+                            .setAuthor({ name: `${interaction.user.username}`, iconURL: `${iuser.displayAvatarURL({ dynamic: true, size: 512 })}` })
                             .setDescription(`Bạn Đi Kiểm Tra Mối Quan Hệ Giữa ${user1} Và ${user2} Sao? Thôi Bỏ Đi Một Người Mà :V`)
                             .setTimestamp()
                             .setFooter({ text: `${FooterEmbeds_[0][0]}`, iconURL: `${FooterEmbeds_[1][Math.floor(Math.random() * FooterEmbeds_[1].length)]}` })

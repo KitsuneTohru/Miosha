@@ -14,6 +14,7 @@ module.exports = async (client, message) => {
     if (message.id === '1207402690464841728') return
     if (message.attachments.size === 1) {
         var msgAttach = message.attachments.first()
+        await wait(250)
         if (attachIsImage(msgAttach)) {
             await message.react('1207387176673873991')
             await message.react('1207387198643642530')

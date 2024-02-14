@@ -62,7 +62,7 @@ module.exports = async (client, message) => {
             key = true
         } else {
             key = false
-        }s
+        }
         console.log(`${chalk.cyanBright('[DEBUG]')} ${key}`)
         return key
     }
